@@ -1,6 +1,6 @@
 #include "menuprincipal.h"
 #include "ui_menuprincipal.h"
-//#include "frminiciosesion.h"
+#include "frminiciosesion.h"
 #include "frmregistro.h"
 
 #include <QApplication>
@@ -19,14 +19,19 @@ MenuPrincipal::~MenuPrincipal()
 
 void MenuPrincipal::on_btnInicioSesion_clicked()
 {
+    auto w = new FrmInicioSesion(mManejo);
+    w->setAttribute(Qt::WA_DeleteOnClose, true);
+    w->show();
+    close();
 }
 
 
 void MenuPrincipal::on_btnRegistrarse_clicked()
 {
-    FrmRegistro* frmRegistro = new FrmRegistro(mManejo);
-    frmRegistro->show();
-    this->close();
+    auto w = new FrmRegistro(mManejo);
+    w->setAttribute(Qt::WA_DeleteOnClose, true);
+    w->show();
+    close();
 }
 
 

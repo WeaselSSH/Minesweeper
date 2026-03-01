@@ -1,12 +1,12 @@
 #include "Usuario.h"
 
 //CONSTRUCTORES
-Usuario::Usuario(const string& username, const string& contrasena)
-    : mNombreUsuario(username), mContrasena(contrasena), mMejorFacil(0), mMejorMedio(0), mMejorDificil(0)
+Usuario::Usuario(int id, const string& username, const string& contrasena)
+    : mId(id), mNombreUsuario(username), mContrasena(contrasena), mMejorFacil(0), mMejorMedio(0), mMejorDificil(0)
 {}
 
-Usuario::Usuario(const string& username, const string& contrasena, int mejorFacil, int mejorMedio, int mejorDificil)
-    : mNombreUsuario(username), mContrasena(contrasena), mMejorFacil(mejorFacil), mMejorMedio(mejorMedio), mMejorDificil(mejorDificil)
+Usuario::Usuario(int id, const string& username, const string& contrasena, int mejorFacil, int mejorMedio, int mejorDificil)
+    : mId(id), mNombreUsuario(username), mContrasena(contrasena), mMejorFacil(mejorFacil), mMejorMedio(mejorMedio), mMejorDificil(mejorDificil)
 {}
 
 //GETTERS
@@ -28,6 +28,10 @@ int Usuario::getMejorMedio() const {
 
 int Usuario::getMejorDificil() const {
     return mMejorDificil;
+}
+
+int Usuario::getId() const {
+    return mId;
 }
 
 //SETTERS

@@ -18,9 +18,10 @@ FrmRegistro::~FrmRegistro()
 
 void FrmRegistro::on_btnSalir_clicked()
 {
-    MenuPrincipal* menuPrincipal = new MenuPrincipal(mManejo);
-    menuPrincipal->show();
-    this->close();
+    auto w = new MenuPrincipal(mManejo);
+    w->setAttribute(Qt::WA_DeleteOnClose, true);
+    w->show();
+    close();
 }
 
 void FrmRegistro::on_btnRegistrarse_clicked()

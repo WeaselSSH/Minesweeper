@@ -8,10 +8,11 @@ using namespace std;
 class Usuario {
 public:
     //CONSTRUCTORES
-    Usuario(const string& username, const string& contrasena);
-    Usuario(const string& username, const string& contrasena, int mejorFacil, int mejorMedio, int mejorDificil);
+    Usuario(int id, const string& username, const string& contrasena);
+    Usuario(int id, const string& username, const string& contrasena, int mejorFacil, int mejorMedio, int mejorDificil);
 
     //GETTERS
+    int getId() const;
     const string& getNombreUsuario() const;
     const string& getContrasena() const;
     int getMejorFacil() const;
@@ -26,6 +27,7 @@ public:
     void setMejorDificil(int puntaje);
 
 private:
+    int mId;
     string mNombreUsuario;
     string mContrasena;
     int mMejorFacil;
