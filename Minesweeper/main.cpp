@@ -1,11 +1,15 @@
 #include "menuprincipal.h"
+#include "manejousuario.h"
 
 #include <QApplication>
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]){
     QApplication a(argc, argv);
-    MenuPrincipal w;
+
+    ManejoUsuario manejo;
+    manejo.cargarDatos();
+
+    MenuPrincipal w(&manejo);
     w.show();
     return a.exec();
 }

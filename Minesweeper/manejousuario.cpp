@@ -1,5 +1,5 @@
 #include "manejousuario.h"
-#include "fstream"
+#include <fstream>
 #include <string>
 #include <vector>
 
@@ -51,8 +51,20 @@ void ManejoUsuario::guardarDatos() {
                       << u.getContrasena() << DELIMITER
                       << u.getMejorFacil() << DELIMITER
                       << u.getMejorMedio() << DELIMITER
-                      << u.getMejorDificil() << DELIMITER << "\n";
+                      << u.getMejorDificil() << "\n";
     }
 
     archivoSalida.close();
+}
+
+bool ManejoUsuario::registrarse(const string &nombre, const string &contrasena) {
+    for (const Usuario &u : listaUsuarios) {
+        if (u.getNombreUsuario() == nombre)
+            return false;
+    }
+
+    Usuario nuevo(nombre, contrasena);
+    listaUsuarios.push_back(nuevo);
+    idxUsuarioActual = (int)listaUsuarios.size() - 1;
+    return true;
 }
