@@ -1,0 +1,52 @@
+#include "Usuario.h"
+
+//CONSTRUCTORES
+Usuario::Usuario(const string& username, const string& contrasena)
+    : mNombreUsuario(username), mContrasena(contrasena), mMejorFacil(0), mMejorMedio(0), mMejorDificil(0)
+{}
+
+Usuario::Usuario(const string& username, const string& contrasena, int mejorFacil, int mejorMedio, int mejorDificil)
+    : mNombreUsuario(username), mContrasena(contrasena), mMejorFacil(mejorFacil), mMejorMedio(mejorMedio), mMejorDificil(mejorDificil)
+{}
+
+//GETTERS
+const string& Usuario::getNombreUsuario() const {
+    return mNombreUsuario;
+}
+
+const string& Usuario::getContrasena() const {
+    return mContrasena;
+}
+
+int Usuario::getMejorFacil() const {
+    return mMejorFacil;
+}
+
+int Usuario::getMejorMedio() const {
+    return mMejorMedio;
+}
+
+int Usuario::getMejorDificil() const {
+    return mMejorDificil;
+}
+
+//SETTERS
+void Usuario::setNombreUsuario(const string& username) {
+    mNombreUsuario = username;
+}
+
+void Usuario::setContrasena(const string& pin) {
+    mContrasena = pin;
+}
+
+void Usuario::setMejorFacil(int puntaje) {
+    mMejorFacil = puntaje;
+}
+
+void Usuario::setMejorMedio(int puntaje) {
+    mMejorMedio = puntaje;
+}
+
+void Usuario::setMejorDificil(int puntaje) {
+    mMejorDificil = puntaje;
+}
