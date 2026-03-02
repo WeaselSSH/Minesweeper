@@ -15,6 +15,9 @@ qt_add_executable(Minesweeper
     frmregistro.h frmregistro.cpp frmregistro.ui
     usuario.h usuario.cpp
     manejousuario.h manejousuario.cpp
+    tableroLogico.h
+    celda.h
+    tableroLogico.cpp
 )
 
 target_link_libraries(Minesweeper
