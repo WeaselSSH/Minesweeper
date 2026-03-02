@@ -11,11 +11,23 @@ qt_add_executable(Minesweeper
     menuprincipal.cpp
     menuprincipal.h
     menuprincipal.ui
-    frminiciosesion.h frminiciosesion.cpp frminiciosesion.ui
-    frmregistro.h frmregistro.cpp frmregistro.ui
-    usuario.h usuario.cpp
-    manejousuario.h manejousuario.cpp
-    frmmenujuego.h frmmenujuego.cpp frmmenujuego.ui
+    frminiciosesion.h
+    frminiciosesion.cpp
+    frminiciosesion.ui
+    frmregistro.h
+    frmregistro.cpp
+    frmregistro.ui
+    usuario.h
+    usuario.cpp
+    manejousuario.h
+    manejousuario.cpp
+    frmmenujuego.h
+    frmmenujuego.cpp
+    frmmenujuego.ui
+    tableroLogico.h
+    celda.h
+    tableroLogico.cpp
+    Celda.cpp
 )
 
 target_link_libraries(Minesweeper
@@ -27,7 +39,7 @@ target_link_libraries(Minesweeper
 include(GNUInstallDirs)
 
 install(TARGETS Minesweeper
-    BUNDLE  DESTINATION .
+    BUNDLE DESTINATION .
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
@@ -37,4 +49,5 @@ qt_generate_deploy_app_script(
     OUTPUT_SCRIPT deploy_script
     NO_UNSUPPORTED_PLATFORM_ERROR
 )
+
 install(SCRIPT ${deploy_script})
