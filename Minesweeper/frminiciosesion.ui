@@ -90,7 +90,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Salir</string>
+    <string>Regresar</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="txtUsuario">

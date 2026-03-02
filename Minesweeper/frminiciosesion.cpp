@@ -1,6 +1,7 @@
 #include "frminiciosesion.h"
 #include "ui_frminiciosesion.h"
 #include "menuprincipal.h"
+#include "frmmenujuego.h"
 
 #include <QString>
 #include <QMessageBox>
@@ -43,4 +44,9 @@ void FrmInicioSesion::on_btnIniciarSesion_clicked()
     }
 
     QMessageBox::information(this, "Inicio de Sesion", "Inicio de sesion exitoso.");
+
+    auto w = new FrmMenuJuego(mManejo);
+    w->setAttribute(Qt::WA_DeleteOnClose, true);
+    w->show();
+    close();
 }

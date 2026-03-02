@@ -15,6 +15,7 @@ qt_add_executable(Minesweeper
     frmregistro.h frmregistro.cpp frmregistro.ui
     usuario.h usuario.cpp
     manejousuario.h manejousuario.cpp
+    frmmenujuego.h frmmenujuego.cpp frmmenujuego.ui
 )
 
 target_link_libraries(Minesweeper

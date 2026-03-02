@@ -1,6 +1,7 @@
 #include "frmregistro.h"
 #include "ui_frmregistro.h"
 #include "manejousuario.h"
+#include "frmmenujuego.h"
 
 #include <QString>
 #include <QMessageBox>
@@ -44,5 +45,10 @@ void FrmRegistro::on_btnRegistrarse_clicked()
     mManejo->guardarDatos();
 
     QMessageBox::information(this, "Registro", "Cuenta creada exitosamente.");
+
+    auto w = new FrmMenuJuego(mManejo);
+    w->setAttribute(Qt::WA_DeleteOnClose, true);
+    w->show();
+    close();
 }
 
