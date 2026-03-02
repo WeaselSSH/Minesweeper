@@ -1,19 +1,24 @@
 #ifndef CELDA_H
 #define CELDA_H
 
-class celda{
+
+using namespace std;
+
+
+class Celda{
 
 private:
-    int x;
-    int y;
+    int fila;
+    int columna;
     bool tieneMina;
     char MINA;
 
 public:
-    celda(int x, int y);
+    Celda(int f, int c);
     void asignarMina(char MINA);
-    int getX();
-    int getY();
+    int getF();
+    int getC();
+    bool checkStatus();
 
 };
 

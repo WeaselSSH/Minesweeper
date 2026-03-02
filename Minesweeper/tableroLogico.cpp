@@ -1,13 +1,16 @@
 #include "tableroLogico.h"
 #include <iostream>
 #include <vector>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
 
-tableroLogico::tableroLogico(int numFilas, int numColumnas){
+tableroLogico::tableroLogico(int numFilas, int numColumnas, int numMinas){
     this->numFilas=numFilas;
     this->numColumnas=numColumnas;
+    this ->numMinas= numMinas;
 
     //Ciclo que inicializaria el tablero de juego segun las medidas indicadas
     tablero.reserve(numFilas);
@@ -22,7 +25,6 @@ tableroLogico::tableroLogico(int numFilas, int numColumnas){
             Celda newCelda(i, j);
             vectorFila.push_back(newCelda);
         }
-
         tablero.push_back(vectorFila);
     }
 }
@@ -54,4 +56,44 @@ Celda tableroLogico::obtenerCelda(int fila, int columna){
     }
 }
 
+
+void tableroLogico::colocarMinas(vector<vector<Celda>> &tablero, int cont, int randF, int randC ){
+
+    //este randtime tendria que ir en el main del juego, ¿verda?
+    srand(time(0));
+
+    if(cont==numMinas){
+        return;
+    }
+
+    int f=randF;
+    int c= randC;
+
+    //recorrido de tablero para ver colocar mina
+    for(int i=0; i<numFilas; i++){
+        vector <Celda> vectorFila = tablero.at(i);
+
+        for(int j=0; j<numColumnas; j++){
+            Celda celdatemp= vectorFila.at(j);
+
+
+            cF=celdatemp.getF();
+            cC=celdatemp.getC();
+
+
+            //primer indicador= son las mismas coordenadas
+            if(f==cF && c==cC){
+
+                //segundo indicador, que la celda obtenida no tiene ya una mina
+                if(!celdatemp.checkStatus()){
+                    celdatemp.asignarMina('*'); //por el momento la mina se representa por un '*'
+                }else{
+                    colocarMinas(tablero, cont+1, rand()%numFilas, rand()%numColumnas);
+                }
+            }else{
+                colocarMinas(tablero, cont, rand()%numFilas, rand()%numColumnas);
+            }
+        }
+    }
+}
 

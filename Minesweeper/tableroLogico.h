@@ -5,20 +5,22 @@
 #define TABLEROLOGICO_H
 
 #include <vector>
-#include "celda.h"
+#include "Celda.h"
+using namespace std;
+
 
 class tableroLogico{
 private:
     int numFilas;
     int numColumnas;
-    vector<vector<celda>> tablero;
+    vector<vector<Celda>> tablero;
 
 public:
     tableroLogico(int numFilas, int numColumnas);
     void getFilas();
     void getColumnas();
-    celda obtenerCelda(int fila, int columna);
-
+    Celda obtenerCelda(int fila, int columna);
+    void colocarMinas();
 };
 
 #endif // TABLEROLOGICO_H
