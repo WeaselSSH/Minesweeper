@@ -1,7 +1,5 @@
 #ifndef CELDA_H
 #define CELDA_H
-
-
 using namespace std;
 
 

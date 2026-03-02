@@ -13,14 +13,15 @@ class tableroLogico{
 private:
     int numFilas;
     int numColumnas;
+    int numMinas;
     vector<vector<Celda>> tablero;
 
 public:
-    tableroLogico(int numFilas, int numColumnas);
-    void getFilas();
-    void getColumnas();
+    tableroLogico(int numFilas, int numColumnas, int numMinas);
+    int getFilas();
+    int getColumnas();
     Celda obtenerCelda(int fila, int columna);
-    void colocarMinas();
+    void colocarMinas(vector<vector<Celda>> &tablero, int cont, int randF, int randC );
 };
 
 #endif // TABLEROLOGICO_H

@@ -29,11 +29,11 @@ tableroLogico::tableroLogico(int numFilas, int numColumnas, int numMinas){
     }
 }
 
-void tableroLogico::getFilas(){
+int tableroLogico::getFilas(){
     return numFilas;
 }
 
-void tableroLogico::getColumnas(){
+int tableroLogico::getColumnas(){
     return numColumnas;
 }
 
@@ -49,7 +49,7 @@ Celda tableroLogico::obtenerCelda(int fila, int columna){
         for(int j=0; j<numColumnas; j++){
             Celda celdatemp = vectorFila.at(j);
 
-            if(celdaColumna.getF()==fila && celdaColumna.getC()==columna){
+            if(celdatemp.getF()==fila && celdatemp.getC()==columna){
                 return celdatemp;
             }
         }
@@ -77,8 +77,8 @@ void tableroLogico::colocarMinas(vector<vector<Celda>> &tablero, int cont, int r
             Celda celdatemp= vectorFila.at(j);
 
 
-            cF=celdatemp.getF();
-            cC=celdatemp.getC();
+            int cF=celdatemp.getF();
+            int cC=celdatemp.getC();
 
 
             //primer indicador= son las mismas coordenadas

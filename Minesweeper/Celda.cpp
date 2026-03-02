@@ -10,16 +10,19 @@ Celda::Celda(int f, int c){
 
 }
 
-Celda::asignarMina(char MINA){
+void Celda::asignarMina(char MINA){
     this->MINA=MINA;
     tieneMina=true;
 }
 
-Celda::getF(){
+int Celda::getF(){
     return fila;
 }
 
-Celda::getC(){
+int Celda::getC(){
     return columna;
 }
 
+bool Celda::checkStatus(){
+    return tieneMina;
+}
