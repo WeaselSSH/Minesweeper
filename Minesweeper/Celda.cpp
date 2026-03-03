@@ -8,6 +8,9 @@ Celda::Celda(int f, int c){
     columna=c;
     tieneMina=false;
 
+    revelada = false;
+    conBandera = false;
+    minasAdyacentes = 0;
 }
 
 void Celda::asignarMina(char MINA){
@@ -25,4 +28,27 @@ int Celda::getC(){
 
 bool Celda::checkStatus(){
     return tieneMina;
+}
+
+void Celda::revelar(){
+    revelada = true;
+}
+
+bool Celda::estaRevelada(){
+    return revelada;
+}
+
+void Celda::alternarBandera(){
+    conBandera = !conBandera;
+}
+
+bool Celda::tieneBandera(){
+    return conBandera;
+}
+void Celda::setMinasAdyacentes(int cant){
+    minasAdyacentes = cant;
+}
+
+int Celda::getMinasAdyacentes(){
+    return minasAdyacentes;
 }

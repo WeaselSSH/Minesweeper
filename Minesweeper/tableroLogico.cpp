@@ -37,30 +37,34 @@ int tableroLogico::getColumnas(){
     return numColumnas;
 }
 
-Celda tableroLogico::obtenerCelda(int fila, int columna){
+Celda &tableroLogico::obtenerCelda(int fila, int columna){
 
-    //Ciclo que recorre el vector principal del tablero, el cual controla las filas
-    for(int i=0; i<numFilas; i++){
+    /*
+    Creo que al ponerle paso por referencia no es necesario recorrerlo del todo
+    solo es de retonrar el valor de fila y columna igualmente lo dejo comentado por las dudas xd
+    */
 
-        //se extrae el vector almacenado en cada posicion de fila
-        vector<Celda> vectorFila=tablero.at(i);
+    // //Ciclo que recorre el vector principal del tablero, el cual controla las filas
+    // for(int i=0; i<numFilas; i++){
 
-        //se recorre dicho vector, el cual contendra elementos....las posiciones internas del vectorfila vendrian a ser igual a las columnas
-        for(int j=0; j<numColumnas; j++){
-            Celda celdatemp = vectorFila.at(j);
+    //     //se extrae el vector almacenado en cada posicion de fila
+    //     vector<Celda> vectorFila=tablero.at(i);
 
-            if(celdatemp.getF()==fila && celdatemp.getC()==columna){
-                return celdatemp;
-            }
-        }
-    }
+    //     //se recorre dicho vector, el cual contendra elementos....las posiciones internas del vectorfila vendrian a ser igual a las columnas
+    //     for(int j=0; j<numColumnas; j++){
+    //         Celda celdatemp = vectorFila.at(j);
+
+    //         if(celdatemp.getF()==fila && celdatemp.getC()==columna){
+    //             return celdatemp;
+    //         }
+    //     }
+    // }
+
+    return tablero[fila][columna];
 }
 
-
+//Creo que se puede optimizar esto pero aun no se como
 void tableroLogico::colocarMinas(vector<vector<Celda>> &tablero, int cont, int randF, int randC ){
-
-    //este randtime tendria que ir en el main del juego, ¿verda?
-    srand(time(0));
 
     if(cont==numMinas){
         return;
@@ -92,6 +96,34 @@ void tableroLogico::colocarMinas(vector<vector<Celda>> &tablero, int cont, int r
                 }
             }else{
                 colocarMinas(tablero, cont, rand()%numFilas, rand()%numColumnas);
+            }
+        }
+    }
+}
+
+//FLOOD FILL
+void tableroLogico::revelarCelda(int f, int c) {
+
+    // Validar limites del tablero
+    if (f < 0 || f >= numFilas || c < 0 || c >= numColumnas){
+        return;
+    }
+
+    Celda& actual = tablero[f][c];
+
+    // Si ya está revelada o tiene bandera, no hacer nada
+    if (actual.estaRevelada() || actual.tieneBandera()){
+        return;
+    }
+
+    // Revelar
+    actual.revelar();
+
+    // Si es una celda vacía expandir a los vecinos como chambre
+    if (actual.getMinasAdyacentes() == 0 && !actual.checkStatus()) {
+        for (int x = -1; x <= 1; x++) {
+            for (int y = -1; y <= 1; y++) {
+                revelarCelda(f + x, c + y);
             }
         }
     }
