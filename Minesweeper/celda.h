@@ -2,7 +2,6 @@
 #define CELDA_H
 using namespace std;
 
-
 class Celda{
 
 private:
