@@ -20,7 +20,7 @@ public:
     tableroLogico(int numFilas, int numColumnas, int numMinas);
     int getFilas();
     int getColumnas();
-    Celda obtenerCelda(int fila, int columna);
+    Celda &obtenerCelda(int fila, int columna);
     void colocarMinas(vector<vector<Celda>> &tablero, int cont, int randF, int randC );
 };
 

@@ -11,6 +11,10 @@ private:
     bool tieneMina;
     char MINA;
 
+    bool revelada;
+    bool conBandera;
+    int minasAdyacentes;
+
 public:
     Celda(int f, int c);
     void asignarMina(char MINA);
@@ -18,6 +22,12 @@ public:
     int getC();
     bool checkStatus();
 
+    void revelar();
+    bool estaRevelada();
+    void alternarBandera();
+    bool tieneBandera();
+    void setMinasAdyacentes(int cant);
+    int getMinasAdyacentes();
 };
 
 

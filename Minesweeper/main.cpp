@@ -4,6 +4,9 @@
 #include <QApplication>
 
 int main(int argc, char *argv[]){
+
+    //eto va aqui el srand ekisde
+    srand(time(0));
     QApplication a(argc, argv);
 
     ManejoUsuario manejo;
