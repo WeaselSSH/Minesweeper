@@ -28,6 +28,11 @@ void FrmMenuJuego::on_btnRegresar_clicked()
 void FrmMenuJuego::on_btnJugar_clicked()
 {
 
+
+
+
+
+
     //se crea la ventana en el heap para que perdure despues de terminar la funcion de clickear
     QWidget *ventana = new QWidget();
     ventana->setAttribute(Qt::WA_DeleteOnClose); //para que se libere memoria al cerrarla
@@ -37,6 +42,9 @@ void FrmMenuJuego::on_btnJugar_clicked()
     //organizando widget
     QVBoxLayout *layout = new QVBoxLayout(ventana);
     tableroVisual *miWidget= new tableroVisual ();
+
+    //linkeamos tablero visual con tablero logico
+    miWidget->inicializarTLogico();
 
     layout->addWidget(miWidget);
 

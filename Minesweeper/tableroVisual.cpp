@@ -7,9 +7,14 @@
 
 
 
-tableroVisual::tableroVisual(QWidget *parent) : QWidget(parent){}
+tableroVisual::tableroVisual(QWidget *parent) : QWidget(parent){ }
 
 
+
+//probablemente hacer algun metodo de destruccion de esto, para que no quede memory leak
+void tableroVisual:: inicializarTLogico(){
+    tLogico= new tableroLogico(8,8,1);
+}
 
 void tableroVisual::paintEvent(QPaintEvent *event){
     QPainter painter(this);
@@ -22,23 +27,25 @@ void tableroVisual::paintEvent(QPaintEvent *event){
     int tCelda = ladoTablero/8;
 
 
-    //AVISO> EVENTUALMENTE SE TENDRA QUE INCLUIR COMO PARAMETRO O ALGO EL TABLERO LOGICO, A MANERA QUE EL VISUAL DEPENDA DEL LOGICO
+    //pintado de celdas en base a tablero Logico
 
-    for(int f=0; f<8; f++){
-        for(int c=0; c<8; c++){
+    for(int f=0; f<tLogico->getFilas(); f++){
+        for(int c=0; c<tLogico->getColumnas(); c++){
 
-            bool esOscuro= (f+c) %2 !=0;
 
-            QColor colorCelda = esOscuro ? QColor(118,150,86) : QColor(238,238,210);
+            //si la celda no esta reveldada
+            if(!tLogico->obtenerCelda(f,c).estaRevelada()){
+                QColor colorCelda = QColor(118,150,86);
 
-            //calculamos las coordenas de donde se dibujara la casilla
-            int x=margenIzquierdo+ (c*tCelda);
-            int y= margenSuperior + (f*tCelda);
+                //calculamos las coordenas de donde se dibujara la casilla
+                int x=margenIzquierdo+ (c*tCelda);
+                int y= margenSuperior + (f*tCelda);
 
-            //dibujado de cuadricula
-            painter.setBrush(colorCelda);
-            painter.setPen(Qt::NoPen);
-            painter.drawRect(x,y, tCelda, tCelda);
+                //dibujado de cuadricula
+                painter.setBrush(colorCelda);
+                painter.setPen(Qt::NoPen);
+                painter.drawRect(x,y, tCelda, tCelda);
+            }
 
         }
     }
@@ -72,5 +79,16 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
         qDebug() <<"Estamos fuera de los limites bro";
     }
 
+
+    /*
+     * ----NOTA PARA CAMBIOS-----
+     * Ahora que ya se detectan los clicks y se pasa a filas y columnas, aqui dentro deberia ir la logica
+     * para que, al darle click, esa accion pase al tablero Logico
+     *
+     * Cosas que se podrian hacer:
+     * -Linkear tablero logico con tablero visual....[X]
+     * -Crear funcion para que tablero visual lea tablero logico y haga repaint en base a eso.....[]
+     *
+     * */
 }
 

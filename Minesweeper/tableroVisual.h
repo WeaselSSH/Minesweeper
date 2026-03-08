@@ -1,7 +1,7 @@
 #ifndef TABLEROVISUAL_H
 #define TABLEROVISUAL_H
 
-//#include "tableroLogico.h"
+#include "tableroLogico.h"
 #include<QWidget>
 
 
@@ -12,7 +12,8 @@ class tableroVisual: public QWidget{
 public:
     //declarando que sera una ventana independiente
     explicit tableroVisual(QWidget *parent= nullptr);
-    //, tableroLogico m_tablero
+
+    void inicializarTLogico();
 
 
 
@@ -30,7 +31,10 @@ protected:
 
 private:
     //almacenamos una referencia del tablero logico
-    //tableroLogico tablero;
+
+    tableroLogico* tLogico=nullptr;
+
+
 };
 
 
