@@ -19,6 +19,8 @@ public:
 private slots:
     void on_btnRegresar_clicked();
 
+    void on_btnJugar_clicked();
+
 private:
     Ui::FrmMenuJuego *ui;
     ManejoUsuario* mManejo;

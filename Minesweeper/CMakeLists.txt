@@ -28,6 +28,10 @@ qt_add_executable(Minesweeper
     celda.h
     tableroLogico.cpp
     Celda.cpp
+    WidgetTesteo.h
+    WidgetTesteo.cpp
+    tableroVisual.h
+    tableroVisual.cpp
 )
 
 target_link_libraries(Minesweeper

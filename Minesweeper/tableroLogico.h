@@ -22,6 +22,7 @@ public:
     int getColumnas();
     Celda &obtenerCelda(int fila, int columna);
     void colocarMinas(vector<vector<Celda>> &tablero, int cont, int randF, int randC );
+    void revelarCelda(int f, int c);
 };
 
 #endif // TABLEROLOGICO_H

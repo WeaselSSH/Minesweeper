@@ -1,6 +1,5 @@
 #include "menuprincipal.h"
 #include "manejousuario.h"
-
 #include <QApplication>
 
 int main(int argc, char *argv[]){
@@ -13,6 +12,26 @@ int main(int argc, char *argv[]){
     manejo.cargarDatos();
 
     MenuPrincipal w(&manejo);
-    w.show();
-    return a.exec();
+
+
+
+     //--------
+     // QApplication vent(argc, argv);
+     // QWidget ventana;
+
+     // ventana.setWindowTitle("Testeando graficos");
+     // ventana.resize(500,600);
+
+     // //organizando widget
+     // QVBoxLayout *layout = new QVBoxLayout(&ventana);
+     // tableroVisual *miWidget= new tableroVisual ();
+
+     // layout->addWidget(miWidget);
+     // ventana.show();
+
+
+
+     w.show();
+     return a.exec();
+    // return vent.exec();
 }
