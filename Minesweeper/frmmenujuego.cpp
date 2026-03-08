@@ -45,7 +45,7 @@ void FrmMenuJuego::on_btnJugar_clicked()
 
     //linkeamos tablero visual con tablero logico
     miWidget->inicializarTLogico();
-
+    miWidget->colocarMinas();
     layout->addWidget(miWidget);
 
     ventana->show();

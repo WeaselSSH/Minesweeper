@@ -129,3 +129,6 @@ void tableroLogico::revelarCelda(int f, int c) {
     }
 }
 
+
+
+

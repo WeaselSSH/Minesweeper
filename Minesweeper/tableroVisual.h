@@ -13,8 +13,9 @@ public:
     //declarando que sera una ventana independiente
     explicit tableroVisual(QWidget *parent= nullptr);
 
-    void inicializarTLogico();
 
+    void inicializarTLogico();
+    void colocarMinas();
 
 
 protected:
