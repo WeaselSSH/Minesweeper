@@ -13,7 +13,7 @@ tableroVisual::tableroVisual(QWidget *parent) : QWidget(parent){ }
 
 //probablemente hacer algun metodo de destruccion de esto, para que no quede memory leak
 void tableroVisual:: inicializarTLogico(){
-    tLogico= new tableroLogico(8,8,1);
+    tLogico= new tableroLogico(8,8,3);
 
 }
 
@@ -22,7 +22,7 @@ void tableroVisual:: inicializarTLogico(){
 void tableroVisual::colocarMinas(){
     //creo que esto no sirve ya que se mantiene todo local
    // vector<vector<Celda>> temp = tLogico->getTablero();
-    tLogico->colocarMinas(tLogico->getTablero(),0,0,0);
+    tLogico->colocarMinas(tLogico->getTablero());
 }
 
 
@@ -45,7 +45,9 @@ void tableroVisual::paintEvent(QPaintEvent *event){
 
 
             //si la celda no esta reveldada
-            if(!tLogico->obtenerCelda(f,c).estaRevelada()){
+
+            Celda &celdatemp = tLogico->obtenerCelda(f,c);
+            if(!celdatemp.estaRevelada()){
                 QColor colorCelda = QColor(118,150,86);
 
                 //calculamos las coordenas de donde se dibujara la casilla
@@ -56,7 +58,7 @@ void tableroVisual::paintEvent(QPaintEvent *event){
                 painter.setBrush(colorCelda);
                 painter.setPen(Qt::NoPen);
                 painter.drawRect(x,y, tCelda, tCelda);
-            }else{
+            }else if(celdatemp.estaRevelada()){
                 QColor colorCelda = QColor(255,255,255);
                 int x=margenIzquierdo+ (c*tCelda);
                 int y= margenSuperior + (f*tCelda);

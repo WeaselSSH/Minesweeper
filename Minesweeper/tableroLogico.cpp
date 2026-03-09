@@ -64,41 +64,67 @@ Celda &tableroLogico::obtenerCelda(int fila, int columna){
 }
 
 //Creo que se puede optimizar esto pero aun no se como
-void tableroLogico::colocarMinas(vector<vector<Celda>> &tablero, int cont, int randF, int randC ){
+void tableroLogico::colocarMinas(vector<vector<Celda>> &tablero){
 
-    if(cont==numMinas){
-        return;
-    }
+    // if(cont==numMinas){
+    //     return;
+    //     cout<<"Se han colocado todas las minas"<<endl;
+    // }
 
-    int f=randF;
-    int c= randC;
+    // int f=randF;
+    // int c= randC;
 
-    //recorrido de tablero para ver colocar mina
-    for(int i=0; i<numFilas; i++){
-        vector <Celda> vectorFila = tablero.at(i);
+    // //recorrido de tablero para ver colocar mina
+    // for(int i=0; i<numFilas; i++){
+    //     vector <Celda> vectorFila = tablero.at(i);
 
-        for(int j=0; j<numColumnas; j++){
-            Celda celdatemp= vectorFila.at(j);
-
-
-            int cF=celdatemp.getF();
-            int cC=celdatemp.getC();
+    //     for(int j=0; j<numColumnas; j++){
+    //         Celda celdatemp= vectorFila.at(j);
 
 
-            //primer indicador= son las mismas coordenadas
-            if(f==cF && c==cC){
+    //         int cF=celdatemp.getF();
+    //         int cC=celdatemp.getC();
 
-                //segundo indicador, que la celda obtenida no tiene ya una mina
-                if(!celdatemp.checkStatus()){
-                    celdatemp.asignarMina('*'); //por el momento la mina se representa por un '*'
-                }else{
-                    colocarMinas(tablero, cont+1, rand()%numFilas, rand()%numColumnas);
-                }
-            }else{
-                colocarMinas(tablero, cont, rand()%numFilas, rand()%numColumnas);
-            }
+
+    //         //primer indicador= son las mismas coordenadas
+    //         if(f==cF && c==cC){
+
+    //             //segundo indicador, que la celda obtenida no tiene ya una mina
+    //             if(!celdatemp.checkStatus()){
+    //                 celdatemp.asignarMina('*'); //por el momento la mina se representa por un '*'
+    //             }else{
+    //                 colocarMinas(tablero, cont+1, rand()%numFilas, rand()%numColumnas);
+    //             }
+    //         }else{
+    //             colocarMinas(tablero, cont, rand()%numFilas, rand()%numColumnas);
+    //         }
+    //     }
+    // }
+
+
+    int colocadas = 0;
+
+    while (colocadas < numMinas) {
+        // Generamos coordenadas aleatorias en cada intento
+        int f = rand() % numFilas;
+        int c = rand() % numColumnas;
+
+        // Accedemos directamente a la celda (sin recorrer todo el tablero)
+        // Usamos referencia (&) para modificar la celda real en el tablero
+        Celda &celda = tablero.at(f).at(c);
+
+        // Verificamos si ya tiene una mina
+        if (!celda.checkStatus()) {
+            celda.asignarMina('*');
+            cout<<"Mina colocada en "<<f<<","<<c<<endl;
+            colocadas++;
         }
+
     }
+
+
+    cout<<"Se han colocado todas las minas "<< colocadas<<endl;
+
 }
 
 //FLOOD FILL

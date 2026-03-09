@@ -21,7 +21,7 @@ public:
     int getFilas();
     int getColumnas();
     Celda &obtenerCelda(int fila, int columna);
-    void colocarMinas(vector<vector<Celda>> &tablero, int cont, int randF, int randC );
+    void colocarMinas(vector<vector<Celda>> &tablero);
     void revelarCelda(int f, int c);
     vector<vector<Celda>> &getTablero(){
         return tablero;
