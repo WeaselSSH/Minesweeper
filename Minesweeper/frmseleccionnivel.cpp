@@ -27,7 +27,7 @@ void FrmSeleccionNivel::on_btnNivel1_clicked()
     QVBoxLayout *layout = new QVBoxLayout(ventana);
     tableroVisual *miWidget= new tableroVisual ();
 
-
+    miWidget->setMedidaConst(8);
     miWidget->inicializarTLogico(8,8,10);
     layout->addWidget(miWidget);
 
@@ -42,13 +42,13 @@ void FrmSeleccionNivel::on_btnNivel2_clicked()
     QWidget *ventana = new QWidget();
     ventana->setAttribute(Qt::WA_DeleteOnClose); //para que se libere memoria al cerrarla
     ventana->setWindowTitle("Tablero Juego");
-    ventana->resize(500,600);
+    ventana->resize(800,700);
 
     //organizando widget
     QVBoxLayout *layout = new QVBoxLayout(ventana);
     tableroVisual *miWidget= new tableroVisual ();
 
-
+     miWidget->setMedidaConst(16);
     miWidget->inicializarTLogico(16,16,40);
     layout->addWidget(miWidget);
 
@@ -63,13 +63,13 @@ void FrmSeleccionNivel::on_btnNivel3_clicked()
     QWidget *ventana = new QWidget();
     ventana->setAttribute(Qt::WA_DeleteOnClose); //para que se libere memoria al cerrarla
     ventana->setWindowTitle("Tablero Juego");
-    ventana->resize(500,600);
+    ventana->resize(1000,800);
 
     //organizando widget
     QVBoxLayout *layout = new QVBoxLayout(ventana);
     tableroVisual *miWidget= new tableroVisual ();
 
-
+     miWidget->setMedidaConst(30);
     miWidget->inicializarTLogico(16,30,99);
     layout->addWidget(miWidget);
 

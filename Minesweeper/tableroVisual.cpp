@@ -38,10 +38,12 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
+
+    //revisar esto por el deslice de las coords
     int margenIzquierdo = 20;
     int margenSuperior  = 20;
     int ladoTablero     = qMin(width() - 40, height() - 40);
-    int tCelda          = ladoTablero / 8;
+    int tCelda          = ladoTablero / medidaConst;
 
     // Colores de números clásico buscaminas
     QColor coloresNum[] = {
@@ -142,3 +144,7 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
      * */
 }
 
+
+void tableroVisual::setMedidaConst(int med){
+    medidaConst=med;
+}

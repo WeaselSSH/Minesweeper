@@ -16,13 +16,14 @@ public:
 
     void inicializarTLogico(int numFilas, int numColumnas, int numMinas);
     void colocarMinas();
-
+    void setMedidaConst(int med);
 
 protected:
     void paintEvent(QPaintEvent *event) override;
 
 
     void mousePressEvent(QMouseEvent *event) override;
+
 
 
     QSize sizeHint() const override{
@@ -34,7 +35,7 @@ private:
     //almacenamos una referencia del tablero logico
 
     tableroLogico* tLogico=nullptr;
-
+    int medidaConst;
 
 };
 
