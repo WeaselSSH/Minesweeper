@@ -37,6 +37,8 @@ void FrmMenuJuego::on_btnJugar_clicked()
     QVBoxLayout *layout = new QVBoxLayout(ventana);
     tableroVisual *miWidget= new tableroVisual ();
 
+
+    miWidget->inicializarTLogico(8,8,5);
     layout->addWidget(miWidget);
 
     ventana->show();
