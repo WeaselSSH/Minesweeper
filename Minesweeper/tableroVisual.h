@@ -37,6 +37,9 @@ private:
     tableroLogico* tLogico=nullptr;
     int medidaConst;
 
+
+    //agregar espaciado segun dificultad
+
 };
 
 

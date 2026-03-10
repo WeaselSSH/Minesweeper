@@ -112,7 +112,7 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
     int margenIzquierdo=20;
     int margenSuperior=20;
     int ladoTablero =qMin(width()-40, height()-40); //calculamos el tamao optimo
-    int tCelda = ladoTablero/8;
+    int tCelda = ladoTablero/medidaConst;
 
 
 
