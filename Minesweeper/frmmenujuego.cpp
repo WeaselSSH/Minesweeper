@@ -2,7 +2,7 @@
 #include "ui_frmmenujuego.h"
 #include "manejousuario.h"
 #include "menuprincipal.h"
-#include "tableroVisual.h"
+#include "frmseleccionnivel.h"
 #include <QVBoxLayout>
 
 
@@ -27,21 +27,9 @@ void FrmMenuJuego::on_btnRegresar_clicked()
 
 void FrmMenuJuego::on_btnJugar_clicked()
 {
-    //se crea la ventana en el heap para que perdure despues de terminar la funcion de clickear
-    QWidget *ventana = new QWidget();
-    ventana->setAttribute(Qt::WA_DeleteOnClose); //para que se libere memoria al cerrarla
-    ventana->setWindowTitle("Tablero Juego");
-    ventana->resize(500,600);
-
-    //organizando widget
-    QVBoxLayout *layout = new QVBoxLayout(ventana);
-    tableroVisual *miWidget= new tableroVisual ();
-
-
-    miWidget->inicializarTLogico(8,8,5);
-    layout->addWidget(miWidget);
-
-    ventana->show();
-    this->close(); //se usa this para referenciar a la ventana actual
+    auto w = new FrmSeleccionNivel(mManejo);
+    w->setAttribute(Qt::WA_DeleteOnClose, true);
+    w->show();
+    close();
 }
 

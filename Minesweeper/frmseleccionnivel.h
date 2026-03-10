@@ -16,6 +16,9 @@ public:
     explicit FrmSeleccionNivel(ManejoUsuario *manejoPtr, QWidget *parent = nullptr);
     ~FrmSeleccionNivel();
 
+private slots:
+    void on_btnNivel1_clicked();
+
 private:
     Ui::FrmSeleccionNivel *ui;
     ManejoUsuario* mManejo;

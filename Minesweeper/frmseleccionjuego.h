@@ -17,8 +17,6 @@ public:
     ~FrmSeleccionJuego();
 
 private slots:
-    void on_btnSalir_clicked();
-
     void on_btnPartidaRapida_clicked();
 
     void on_btnRegresar_clicked();
