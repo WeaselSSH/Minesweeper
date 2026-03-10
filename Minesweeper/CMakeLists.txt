@@ -32,6 +32,7 @@ qt_add_executable(Minesweeper
     WidgetTesteo.cpp
     tableroVisual.h
     tableroVisual.cpp
+    frmseleccionjuego.h frmseleccionjuego.cpp frmseleccionjuego.ui
 )
 
 target_link_libraries(Minesweeper

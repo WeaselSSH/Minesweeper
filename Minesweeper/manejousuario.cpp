@@ -25,20 +25,22 @@ void ManejoUsuario::cargarDatos() {
         size_t p3 = (p2 == string::npos) ? string::npos : linea.find(DELIMITER, p2+1);
         size_t p4 = (p3 == string::npos) ? string::npos : linea.find(DELIMITER, p3+1);
         size_t p5 = (p4 == string::npos) ? string::npos : linea.find(DELIMITER, p4+1);
+        size_t p6 = (p5 == string::npos) ? string::npos : linea.find(DELIMITER, p5+1);
 
-        if (p1 == string::npos || p2 == string::npos || p3 == string::npos || p4 == string::npos || p5 == string::npos)
+        if (p1 == string::npos || p2 == string::npos || p3 == string::npos || p4 == string::npos || p5 == string::npos || p6 == string::npos)
             continue;
 
         string idTexto = linea.substr(0, p1);
         string nombreUsuario = linea.substr(p1 + 1, p2 - (p1 + 1));
         string contrasena = linea.substr(p2 + 1, p3 - (p2 + 1));
-        string mejorFacilTexto = linea.substr(p3 + 1, p4 - (p3 + 1));
-        string mejorMedioTexto = linea.substr(p4 + 1, p5 - (p4 + 1));
-        string mejorDificilTexto = linea.substr(p5 + 1);
+        string nivelMaximoTexto = linea.substr(p3 + 1, p4 - (p3 + 1));
+        string mejorFacilTexto = linea.substr(p4 + 1, p5 - (p4 + 1));
+        string mejorMedioTexto = linea.substr(p5 + 1, p4 - (p4+1));
+        string mejorDificilTexto = linea.substr(p6 + 1);
 
         try{
             int id = stoi(idTexto);
-            Usuario usuarioLeido(id, nombreUsuario, contrasena, stoi(mejorFacilTexto), stoi(mejorMedioTexto), stoi(mejorDificilTexto));
+            Usuario usuarioLeido(id, nombreUsuario, contrasena, stoi(nivelMaximoTexto), stoi(mejorFacilTexto), stoi(mejorMedioTexto), stoi(mejorDificilTexto));
             listaUsuarios.push_back(usuarioLeido);
 
             if (id >= nextId)
@@ -58,6 +60,7 @@ void ManejoUsuario::guardarDatos() {
         archivoSalida << u.getId() << DELIMITER
                       << u.getNombreUsuario() << DELIMITER
                       << u.getContrasena() << DELIMITER
+                      << u.getNivelMaximo() << DELIMITER
                       << u.getMejorFacil() << DELIMITER
                       << u.getMejorMedio() << DELIMITER
                       << u.getMejorDificil() << "\n";
