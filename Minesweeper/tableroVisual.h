@@ -14,7 +14,7 @@ public:
     explicit tableroVisual(QWidget *parent= nullptr);
 
 
-    void inicializarTLogico();
+    void inicializarTLogico(int numFilas, int numColumnas, int numMinas);
     void colocarMinas();
 
 
