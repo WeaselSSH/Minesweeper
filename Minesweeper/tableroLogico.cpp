@@ -16,7 +16,7 @@ tableroLogico::tableroLogico(int numFilas, int numColumnas, int numMinas){
     tablero.reserve(numFilas);
     for(int i=0; i<numFilas; i++){
 
-        //OJO....PRIMERO SE INICIALIZA Y LUEGO RESERVA...NO AL MISMO TIEMPO XD
+        //OJO....PRIMERO SE INICIALIZA Y LUEGO RESERVA...NO AL MISMO TIEMPO XDsssssssssss
         vector<Celda> vectorFila;
 
         vectorFila.reserve(numColumnas);
@@ -64,7 +64,8 @@ Celda &tableroLogico::obtenerCelda(int fila, int columna){
 }
 
 //Creo que se puede optimizar esto pero aun no se como
-void tableroLogico::colocarMinas(vector<vector<Celda>> &tablero){
+//void tableroLogico::colocarMinas(vector<vector<Celda>> &tablero){
+void tableroLogico::colocarMinas(){
 
     // if(cont==numMinas){
     //     return;
@@ -127,6 +128,39 @@ void tableroLogico::colocarMinas(vector<vector<Celda>> &tablero){
 
 }
 
+void tableroLogico::calcularMinasAdyacentes() {
+    for (int i = 0; i < numFilas; i++) {
+        for (int j = 0; j < numColumnas; j++) {
+            Celda& celda = tablero[i][j];
+
+            // Las celdas con mina no necesitan contador
+            if (celda.checkStatus()) continue;
+
+            int contador = 0;
+
+            // Revisar los 8 vecinos
+            for (int x = -1; x <= 1; x++) {
+                for (int y = -1; y <= 1; y++) {
+                    if (x == 0 && y == 0) continue; // saltar la celda misma
+
+                    int vecF = i + x;
+                    int vecC = j + y;
+
+                    // Validar que el vecino esté dentro del tablero
+                    if (vecF >= 0 && vecF < numFilas &&
+                        vecC >= 0 && vecC < numColumnas) {
+                        if (tablero[vecF][vecC].checkStatus()) {
+                            contador++;
+                        }
+                    }
+                }
+            }
+
+            celda.setMinasAdyacentes(contador);
+        }
+    }
+}
+
 //FLOOD FILL
 void tableroLogico::revelarCelda(int f, int c) {
 
@@ -155,6 +189,18 @@ void tableroLogico::revelarCelda(int f, int c) {
     }
 }
 
+bool tableroLogico::verificarVictoria() {
+    for (int i = 0; i < numFilas; i++) {
+        for (int j = 0; j < numColumnas; j++) {
+            Celda& celda = tablero[i][j];
+            if (!celda.checkStatus() && !celda.estaRevelada()) {
+                return false; // aún hay celdas seguras sin revelar
+            }
+        }
+    }
+    return true;
+}
 
-
-
+bool tableroLogico::verificarDerrota(int f, int c) {
+    return tablero[f][c].checkStatus() && tablero[f][c].estaRevelada();
+}

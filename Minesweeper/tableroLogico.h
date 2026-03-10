@@ -21,11 +21,15 @@ public:
     int getFilas();
     int getColumnas();
     Celda &obtenerCelda(int fila, int columna);
-    void colocarMinas(vector<vector<Celda>> &tablero);
-    void revelarCelda(int f, int c);
     vector<vector<Celda>> &getTablero(){
         return tablero;
     }
+
+    void colocarMinas();
+    void calcularMinasAdyacentes();
+    void revelarCelda(int f, int c);
+    bool verificarVictoria();
+    bool verificarDerrota(int f, int c);
 };
 
 #endif // TABLEROLOGICO_H

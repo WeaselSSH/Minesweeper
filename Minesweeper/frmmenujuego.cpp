@@ -43,9 +43,6 @@ void FrmMenuJuego::on_btnJugar_clicked()
     QVBoxLayout *layout = new QVBoxLayout(ventana);
     tableroVisual *miWidget= new tableroVisual ();
 
-    //linkeamos tablero visual con tablero logico
-    miWidget->inicializarTLogico();
-    miWidget->colocarMinas();
     layout->addWidget(miWidget);
 
     ventana->show();

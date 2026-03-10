@@ -15,7 +15,7 @@ private:
     int minasAdyacentes;
 
 public:
-    Celda(int f, int c);
+    Celda(int fila, int columna);
     void asignarMina(char MINA);
     int getF();
     int getC();

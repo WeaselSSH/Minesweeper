@@ -3,9 +3,9 @@
 
 using namespace std;
 
-Celda::Celda(int f, int c){
-    fila=f;
-    columna=c;
+Celda::Celda(int fila, int columna){
+    fila=fila;
+    columna=columna;
     tieneMina=false;
 
     revelada = false;

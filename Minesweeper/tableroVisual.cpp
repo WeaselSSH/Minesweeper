@@ -7,8 +7,11 @@
 
 
 
-tableroVisual::tableroVisual(QWidget *parent) : QWidget(parent){ }
-
+tableroVisual::tableroVisual(QWidget *parent) : QWidget(parent) {
+    tLogico = new tableroLogico(8, 8, 3);
+    tLogico->colocarMinas();
+    tLogico->calcularMinasAdyacentes();
+}
 
 
 //probablemente hacer algun metodo de destruccion de esto, para que no quede memory leak
@@ -22,57 +25,77 @@ void tableroVisual:: inicializarTLogico(){
 void tableroVisual::colocarMinas(){
     //creo que esto no sirve ya que se mantiene todo local
    // vector<vector<Celda>> temp = tLogico->getTablero();
-    tLogico->colocarMinas(tLogico->getTablero());
+    tLogico->colocarMinas();
 }
 
 
 
-void tableroVisual::paintEvent(QPaintEvent *event){
+void tableroVisual::paintEvent(QPaintEvent *event) {
+    Q_UNUSED(event);
+    if (!tLogico) return;
+
     QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing); //bordes suaves
+    painter.setRenderHint(QPainter::Antialiasing);
 
-    //calculo de medidas
-    int margenIzquierdo=20;
-    int margenSuperior=20;
-    int ladoTablero =qMin(width()-40, height()-40); //calculamos el tamao optimo
-    int tCelda = ladoTablero/8;
+    int margenIzquierdo = 20;
+    int margenSuperior  = 20;
+    int ladoTablero     = qMin(width() - 40, height() - 40);
+    int tCelda          = ladoTablero / 8;
 
+    // Colores de números clásico buscaminas
+    QColor coloresNum[] = {
+        Qt::blue, Qt::darkGreen, Qt::red, Qt::darkBlue,
+        Qt::darkRed, Qt::cyan, Qt::black, Qt::gray
+    };
 
-    //pintado de celdas en base a tablero Logico
+    QFont fuente = painter.font();
+    fuente.setBold(true);
+    fuente.setPixelSize(tCelda * 0.5);
+    painter.setFont(fuente);
 
-    for(int f=0; f<tLogico->getFilas(); f++){
-        for(int c=0; c<tLogico->getColumnas(); c++){
+    for (int f = 0; f < tLogico->getFilas(); f++) {
+        for (int c = 0; c < tLogico->getColumnas(); c++) {
+            Celda &celda = tLogico->obtenerCelda(f, c);
 
+            int x = margenIzquierdo + c * tCelda;
+            int y = margenSuperior  + f * tCelda;
+            QRect rect(x, y, tCelda, tCelda);
 
-            //si la celda no esta reveldada
-
-            Celda &celdatemp = tLogico->obtenerCelda(f,c);
-            if(!celdatemp.estaRevelada()){
-                QColor colorCelda = QColor(118,150,86);
-
-                //calculamos las coordenas de donde se dibujara la casilla
-                int x=margenIzquierdo+ (c*tCelda);
-                int y= margenSuperior + (f*tCelda);
-
-                //dibujado de cuadricula
-                painter.setBrush(colorCelda);
-                painter.setPen(Qt::NoPen);
-                painter.drawRect(x,y, tCelda, tCelda);
-            }else if(celdatemp.estaRevelada()){
-                QColor colorCelda = QColor(255,255,255);
-                int x=margenIzquierdo+ (c*tCelda);
-                int y= margenSuperior + (f*tCelda);
-
-                //dibujado de cuadricula
-                painter.setBrush(colorCelda);
-                painter.setPen(Qt::NoPen);
-                painter.drawRect(x,y, tCelda, tCelda);
+            // ── Color de fondo ──
+            if (!celda.estaRevelada()) {
+                if (celda.tieneBandera())
+                    painter.setBrush(QColor(255, 180, 0));   // amarillo = bandera
+                else
+                    painter.setBrush(QColor(118, 150, 86));  // verde = no revelada
+            } else if (celda.checkStatus()) {
+                painter.setBrush(QColor(220, 50, 50));       // rojo = mina
+            } else {
+                painter.setBrush(QColor(210, 180, 140));     // beige = revelada
             }
 
+            // Borde gris entre celdas
+            painter.setPen(QPen(QColor(80, 80, 80), 1));
+            painter.drawRect(rect);
+
+            // ── Contenido ──
+            if (!celda.estaRevelada() && celda.tieneBandera()) {
+                painter.setPen(Qt::red);
+                painter.drawText(rect, Qt::AlignCenter, "F");  // bandera
+
+            } else if (celda.estaRevelada() && celda.checkStatus()) {
+                painter.setPen(Qt::black);
+                painter.drawText(rect, Qt::AlignCenter, "X");  // mina
+
+            } else if (celda.estaRevelada()) {
+                int minas = celda.getMinasAdyacentes();
+                if (minas > 0) {
+                    painter.setPen(coloresNum[minas - 1]);
+                    painter.drawText(rect, Qt::AlignCenter, QString::number(minas));
+                }
+            }
         }
     }
 }
-
 
 void tableroVisual::mousePressEvent(QMouseEvent *event){
     QPoint pointClick;
