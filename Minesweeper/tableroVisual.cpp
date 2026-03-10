@@ -8,16 +8,17 @@
 
 
 tableroVisual::tableroVisual(QWidget *parent) : QWidget(parent) {
-    tLogico = new tableroLogico(8, 8, 3);
-    tLogico->colocarMinas();
-    tLogico->calcularMinasAdyacentes();
+    // tLogico = new tableroLogico(8, 8, 3);
+    // tLogico->colocarMinas();
+    // tLogico->calcularMinasAdyacentes();
 }
 
 
 //probablemente hacer algun metodo de destruccion de esto, para que no quede memory leak
-void tableroVisual:: inicializarTLogico(){
-    tLogico= new tableroLogico(8,8,3);
-
+void tableroVisual:: inicializarTLogico(int numFilas, int numColumnas, int numMinas){
+    tLogico= new tableroLogico(numFilas,numColumnas,numMinas);
+    tLogico->colocarMinas();
+    tLogico->calcularMinasAdyacentes();
 }
 
 
