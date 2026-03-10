@@ -19,6 +19,10 @@ public:
 private slots:
     void on_btnNivel1_clicked();
 
+    void on_btnNivel2_clicked();
+
+    void on_btnNivel3_clicked();
+
 private:
     Ui::FrmSeleccionNivel *ui;
     ManejoUsuario* mManejo;
