@@ -67,7 +67,7 @@
     <string>Partida rapida</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btnSalir">
+  <widget class="QPushButton" name="btnRegresar">
    <property name="geometry">
     <rect>
      <x>320</x>
@@ -82,7 +82,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Salir</string>
+    <string>Regresar</string>
    </property>
   </widget>
  </widget>

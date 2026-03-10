@@ -21,6 +21,8 @@ private slots:
 
     void on_btnPartidaRapida_clicked();
 
+    void on_btnRegresar_clicked();
+
 private:
     Ui::FrmSeleccionJuego *ui;
     ManejoUsuario* mManejo;
