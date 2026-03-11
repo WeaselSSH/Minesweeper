@@ -2,6 +2,7 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QDebug>
+#include <QMessageBox>
 
 
 
@@ -83,7 +84,7 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
             // ── Contenido ──
             if (!celda.estaRevelada() && celda.tieneBandera()) {
                 painter.setPen(Qt::red);
-                painter.drawText(rect, Qt::AlignCenter, "F");  // bandera
+                painter.drawText(rect, Qt::AlignCenter, "🚩");  // bandera
 
             } else if (celda.estaRevelada() && celda.checkStatus()) {
                 painter.setPen(Qt::black);
@@ -101,27 +102,63 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
 }
 
 void tableroVisual::mousePressEvent(QMouseEvent *event){
+
+    if(juegoTerminado) return;   // ← bloquea todo si ya terminó
+
     QPoint pointClick;
     if(event->button()==Qt::LeftButton){
         pointClick= event->pos();
     }
 
+    // ── Click derecho: alternar bandera ──
+    if(event->button() == Qt::RightButton){
+        pointClick = event->pos();
+        Celda &celda = tLogico->obtenerCelda(
+            (pointClick.y()-20) / (qMin(width()-40,height()-40)/medidaConst),
+            (pointClick.x()-20) / (qMin(width()-40,height()-40)/medidaConst)
+            );
+        if(!celda.estaRevelada()){
+            celda.alternarBandera();
+        }
+        this->update();
+        return;
+    }
+
     //Mismas medidas de settings usadas en la creacion del tablero, pues hay que tenerlas en consideracion
     //para sacar las medidas reales de filas y columnas
-
     int margenIzquierdo=20;
     int margenSuperior=20;
     int ladoTablero =qMin(width()-40, height()-40); //calculamos el tamao optimo
     int tCelda = ladoTablero/medidaConst;
 
-
-
     //obtencion de medidas reales de filas y columnas
     int fila= (pointClick.y() -margenSuperior)/tCelda;
     int columna = (pointClick.x()-margenIzquierdo)/tCelda;
 
-
     tLogico->revelarCelda(fila, columna);
+
+    // ── Derrota: pisó una mina ──
+    if(tLogico->obtenerCelda(fila, columna).checkStatus()){
+        juegoTerminado = true;
+        // Revela todas las minas
+        for(int f = 0; f < tLogico->getFilas(); f++){
+            for(int c = 0; c < tLogico->getColumnas(); c++){
+                if(tLogico->obtenerCelda(f,c).checkStatus())
+                    tLogico->obtenerCelda(f,c).revelar();
+            }
+        }
+        this->update();
+        QMessageBox::critical(this, "💣 Derrota", "¡Pisaste una mina! Game Over.");
+        return;
+    }
+
+    // ── Victoria: todas las celdas sin mina reveladas ──
+    if(tLogico->verificarVictoria()){
+        juegoTerminado = true;
+        this->update();
+        QMessageBox::information(this, "🏆 Victoria", "¡Ganaste! Despejaste el tablero.");
+        return;
+    }
 
     //delimitamos a que estemos dentro de los limites validos del tablero
     if(fila>=0 && fila<8 && columna>= 0 && columna<8){
@@ -132,18 +169,8 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
 
     this->update();
 
-    /*
-     * ----NOTA PARA CAMBIOS-----
-     * Ahora que ya se detectan los clicks y se pasa a filas y columnas, aqui dentro deberia ir la logica
-     * para que, al darle click, esa accion pase al tablero Logico
-     *
-     * Cosas que se podrian hacer:
-     * -Linkear tablero logico con tablero visual....[X]
-     * -Crear funcion para que tablero visual lea tablero logico y haga repaint en base a eso.....[]
-     *
-     * */
-}
 
+}
 
 void tableroVisual::setMedidaConst(int med){
     medidaConst=med;

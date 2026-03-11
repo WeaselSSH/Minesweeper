@@ -36,6 +36,7 @@ private:
 
     tableroLogico* tLogico=nullptr;
     int medidaConst;
+    bool juegoTerminado = false;
 
 
     //agregar espaciado segun dificultad

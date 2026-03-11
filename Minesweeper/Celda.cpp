@@ -4,8 +4,8 @@
 using namespace std;
 
 Celda::Celda(int fila, int columna){
-    fila=fila;
-    columna=columna;
+    this->fila=fila;
+    this->columna=columna;
     tieneMina=false;
 
     revelada = false;

@@ -189,13 +189,12 @@ void tableroLogico::revelarCelda(int f, int c) {
     }
 }
 
-bool tableroLogico::verificarVictoria() {
-    for (int i = 0; i < numFilas; i++) {
-        for (int j = 0; j < numColumnas; j++) {
-            Celda& celda = tablero[i][j];
-            if (!celda.checkStatus() && !celda.estaRevelada()) {
-                return false; // aún hay celdas seguras sin revelar
-            }
+bool tableroLogico::verificarVictoria(){
+    for(int f = 0; f < numFilas; f++){
+        for(int c = 0; c < numColumnas; c++){
+            Celda &celda = obtenerCelda(f, c);
+            if(!celda.checkStatus() && !celda.estaRevelada())
+                return false;
         }
     }
     return true;
