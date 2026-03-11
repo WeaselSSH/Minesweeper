@@ -3,7 +3,7 @@
 #include <QApplication>
 
 int main(int argc, char *argv[]){
-
+//acceso de ayuda y gestor de documentos que ofrece el juego
     //eto va aqui el srand ekisde
     srand(time(0));
     QApplication a(argc, argv);
@@ -13,7 +13,7 @@ int main(int argc, char *argv[]){
 
     MenuPrincipal w(&manejo);
 
-
+//que es manual tecnico y de usuario? xd
 
      //--------
      // QApplication vent(argc, argv);
