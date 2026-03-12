@@ -12,6 +12,9 @@ tableroLogico::tableroLogico(int numFilas, int numColumnas, int numMinas){
     this->numColumnas=numColumnas;
     this ->numMinas= numMinas;
 
+    //inicializamos conteo de banderas en 0
+
+    numBanderasPuestas=numMinas;
     //Ciclo que inicializaria el tablero de juego segun las medidas indicadas
     tablero.reserve(numFilas);
     for(int i=0; i<numFilas; i++){
@@ -202,4 +205,21 @@ bool tableroLogico::verificarVictoria(){
 
 bool tableroLogico::verificarDerrota(int f, int c) {
     return tablero[f][c].checkStatus() && tablero[f][c].estaRevelada();
+}
+
+
+void tableroLogico::alterarConteoBanderas(Celda &mcelda){
+    if(mcelda.tieneBandera()){
+        numBanderasPuestas--;
+        if(numBanderasPuestas<0){//esto para controlar no tener numeros negativos
+            numBanderasPuestas=0;
+        }
+    }else if(!mcelda.tieneBandera()){
+        numBanderasPuestas++;
+    }
+}
+
+
+int tableroLogico::getNumBanderasPuestas(){
+    return numBanderasPuestas;
 }

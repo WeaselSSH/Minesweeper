@@ -3,7 +3,7 @@
 #include <QPainter>
 #include <QDebug>
 #include <QMessageBox>
-
+#include <QString>
 
 
 
@@ -40,10 +40,43 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     painter.setRenderHint(QPainter::Antialiasing);
 
 
+    //----PINTADO DE FONDO---
+    //Parte de los stats
+    int altoStats= 100;
+    int espaciadoVertical=50;
+    int margenTablero=20;
+
+    painter.setPen(Qt::NoPen);
+    painter.setBrush(QColor(45,45,48));
+    painter.drawRect(0,0, width(), altoStats);
+
+
+    //fondo atras del tablero
+    painter.setBrush(QColor(30,30,30));
+    painter.drawRect(0,altoStats, width(), height()-altoStats);
+
+
+    //calculo de espacio disponible despues de la parte de stats
+    int anchoDisponible = width()-(margenTablero*2);
+    int altoDisponible = height() -altoStats -espaciadoVertical - (margenTablero);
+
+
+
+
+
+
+
     //revisar esto por el deslice de las coords
-    int margenIzquierdo = 20;
-    int margenSuperior  = 20;
-    int ladoTablero     = qMin(width() - 40, height() - 40);
+    //int margenIzquierdo = 20;
+    //int margenSuperior  = 20;
+    int ladoTablero  = qMin(anchoDisponible, altoDisponible);
+
+    //medidas para centrado extra
+    int margenX= (width()-ladoTablero)/2;
+    int margenY=  altoStats +espaciadoVertical; //altoStats + (height()-ladoTablero)/2 + margenTablero;
+
+
+
     int tCelda          = ladoTablero / medidaConst;
 
     // Colores de números clásico buscaminas
@@ -61,8 +94,8 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
         for (int c = 0; c < tLogico->getColumnas(); c++) {
             Celda &celda = tLogico->obtenerCelda(f, c);
 
-            int x = margenIzquierdo + c * tCelda;
-            int y = margenSuperior  + f * tCelda;
+            int x = margenX + c * tCelda;
+            int y = margenY+ f * tCelda;
             QRect rect(x, y, tCelda, tCelda);
 
             // ── Color de fondo ──
@@ -99,11 +132,57 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
             }
         }
     }
+
+
+    //pintamos texto
+    painter.setPen(Qt::white);
+    QFont font = painter.font();
+    font.setBold(true);
+    font.setPointSize(14);
+    painter.setFont(font);
+
+    int countBanderas =tLogico->getNumBanderasPuestas();
+    QString  strCBanderas = "🚩:"+QString::number(countBanderas);
+    //no se pueden usar string basicos con elementos de draw de qt
+
+    painter.drawText(QRect(0,0, width(), altoStats), Qt::AlignCenter, strCBanderas) ;
+
+
+
 }
 
 void tableroVisual::mousePressEvent(QMouseEvent *event){
 
     if(juegoTerminado) return;   // ← bloquea todo si ya terminó
+
+
+
+    //Para calcular las coords reales se tiene que sacar los parametros del paintEvent y restarlos
+    int altoStats= 100;
+    int espaciadoVertical=50;
+    int margenTablero=20;
+
+    //VER SI SE LES PUEDE SACAR FORMULAS MATEMATICA A ESTAS MEDIDAS
+
+    int anchoDisponible = width()-(margenTablero*2);
+    int altoDisponible = height() -altoStats -espaciadoVertical - (margenTablero);
+
+    int ladoTablero  = qMin(anchoDisponible, altoDisponible);
+
+
+    /*
+     * Si se analiza, todo estos calculos simplemente son para obtener los margenes en x y
+     * ya que ahora estos dependen de las demas cosas que haya en pantalla
+     *
+     * */
+    int margenX= (width()-ladoTablero)/2;
+    int margenY=  altoStats +espaciadoVertical +(altoDisponible-ladoTablero)/2;
+    int tCelda          = ladoTablero / medidaConst;
+
+
+
+
+
 
     QPoint pointClick;
     if(event->button()==Qt::LeftButton){
@@ -114,26 +193,46 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
     if(event->button() == Qt::RightButton){
         pointClick = event->pos();
         Celda &celda = tLogico->obtenerCelda(
-            (pointClick.y()-20) / (qMin(width()-40,height()-40)/medidaConst),
-            (pointClick.x()-20) / (qMin(width()-40,height()-40)/medidaConst)
+            ((pointClick.y()-margenY)/tCelda),
+            ((pointClick.x()-margenX)/tCelda)
             );
         if(!celda.estaRevelada()){
             celda.alternarBandera();
+
+            //vemos el estado en el que quedo despues de alternar bandera
+            tLogico->alterarConteoBanderas(celda);
         }
         this->update();
         return;
     }
 
+
+    //ahora el calculo de las filas y columnas se hace en base a los nuevos margenes de x y
+    int fila= (pointClick.y() -margenY)/tCelda;
+    int columna = (pointClick.x()-margenX)/tCelda;
+
+
+
+
     //Mismas medidas de settings usadas en la creacion del tablero, pues hay que tenerlas en consideracion
     //para sacar las medidas reales de filas y columnas
-    int margenIzquierdo=20;
-    int margenSuperior=20;
-    int ladoTablero =qMin(width()-40, height()-40); //calculamos el tamao optimo
-    int tCelda = ladoTablero/medidaConst;
+    // int margenIzquierdo=20;
+    // int margenSuperior=20;
+    // int ladoTablero =qMin(width()-40, height()-40); //calculamos el tamao optimo
+    // int tCelda = ladoTablero/medidaConst;
 
     //obtencion de medidas reales de filas y columnas
-    int fila= (pointClick.y() -margenSuperior)/tCelda;
-    int columna = (pointClick.x()-margenIzquierdo)/tCelda;
+
+    //posiblemente esto despues tire errores en los otros tableros
+    if(fila>=0 && fila<8 && columna>= 0 && columna<8){
+        qDebug() <<"Fila: "<<fila<<" Columna: "<<columna;
+    }else{
+        qDebug() <<"Estamos fuera de los limites bro";
+        return; //hacemos un return para que no haga nada en caso de clickear afuera
+    }
+
+
+
 
     tLogico->revelarCelda(fila, columna);
 
@@ -160,12 +259,7 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
         return;
     }
 
-    //delimitamos a que estemos dentro de los limites validos del tablero
-    if(fila>=0 && fila<8 && columna>= 0 && columna<8){
-        qDebug() <<"Fila: "<<fila<<" Columna: "<<columna;
-    }else{
-        qDebug() <<"Estamos fuera de los limites bro";
-    }
+
 
     this->update();
 

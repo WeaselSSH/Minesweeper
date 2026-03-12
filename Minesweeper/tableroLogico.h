@@ -14,6 +14,8 @@ private:
     int numFilas;
     int numColumnas;
     int numMinas;
+    //nueva variable agregada para llevar control de cuantas banderas se han puesto
+    int numBanderasPuestas;
     vector<vector<Celda>> tablero;
 
 public:
@@ -30,6 +32,10 @@ public:
     void revelarCelda(int f, int c);
     bool verificarVictoria();
     bool verificarDerrota(int f, int c);
+
+    //metodo que simplemente simplifica la accion de incrementar el counter de banderas
+    void alterarConteoBanderas(Celda &mcelda);
+    int getNumBanderasPuestas();
 };
 
 #endif // TABLEROLOGICO_H
