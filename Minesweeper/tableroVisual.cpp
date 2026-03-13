@@ -121,7 +121,7 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
 
             } else if (celda.estaRevelada() && celda.checkStatus()) {
                 painter.setPen(Qt::black);
-                painter.drawText(rect, Qt::AlignCenter, "X");  // mina
+                painter.drawText(rect, Qt::AlignCenter, "💣");  // mina
 
             } else if (celda.estaRevelada()) {
                 int minas = celda.getMinasAdyacentes();
@@ -132,6 +132,31 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
             }
         }
     }
+
+
+    //DESARROLLO DE BOTON PARA ABANDONAR PARTIDA
+    /*
+     * PARA TODO ELEMENTO QUE QUERRAMOS PINTAR EN PANTALLA, EN UN ESPACIO QUE NO ESTE PEGADO A LOS MARGENES
+     * SIEMPRE SE TENDRA QUE CALCULAR UN MARGEN X y Y
+     *
+     *
+     * */
+
+    int tamanioBttSalir = 60;
+    int margenBttSalir=15;
+
+    int bttX= width()- tamanioBttSalir - margenBttSalir;
+    int bttY = (altoStats- tamanioBttSalir)/2;
+
+    painter.setBrush(QColor(200,50,50));
+    painter.setPen(QPen(Qt::white, 2));
+    QRect bttSalir(bttX, bttY, tamanioBttSalir, tamanioBttSalir);
+    painter.drawRoundedRect(bttSalir, 5,5);
+
+
+
+
+
 
 
     //pintamos texto
@@ -146,7 +171,8 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     //no se pueden usar string basicos con elementos de draw de qt
 
     painter.drawText(QRect(0,0, width(), altoStats), Qt::AlignCenter, strCBanderas) ;
-
+    //pide un espacio donde dibujarlo, un rect o contenedor, tipo de alineacion, y el texto
+    painter.drawText(bttSalir, Qt::AlignCenter, "Salir");
 
 
 }
@@ -156,9 +182,56 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
     if(juegoTerminado) return;   // ← bloquea todo si ya terminó
 
 
+    //---HACER QUE EL CLICK SE DETECTE DENTRO DEL BOTON---
+    /*
+     * -DATO DE CODIGO HASTA QUE ME INSTALE LINUX-
+     *
+     * ¿Sabias que el QRect no solo sirve como un contenedor que sirve para pintar rectangulos?
+     * aparentemente, el qrect, si bien es cierto que forma un objeto de tipo rectangulo o parecido,
+     * tambien puede utilizarse para definir ciertas acciones que ocurran dentro de su area cubierta.
+     *
+     * Este concepto es el que se utiliza para hacer que, al darle click el usuario al boton,
+     * se ejecute una accion, como si fuera un boton de qwidgets
+     *
+     *
+     *
+     * */
+
+    //mismos stats
+    int altoStats= 100;
+    int tamanioBttSalir = 60;
+    int margenBttSalir=15;
+
+    int bttX= width()- tamanioBttSalir - margenBttSalir;
+    int bttY = (altoStats- tamanioBttSalir)/2;
+
+    QRect bttSalir(bttX, bttY, tamanioBttSalir, tamanioBttSalir);
+
+    //revisa si la posicion clickeada fue dentro del boton de salir
+    if(bttSalir.contains(event->pos())){
+        qDebug() <<"Se haria la accion de salir";
+
+        /*
+         * AQUI SE HARIA LA LOGICA DE QUIZA AGREGAR UN PANEL DE CONFIRMACION ANTES DE SALIR
+         * Y LUEGO SE CIERRA LA PESTAÑA PARA VOLVER AL MENU
+         *
+         * NOTA PARA EDWIN: Creo que las ventanas de forms ocupan referencia del usuario.
+         * Si es asi, deberias modificar los parametros de esta clase para que tambien contenga una
+         * referencia del usuario actual, a manera de tener todo sincronizado.
+         *
+         *
+         * */
+
+
+
+
+        return;
+    }
+
+
 
     //Para calcular las coords reales se tiene que sacar los parametros del paintEvent y restarlos
-    int altoStats= 100;
+    //int altoStats= 100;
     int espaciadoVertical=50;
     int margenTablero=20;
 
@@ -210,18 +283,6 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
     //ahora el calculo de las filas y columnas se hace en base a los nuevos margenes de x y
     int fila= (pointClick.y() -margenY)/tCelda;
     int columna = (pointClick.x()-margenX)/tCelda;
-
-
-
-
-    //Mismas medidas de settings usadas en la creacion del tablero, pues hay que tenerlas en consideracion
-    //para sacar las medidas reales de filas y columnas
-    // int margenIzquierdo=20;
-    // int margenSuperior=20;
-    // int ladoTablero =qMin(width()-40, height()-40); //calculamos el tamao optimo
-    // int tCelda = ladoTablero/medidaConst;
-
-    //obtencion de medidas reales de filas y columnas
 
     //posiblemente esto despues tire errores en los otros tableros
     if(fila>=0 && fila<8 && columna>= 0 && columna<8){
