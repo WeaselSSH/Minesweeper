@@ -12,6 +12,19 @@ tableroVisual::tableroVisual(QWidget *parent) : QWidget(parent) {
     // tLogico = new tableroLogico(8, 8, 3);
     // tLogico->colocarMinas();
     // tLogico->calcularMinasAdyacentes();
+
+    tiempoTranscurrido=0;
+    cronometro = new QTimer(this);
+
+
+    //controla para que, cada vez que pase un segundo, se incremente y actualice
+    connect(cronometro, &QTimer::timeout, this, [this](){
+        tiempoTranscurrido++;
+        update();
+    });
+
+    cronometro->start(1000);
+
 }
 
 
@@ -168,10 +181,22 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
 
     int countBanderas =tLogico->getNumBanderasPuestas();
     QString  strCBanderas = "🚩:"+QString::number(countBanderas);
+    QString strTiempo ="⏰: "+formatTime();
     //no se pueden usar string basicos con elementos de draw de qt
 
-    painter.drawText(QRect(0,0, width(), altoStats), Qt::AlignCenter, strCBanderas) ;
+    int centroX =width()/2;
+    int anchoCaja=100;
+    int separacion =20;
+
+    QRect rectBandera(centroX-anchoCaja-(separacion/2),0 , anchoCaja, altoStats);
+    QRect rectCronometro(centroX+separacion/2, 0, anchoCaja, altoStats);
+
+
+
+    //painter.drawText(QRect(0,0, width(), altoStats), Qt::AlignCenter, strCBanderas) ;
     //pide un espacio donde dibujarlo, un rect o contenedor, tipo de alineacion, y el texto
+    painter.drawText(rectBandera, Qt::AlignCenter, strCBanderas);
+    painter.drawText(rectCronometro, Qt::AlignCenter, strTiempo);
     painter.drawText(bttSalir, Qt::AlignCenter, "Salir");
 
 
@@ -307,6 +332,7 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
                     tLogico->obtenerCelda(f,c).revelar();
             }
         }
+        cronometro->stop();
         this->update();
         QMessageBox::critical(this, "💣 Derrota", "¡Pisaste una mina! Game Over.");
         return;
@@ -315,6 +341,7 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
     // ── Victoria: todas las celdas sin mina reveladas ──
     if(tLogico->verificarVictoria()){
         juegoTerminado = true;
+        cronometro->stop();
         this->update();
         QMessageBox::information(this, "🏆 Victoria", "¡Ganaste! Despejaste el tablero.");
         return;
@@ -329,4 +356,11 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
 
 void tableroVisual::setMedidaConst(int med){
     medidaConst=med;
+}
+
+QString tableroVisual::formatTime() const{
+    int minutos = tiempoTranscurrido/60;
+    int segundos = tiempoTranscurrido %60;
+
+    return QString("%1:%2").arg(minutos,2,10, QChar('0')).arg(segundos, 2, 10, QChar('0'));
 }

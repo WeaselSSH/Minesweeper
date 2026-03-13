@@ -3,6 +3,7 @@
 
 #include "tableroLogico.h"
 #include<QWidget>
+#include <QTimer>
 
 
 class tableroVisual: public QWidget{
@@ -40,6 +41,14 @@ private:
 
 
     //agregar espaciado segun dificultad
+
+    QTimer* cronometro;
+    int tiempoTranscurrido;//esto nos ayudara a llevar control del tiempo
+
+
+    QString formatTime() const;
+
+
 
 };
 
