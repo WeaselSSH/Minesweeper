@@ -25,7 +25,7 @@ void FrmSeleccionNivel::on_btnNivel1_clicked()
 
     //organizando widget
     QVBoxLayout *layout = new QVBoxLayout(ventana);
-    tableroVisual *miWidget= new tableroVisual ();
+    tableroVisual *miWidget= new tableroVisual(mManejo);
 
     miWidget->setMedidaConst(8);
     miWidget->inicializarTLogico(8,8,10);
@@ -46,9 +46,9 @@ void FrmSeleccionNivel::on_btnNivel2_clicked()
 
     //organizando widget
     QVBoxLayout *layout = new QVBoxLayout(ventana);
-    tableroVisual *miWidget= new tableroVisual ();
+    tableroVisual *miWidget= new tableroVisual(mManejo);
 
-     miWidget->setMedidaConst(16);
+    miWidget->setMedidaConst(16);
     miWidget->inicializarTLogico(16,16,40);
     layout->addWidget(miWidget);
 
@@ -67,9 +67,9 @@ void FrmSeleccionNivel::on_btnNivel3_clicked()
 
     //organizando widget
     QVBoxLayout *layout = new QVBoxLayout(ventana);
-    tableroVisual *miWidget= new tableroVisual ();
+    tableroVisual *miWidget= new tableroVisual(mManejo);
 
-     miWidget->setMedidaConst(30);
+    miWidget->setMedidaConst(30);
     miWidget->inicializarTLogico(16,30,99);
     layout->addWidget(miWidget);
 

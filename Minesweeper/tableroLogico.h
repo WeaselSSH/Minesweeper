@@ -6,36 +6,33 @@
 
 #include <vector>
 #include "Celda.h"
-using namespace std;
 
+using namespace std;
 
 class tableroLogico{
 private:
     int numFilas;
     int numColumnas;
     int numMinas;
-    //nueva variable agregada para llevar control de cuantas banderas se han puesto
-    int numBanderasPuestas;
-    vector<vector<Celda>> tablero;
+    int numBanderasPuestas; //nueva variable agregada para llevar control de cuantas banderas se han puesto
+    vector<vector<Celda>> tablero; //esto es basicamente un array bidimensional pero dinamico
 
 public:
     tableroLogico(int numFilas, int numColumnas, int numMinas);
-    int getFilas();
-    int getColumnas();
-    Celda &obtenerCelda(int fila, int columna);
-    vector<vector<Celda>> &getTablero(){
-        return tablero;
-    }
 
+    int getFilas() const;
+    int getColumnas() const;
+
+    Celda &obtenerCelda(int fila, int columna);
     void colocarMinas();
     void calcularMinasAdyacentes();
-    void revelarCelda(int f, int c);
+    void revelarCelda(int fila, int columna);
     bool verificarVictoria();
-    bool verificarDerrota(int f, int c);
+    bool verificarDerrota(int fila, int columna);
 
     //metodo que simplemente simplifica la accion de incrementar el counter de banderas
     void alterarConteoBanderas(Celda &mcelda);
-    int getNumBanderasPuestas();
+    int getNumBanderasPuestas() const;
 };
 
 #endif // TABLEROLOGICO_H

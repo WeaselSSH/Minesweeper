@@ -2,29 +2,25 @@
 #include <iostream>
 #include <vector>
 #include <cstdlib>
-#include <ctime>
 
 using namespace std;
 
-
 tableroLogico::tableroLogico(int numFilas, int numColumnas, int numMinas){
-    this->numFilas=numFilas;
-    this->numColumnas=numColumnas;
-    this ->numMinas= numMinas;
+    this->numFilas = numFilas;
+    this->numColumnas = numColumnas;
+    this->numMinas = numMinas;
 
     //inicializamos conteo de banderas en 0
+    numBanderasPuestas = 0; //pues ya que inicia en 0 lo puse en 0 de verdad en vez de numMinas
 
-    numBanderasPuestas=numMinas;
     //Ciclo que inicializaria el tablero de juego segun las medidas indicadas
     tablero.reserve(numFilas);
-    for(int i=0; i<numFilas; i++){
-
+    for(int i = 0; i < numFilas; i++){
         //OJO....PRIMERO SE INICIALIZA Y LUEGO RESERVA...NO AL MISMO TIEMPO XDsssssssssss
         vector<Celda> vectorFila;
-
         vectorFila.reserve(numColumnas);
 
-        for(int j=0; j<numColumnas; j++){
+        for(int j = 0; j < numColumnas; j++){
             Celda newCelda(i, j);
             vectorFila.push_back(newCelda);
         }
@@ -32,11 +28,11 @@ tableroLogico::tableroLogico(int numFilas, int numColumnas, int numMinas){
     }
 }
 
-int tableroLogico::getFilas(){
+int tableroLogico::getFilas() const{
     return numFilas;
 }
 
-int tableroLogico::getColumnas(){
+int tableroLogico::getColumnas() const{
     return numColumnas;
 }
 
@@ -46,6 +42,8 @@ Celda &tableroLogico::obtenerCelda(int fila, int columna){
     Creo que al ponerle paso por referencia no es necesario recorrerlo del todo
     solo es de retonrar el valor de fila y columna igualmente lo dejo comentado por las dudas xd
     */
+
+    //efectivamente solo es de retornar y ya
 
     // //Ciclo que recorre el vector principal del tablero, el cual controla las filas
     // for(int i=0; i<numFilas; i++){
@@ -105,30 +103,26 @@ void tableroLogico::colocarMinas(){
     //     }
     // }
 
-
     int colocadas = 0;
 
     while (colocadas < numMinas) {
         // Generamos coordenadas aleatorias en cada intento
-        int f = rand() % numFilas;
-        int c = rand() % numColumnas;
+        int fila = rand() % numFilas;
+        int columna = rand() % numColumnas;
 
         // Accedemos directamente a la celda (sin recorrer todo el tablero)
         // Usamos referencia (&) para modificar la celda real en el tablero
-        Celda &celda = tablero.at(f).at(c);
+        Celda &celda = tablero.at(fila).at(columna);
 
         // Verificamos si ya tiene una mina
-        if (!celda.checkStatus()) {
-            celda.asignarMina('*');
-            cout<<"Mina colocada en "<<f<<","<<c<<endl;
+        if (!celda.getTieneMina()) {
+            celda.asignarMina();
+            cout<<"Mina colocada en " << fila << "," << columna << endl;
             colocadas++;
         }
-
     }
 
-
     cout<<"Se han colocado todas las minas "<< colocadas<<endl;
-
 }
 
 void tableroLogico::calcularMinasAdyacentes() {
@@ -137,7 +131,7 @@ void tableroLogico::calcularMinasAdyacentes() {
             Celda& celda = tablero[i][j];
 
             // Las celdas con mina no necesitan contador
-            if (celda.checkStatus()) continue;
+            if (celda.getTieneMina()) continue;
 
             int contador = 0;
 
@@ -146,13 +140,13 @@ void tableroLogico::calcularMinasAdyacentes() {
                 for (int y = -1; y <= 1; y++) {
                     if (x == 0 && y == 0) continue; // saltar la celda misma
 
-                    int vecF = i + x;
-                    int vecC = j + y;
+                    int vecFila = i + x;
+                    int vecColumna = j + y;
 
                     // Validar que el vecino esté dentro del tablero
-                    if (vecF >= 0 && vecF < numFilas &&
-                        vecC >= 0 && vecC < numColumnas) {
-                        if (tablero[vecF][vecC].checkStatus()) {
+                    if (vecFila >= 0 && vecFila < numFilas &&
+                        vecColumna >= 0 && vecColumna < numColumnas) {
+                        if (tablero[vecFila][vecColumna].getTieneMina()) {
                             contador++;
                         }
                     }
@@ -165,61 +159,53 @@ void tableroLogico::calcularMinasAdyacentes() {
 }
 
 //FLOOD FILL
-void tableroLogico::revelarCelda(int f, int c) {
+void tableroLogico::revelarCelda(int fila, int columna) {
 
     // Validar limites del tablero
-    if (f < 0 || f >= numFilas || c < 0 || c >= numColumnas){
-        return;
-    }
+    if (fila < 0 || fila >= numFilas || columna < 0 || columna >= numColumnas) return;
 
-    Celda& actual = tablero[f][c];
+    Celda &actual = tablero[fila][columna];
 
     // Si ya está revelada o tiene bandera, no hacer nada
-    if (actual.estaRevelada() || actual.tieneBandera()){
-        return;
-    }
+    if (actual.estaRevelada() || actual.tieneBandera()) return;
 
     // Revelar
     actual.revelar();
 
     // Si es una celda vacía expandir a los vecinos como chambre
-    if (actual.getMinasAdyacentes() == 0 && !actual.checkStatus()) {
+    if (actual.getMinasAdyacentes() == 0 && !actual.getTieneMina()) {
         for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++) {
-                revelarCelda(f + x, c + y);
+                revelarCelda(fila + x, columna + y);
             }
         }
     }
 }
 
 bool tableroLogico::verificarVictoria(){
-    for(int f = 0; f < numFilas; f++){
-        for(int c = 0; c < numColumnas; c++){
-            Celda &celda = obtenerCelda(f, c);
-            if(!celda.checkStatus() && !celda.estaRevelada())
-                return false;
+    for(int fila = 0; fila < numFilas; fila++){
+        for(int columna = 0; columna < numColumnas; columna++){
+            Celda &celda = obtenerCelda(fila, columna);
+            if(!celda.getTieneMina() && !celda.estaRevelada()) return false;
         }
     }
     return true;
 }
 
-bool tableroLogico::verificarDerrota(int f, int c) {
-    return tablero[f][c].checkStatus() && tablero[f][c].estaRevelada();
+bool tableroLogico::verificarDerrota(int fila, int columna) {
+    return tablero[fila][columna].getTieneMina() && tablero[fila][columna].estaRevelada();
 }
 
-
-void tableroLogico::alterarConteoBanderas(Celda &mcelda){
-    if(mcelda.tieneBandera()){
-        numBanderasPuestas--;
-        if(numBanderasPuestas<0){//esto para controlar no tener numeros negativos
-            numBanderasPuestas=0;
-        }
-    }else if(!mcelda.tieneBandera()){
+void tableroLogico::alterarConteoBanderas(Celda &celdaEvaluar){
+    //antes la logica estaba al reves pero ya lo arregle (aaa no puedo poner tildes)
+    if(celdaEvaluar.tieneBandera()){
         numBanderasPuestas++;
+    }else{
+        numBanderasPuestas--;
+        if (numBanderasPuestas < 0) numBanderasPuestas = 0; // en caso que quede negativo el contador
     }
 }
 
-
-int tableroLogico::getNumBanderasPuestas(){
+int tableroLogico::getNumBanderasPuestas() const{
     return numBanderasPuestas;
 }
