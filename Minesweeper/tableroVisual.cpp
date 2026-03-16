@@ -63,16 +63,31 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     int anchoDisponible = width() - (margenTablero * 2);
     int altoDisponible = height() - altoStats - espaciadoVertical - margenTablero;
 
-    //revisar esto por el deslice de las coords
-    //int margenIzquierdo = 20;
-    //int margenSuperior  = 20;
-    int ladoTablero  = qMin(anchoDisponible, altoDisponible);
+    //calculo de tamaño ideal para cada celda con respecto al eje
+    int tCeldaMaxAncho = anchoDisponible/tLogico->getColumnas();
+    int tCeldaMaxAlto = altoDisponible/tLogico->getFilas();
+
+
+    //nuevo tamanio de celda ajustado a medidas ideales
+    int tCelda = qMin(tCeldaMaxAncho, tCeldaMaxAlto);
+
+    int anchoTotalTablero = tCelda*tLogico->getColumnas();
+    int altoTotalTablero = tCelda *tLogico->getFilas();
+
+
+    // if(tLogico->getFilas()==16 && tLogico->getColumnas()==30){
+    //     tCelda= ladoTablero / medidaConst;
+    // }
+
 
     //medidas para centrado extra
-    int margenX = (width() - ladoTablero)/2;
-    int margenY =  altoStats + espaciadoVertical; //altoStats + (height()-ladoTablero)/2 + margenTablero;
+    /*intt margenX = (width() - ladoTablero)/2;
+    int margenY =  altoStats + espaciadoVertical; //altoStats + (height()-ladoTablero)/2 + margenTablero;*/
 
-    int tCelda = ladoTablero / medidaConst;
+    int margenX = (width() - anchoTotalTablero)/2;
+    int margenY =  altoStats + espaciadoVertical +(altoDisponible-altoTotalTablero)/2;
+
+
 
     // Colores de números clásico buscaminas
     QColor coloresNum[] = {
@@ -88,8 +103,8 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     for (int fila = 0; fila < tLogico->getFilas(); fila++) {
         for (int columna = 0; columna < tLogico->getColumnas(); columna++) {
             Celda &celda = tLogico->obtenerCelda(fila, columna);
-            int x = margenX + columna * tCelda;
-            int y = margenY+ fila * tCelda;
+            int x = margenX + (columna * tCelda);
+            int y = margenY+ (fila * tCelda);
 
             QRect rect(x, y, tCelda, tCelda);
 
@@ -231,16 +246,29 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
 
     int anchoDisponible = width()-(margenTablero*2);
     int altoDisponible = height() -altoStats -espaciadoVertical - (margenTablero);
-    int ladoTablero  = qMin(anchoDisponible, altoDisponible);
+
+    int tCeldaMaxAncho = anchoDisponible/tLogico->getColumnas();
+    int tCeldaMaxAlto = altoDisponible/tLogico->getFilas();
+
+
+    //nuevo tamanio de celda ajustado a medidas ideales
+    int tCelda = qMin(tCeldaMaxAncho, tCeldaMaxAlto);
+
+    int anchoTotalTablero = tCelda*tLogico->getColumnas();
+    int altoTotalTablero = tCelda *tLogico->getFilas();
+
+
+
+    //int ladoTablero  = qMin(anchoDisponible, altoDisponible);
 
     /*
      * Si se analiza, todo estos calculos simplemente son para obtener los margenes en x y
      * ya que ahora estos dependen de las demas cosas que haya en pantalla
      *
      * */
-    int margenX = (width() - ladoTablero)/2;
-    int margenY =  altoStats + espaciadoVertical +(altoDisponible - ladoTablero)/2;
-    int tCelda = ladoTablero / medidaConst;
+    int margenX = (width() - anchoTotalTablero)/2;
+    int margenY =  altoStats + espaciadoVertical +(altoDisponible-altoTotalTablero)/2;
+    //int tCelda = ladoTablero / medidaConst;
 
     QPoint pointClick;
     if(event->button()==Qt::LeftButton){
