@@ -33,6 +33,10 @@ public:
     //metodo que simplemente simplifica la accion de incrementar el counter de banderas
     void alterarConteoBanderas(Celda &mcelda);
     int getNumBanderasPuestas() const;
+
+    void setBanderas(int num);
+
+
 };
 
 #endif // TABLEROLOGICO_H

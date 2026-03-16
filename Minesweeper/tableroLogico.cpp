@@ -209,3 +209,7 @@ void tableroLogico::alterarConteoBanderas(Celda &celdaEvaluar){
 int tableroLogico::getNumBanderasPuestas() const{
     return numBanderasPuestas;
 }
+
+void tableroLogico::setBanderas(int num){
+    numBanderasPuestas=num;
+}
