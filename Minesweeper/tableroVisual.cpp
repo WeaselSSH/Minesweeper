@@ -10,10 +10,6 @@
 #include <QString>
 
 tableroVisual::tableroVisual(ManejoUsuario *manejoPtr, QWidget *parent) : QWidget(parent), mManejo(manejoPtr) {
-    // tLogico = new tableroLogico(8, 8, 3);
-    // tLogico->colocarMinas();
-    // tLogico->calcularMinasAdyacentes();
-
     tiempoTranscurrido = 0;
     cronometro = new QTimer(this);
 
@@ -63,26 +59,14 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     int anchoDisponible = width() - (margenTablero * 2);
     int altoDisponible = height() - altoStats - espaciadoVertical - margenTablero;
 
-    //calculo de tamaño ideal para cada celda con respecto al eje
+    //calculo de medidas basadas en dificultad seleccionada
     int tCeldaMaxAncho = anchoDisponible/tLogico->getColumnas();
     int tCeldaMaxAlto = altoDisponible/tLogico->getFilas();
 
-
-    //nuevo tamanio de celda ajustado a medidas ideales
     int tCelda = qMin(tCeldaMaxAncho, tCeldaMaxAlto);
 
     int anchoTotalTablero = tCelda*tLogico->getColumnas();
     int altoTotalTablero = tCelda *tLogico->getFilas();
-
-
-    // if(tLogico->getFilas()==16 && tLogico->getColumnas()==30){
-    //     tCelda= ladoTablero / medidaConst;
-    // }
-
-
-    //medidas para centrado extra
-    /*intt margenX = (width() - ladoTablero)/2;
-    int margenY =  altoStats + espaciadoVertical; //altoStats + (height()-ladoTablero)/2 + margenTablero;*/
 
     int margenX = (width() - anchoTotalTablero)/2;
     int margenY =  altoStats + espaciadoVertical +(altoDisponible-altoTotalTablero)/2;
@@ -215,23 +199,13 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
 
     int bttX = width()- tamanioBttSalir - margenBttSalir;
     int bttY = (altoStats - tamanioBttSalir)/2;
-
     QRect bttSalir(bttX, bttY, tamanioBttSalir, tamanioBttSalir);
 
-    //revisa si la posicion clickeada fue dentro del boton de salir
     if(bttSalir.contains(event->pos())){
         auto w = new FrmSeleccionNivel(mManejo);
         w->setAttribute(Qt::WA_DeleteOnClose, true);
         w->show();
         window()->close();
-
-        /*
-         * AQUI SE HARIA LA LOGICA DE QUIZA AGREGAR UN PANEL DE CONFIRMACION ANTES DE SALIR
-         * Y LUEGO SE CIERRA LA PESTAÑA PARA VOLVER AL MENU
-         *
-         * Falta eso aun, luego lo hago
-         * -Gabriel
-         */
         return;
     }
 
@@ -286,23 +260,22 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
         if(!celda.estaRevelada()){
             celda.alternarBandera();
 
-            //vemos el estado en el que quedo despues de alternar bandera
             tLogico->alterarConteoBanderas(celda);
         }
         this->update();
         return;
     }
 
-    //ahora el calculo de las filas y columnas se hace en base a los nuevos margenes de x y
+
     int fila = (pointClick.y() - margenY)/tCelda;
     int columna = (pointClick.x() - margenX)/tCelda;
 
-    //posiblemente esto despues tire errores en los otros tableros
+
     if(fila >= 0 && fila < tLogico->getFilas() && columna >= 0 && columna < tLogico->getColumnas()){
         qDebug() << "Fila: " << fila << " Columna: " << columna;
     }else{
         qDebug() << "Estamos fuera de los limites bro";
-        return; //hacemos un return para que no haga nada en caso de clickear afuera
+        return;
     }
 
     tLogico->revelarCelda(fila, columna);
@@ -320,6 +293,11 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
         }
 
         cronometro->stop();
+        //calculo de medida de tiempoobtenerTiempoPartida()
+        int tiempoPartida = obtenerTiempoPartida();
+        qDebug ()<<"Tiempo de partida: "<<tiempoPartida;
+
+
         this->update();
         QMessageBox::critical(this, "💣 Derrota", "¡Pisaste una mina! Game Over.");
         return;
@@ -329,6 +307,53 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
     if(tLogico->verificarVictoria()){
         juegoTerminado = true;
         cronometro->stop();
+
+        //calculo de medida de tiempoobtenerTiempoPartida()
+        int tiempoPartida = obtenerTiempoPartida();
+        qDebug ()<<"Tiempo de partida: "<<tiempoPartida;
+
+
+        //Evaluacion de casos para subir puntos (tiempo basado en segundos)
+        if(tiempoPartida<60){
+            //mManejo->
+            //se suman 15 puntos
+            //hay verifica modo para multiplicacion
+
+        }else if(tiempoPartida >= 60 && tiempoPartida <300){
+            //se suman 8 puntos
+
+        }else if(tiempoPartida >=300 && tiempoPartida<600){
+            //se suman solamente 4 puntos
+
+
+        }else if(tiempoPartida >=600){
+            //se suman solamente 2 puntos
+
+        }
+
+
+        /*
+         *
+         * puntaje...
+
+
+            <1 min = 15
+
+
+            1>= 5<  = 8
+
+            5> <10 =4
+
+            10>= 2
+         *
+         *
+         *
+         *
+         * */
+
+
+
+
         this->update();
         QMessageBox::information(this, "🏆 Victoria", "¡Ganaste! Despejaste el tablero.");
         return;
@@ -346,4 +371,11 @@ QString tableroVisual::formatTime() const{
     int segundos = tiempoTranscurrido % 60;
 
     return QString("%1:%2").arg(minutos, 2, 10, QChar('0')).arg(segundos, 2, 10, QChar('0'));
+}
+
+
+int tableroVisual::obtenerTiempoPartida() const{
+    int minutos = tiempoTranscurrido;
+
+    return minutos;
 }

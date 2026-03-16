@@ -39,6 +39,8 @@ private:
     int tiempoTranscurrido;//esto nos ayudara a llevar control del tiempo
 
     QString formatTime() const;
+
+    int obtenerTiempoPartida() const;
 };
 
 #endif // TABLEROVISUAL_H
