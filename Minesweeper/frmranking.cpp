@@ -14,13 +14,12 @@ FrmRanking::~FrmRanking()
 }
 
 void FrmRanking::cargarRanking(Dificultad dificultad) {
-    switch (categoria) {
-    case 1:
-
+    switch (dificultad) {
+    case facil:
         break;
-    case 2:
+    case medio:
         break;
-    case 3:
+    case dificil:
         break;
     }
 }
