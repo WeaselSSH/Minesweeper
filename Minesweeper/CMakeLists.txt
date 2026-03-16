@@ -34,6 +34,9 @@ qt_add_executable(Minesweeper
     tableroVisual.cpp
     frmseleccionjuego.h frmseleccionjuego.cpp frmseleccionjuego.ui
     frmseleccionnivel.h frmseleccionnivel.cpp frmseleccionnivel.ui
+    frmperfilusuario.h frmperfilusuario.cpp frmperfilusuario.ui
+    recursos.qrc
+
 
 )
 

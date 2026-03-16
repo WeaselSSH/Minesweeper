@@ -2,7 +2,6 @@
 #define FRMREGISTRO_H
 
 #include "manejousuario.h"
-#include "menuprincipal.h"
 #include <QWidget>
 
 namespace Ui {

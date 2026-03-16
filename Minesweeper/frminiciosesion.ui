@@ -25,6 +25,9 @@
    <property name="echoMode">
     <enum>QLineEdit::EchoMode::Password</enum>
    </property>
+   <property name="placeholderText">
+    <string/>
+   </property>
   </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
@@ -101,6 +104,9 @@
      <width>291</width>
      <height>28</height>
     </rect>
+   </property>
+   <property name="placeholderText">
+    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">

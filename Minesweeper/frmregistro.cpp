@@ -1,7 +1,8 @@
 #include "frmregistro.h"
 #include "ui_frmregistro.h"
-#include "manejousuario.h"
+
 #include "frmmenujuego.h"
+#include "menuprincipal.h"
 
 #include <QString>
 #include <QMessageBox>
@@ -31,18 +32,16 @@ void FrmRegistro::on_btnRegistrarse_clicked()
     QString contrasena = ui->txtContrasena->text();
 
     if (nombre.isEmpty() || contrasena.isEmpty()) {
-        QMessageBox::warning(this, "Registro", "Error: uno de los campos se encuentra vacio.");
+        QMessageBox::warning(this, "Registro", "Error: debe completar todos los campos.");
         return;
     }
 
     bool registroExitoso = mManejo->registrarse(nombre.toStdString(), contrasena.toStdString());
 
     if (!registroExitoso) {
-        QMessageBox::warning(this, "Registro", "Error: nombre de usuario ya existente.");
+        QMessageBox::warning(this, "Registro", "Error: el nombre de usuario ya existe.");
         return;
     }
-
-    mManejo->guardarDatos();
 
     QMessageBox::information(this, "Registro", "Cuenta creada exitosamente.");
 

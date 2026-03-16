@@ -6,7 +6,8 @@ Usuario::Usuario(int id, const string& username, const string& contrasena)
 {}
 
 Usuario::Usuario(int id, const string& username, const string& contrasena, int nivelMaximo, int mejorFacil, int mejorMedio, int mejorDificil)
-    : mId(id), mNombreUsuario(username), mContrasena(contrasena), mNivelMaximo(nivelMaximo), mMejorFacil(mejorFacil), mMejorMedio(mejorMedio), mMejorDificil(mejorDificil)
+    : mId(id), mNombreUsuario(username), mContrasena(contrasena), mNivelMaximo(nivelMaximo),
+    mMejorFacil(mejorFacil), mMejorMedio(mejorMedio), mMejorDificil(mejorDificil)
 {}
 
 //GETTERS

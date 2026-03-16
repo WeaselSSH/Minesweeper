@@ -10,8 +10,10 @@ class ManejoUsuario
 public:
     void cargarDatos();
     void guardarDatos();
-    bool registrarse(const string &nombre, const string &contrasena);
-    bool iniciarSesion(const string &nombre, const string &contrasena);
+    bool registrarse(const std::string &nombre, const std::string &contrasena);
+    bool iniciarSesion(const std::string &nombre, const std::string &contrasena);
+    int getIdxUsuarioActual() const;
+    const std::vector<Usuario> &getListaUsuarios() const;
 private:
     const std::string NOMBRE_ARCHIVO = "listaUsuarios.txt";
     const char DELIMITER = '|';

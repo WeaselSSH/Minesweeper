@@ -32,7 +32,7 @@ void FrmInicioSesion::on_btnIniciarSesion_clicked()
     QString contrasena = ui->txtContrasena->text();
 
     if (nombre.isEmpty() || contrasena.isEmpty()) {
-        QMessageBox::warning(this, "Inicio de Sesion", "Error: uno de los campos se encuentra vacio.");
+        QMessageBox::warning(this, "Inicio de sesion", "Error: debe completar todos los campos.");
         return;
     }
 
