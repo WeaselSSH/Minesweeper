@@ -21,6 +21,8 @@ private slots:
 
     void on_btnJugar_clicked();
 
+    void on_btnVerPerfil_clicked();
+
 private:
     Ui::FrmMenuJuego *ui;
     ManejoUsuario* mManejo;
