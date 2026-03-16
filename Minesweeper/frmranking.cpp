@@ -13,4 +13,14 @@ FrmRanking::~FrmRanking()
     delete ui;
 }
 
-//tengo que ver como arreglar esto
+void FrmRanking::cargarRanking(Dificultad dificultad) {
+    switch (categoria) {
+    case 1:
+
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    }
+}

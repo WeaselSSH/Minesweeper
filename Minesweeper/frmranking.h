@@ -4,6 +4,12 @@
 #include "manejousuario.h"
 #include <QWidget>
 
+enum Dificultad {
+    facil,
+    medio,
+    dificil
+};
+
 namespace Ui {
 class FrmRanking;
 }
@@ -18,7 +24,9 @@ public:
 
 private:
     Ui::FrmRanking *ui;
-    ManejoUsuario mManejo;
+    ManejoUsuario* mManejo;
+
+    void cargarRanking(Dificultad dificultad); //1 = facil, 2 = medio, 3 = dificil
 };
 
 #endif // FRMRANKING_H
