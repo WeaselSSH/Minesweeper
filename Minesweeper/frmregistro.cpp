@@ -11,6 +11,10 @@ FrmRegistro::FrmRegistro(ManejoUsuario *manejoPtr, QWidget *parent)
     : QWidget(parent), ui(new Ui::FrmRegistro), mManejo(manejoPtr)
 {
     ui->setupUi(this);
+    ui->txtContrasena->setEchoMode(QLineEdit::Password);
+
+    mAccionMostrarContrasena = ui->txtContrasena->addAction(QIcon(":/icons/ojo_cerrado.png"),QLineEdit::TrailingPosition);
+    connect(mAccionMostrarContrasena, &QAction::triggered, this, &FrmRegistro::mostrarContrasena);
 }
 
 FrmRegistro::~FrmRegistro()
@@ -51,3 +55,13 @@ void FrmRegistro::on_btnRegistrarse_clicked()
     close();
 }
 
+void FrmRegistro::mostrarContrasena()
+{
+    if (ui->txtContrasena->echoMode() == QLineEdit::Password) {
+        ui->txtContrasena->setEchoMode(QLineEdit::Normal);
+        mAccionMostrarContrasena->setIcon(QIcon(":/icons/ojo_abierto.png"));
+    } else {
+        ui->txtContrasena->setEchoMode(QLineEdit::Password);
+        mAccionMostrarContrasena->setIcon(QIcon(":/icons/ojo_cerrado.png"));
+    }
+}

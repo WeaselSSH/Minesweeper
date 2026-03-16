@@ -5,11 +5,18 @@
 
 #include <QString>
 #include <QMessageBox>
+#include <QAction>
+#include <QLineEdit>
+#include <QIcon>
 
 FrmInicioSesion::FrmInicioSesion(ManejoUsuario* manejoPtr, QWidget *parent)
     : QWidget(parent), ui(new Ui::FrmInicioSesion), mManejo(manejoPtr)
 {
     ui->setupUi(this);
+    ui->txtContrasena->setEchoMode(QLineEdit::Password);
+
+    mAccionMostrarContrasena = ui->txtContrasena->addAction(QIcon(":/icons/ojo_cerrado.png"),QLineEdit::TrailingPosition);
+    connect(mAccionMostrarContrasena, &QAction::triggered, this, &FrmInicioSesion::mostrarContrasena);
 }
 
 FrmInicioSesion::~FrmInicioSesion()
@@ -49,4 +56,15 @@ void FrmInicioSesion::on_btnIniciarSesion_clicked()
     w->setAttribute(Qt::WA_DeleteOnClose, true);
     w->show();
     close();
+}
+
+void FrmInicioSesion::mostrarContrasena()
+{
+    if (ui->txtContrasena->echoMode() == QLineEdit::Password) {
+        ui->txtContrasena->setEchoMode(QLineEdit::Normal);
+        mAccionMostrarContrasena->setIcon(QIcon(":/icons/ojo_abierto.png"));
+    } else {
+        ui->txtContrasena->setEchoMode(QLineEdit::Password);
+        mAccionMostrarContrasena->setIcon(QIcon(":/icons/ojo_cerrado.png"));
+    }
 }

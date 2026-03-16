@@ -3,6 +3,7 @@
 
 #include "manejousuario.h"
 #include <QWidget>
+#include <QAction>
 
 namespace Ui {
 class FrmRegistro;
@@ -19,10 +20,12 @@ public:
 private slots:
     void on_btnSalir_clicked();
     void on_btnRegistrarse_clicked();
+    void mostrarContrasena();
 
 private:
     Ui::FrmRegistro *ui;
     ManejoUsuario* mManejo;
+    QAction* mAccionMostrarContrasena = nullptr;
 };
 
 #endif // FRMREGISTRO_H

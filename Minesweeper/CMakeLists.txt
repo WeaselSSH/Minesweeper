@@ -35,9 +35,13 @@ qt_add_executable(Minesweeper
     frmseleccionjuego.h frmseleccionjuego.cpp frmseleccionjuego.ui
     frmseleccionnivel.h frmseleccionnivel.cpp frmseleccionnivel.ui
     frmperfilusuario.h frmperfilusuario.cpp frmperfilusuario.ui
-    recursos.qrc
+)
 
-
+qt_add_resources(Minesweeper "app_icons"
+    PREFIX "/icons"
+    FILES
+        ojo_abierto.png
+        ojo_cerrado.png
 )
 
 target_link_libraries(Minesweeper

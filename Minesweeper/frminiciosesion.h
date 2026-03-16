@@ -3,6 +3,7 @@
 
 #include "manejousuario.h"
 #include <QWidget>
+#include <QAction>
 
 namespace Ui {
 class FrmInicioSesion;
@@ -18,12 +19,13 @@ public:
 
 private slots:
     void on_btnSalir_clicked();
-
     void on_btnIniciarSesion_clicked();
+    void mostrarContrasena();
 
 private:
     Ui::FrmInicioSesion *ui;
     ManejoUsuario* mManejo;
+    QAction* mAccionMostrarContrasena = nullptr;
 };
 
 #endif // FRMINICIOSESION_H
