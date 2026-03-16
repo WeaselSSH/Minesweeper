@@ -28,6 +28,10 @@ void tableroVisual:: inicializarTLogico(int numFilas, int numColumnas, int numMi
     tLogico = new tableroLogico(numFilas, numColumnas, numMinas);
     tLogico->colocarMinas();
     tLogico->calcularMinasAdyacentes();
+
+    tLogico->setBanderas(numMinas);
+
+
 }
 
 void tableroVisual::colocarMinas(){

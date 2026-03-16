@@ -199,10 +199,10 @@ bool tableroLogico::verificarDerrota(int fila, int columna) {
 void tableroLogico::alterarConteoBanderas(Celda &celdaEvaluar){
     //antes la logica estaba al reves pero ya lo arregle (aaa no puedo poner tildes)
     if(celdaEvaluar.tieneBandera()){
-        numBanderasPuestas++;
-    }else{
         numBanderasPuestas--;
-        if (numBanderasPuestas < 0) numBanderasPuestas = 0; // en caso que quede negativo el contador
+    }else{
+        numBanderasPuestas++;
+        //if (numBanderasPuestas < 0) numBanderasPuestas = 0; // en caso que quede negativo el contador
     }
 }
 
