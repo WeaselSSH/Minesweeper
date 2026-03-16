@@ -27,6 +27,9 @@ void FrmPerfilUsuario::cargarDatos(){
     ui->lblNombreUsuario->setText(QString::fromStdString(usuarioActual.getNombreUsuario()));
     ui->lblId->setText(QString::number(usuarioActual.getId()));
 
+    if (usuarioActual.getNivelMaximo() > 0)
+        ui->lblNivelMaximo->setText(QString::number(usuarioActual.getNivelMaximo()));
+
     if(usuarioActual.getMejorFacil() > 0)
         ui->lblFacil->setText(QString::number(usuarioActual.getMejorFacil()));
 
