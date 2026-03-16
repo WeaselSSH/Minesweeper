@@ -23,6 +23,8 @@ private slots:
 
     void on_btnNivel3_clicked();
 
+    void on_btnRegresar_clicked();
+
 private:
     Ui::FrmSeleccionNivel *ui;
     ManejoUsuario* mManejo;

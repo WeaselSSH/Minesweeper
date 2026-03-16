@@ -1,5 +1,6 @@
 #include "frmseleccionnivel.h"
 #include "ui_frmseleccionnivel.h"
+#include "frmmenujuego.h"
 #include "manejousuario.h"
 #include "tableroVisual.h"
 #include <qboxlayout.h>
@@ -75,5 +76,14 @@ void FrmSeleccionNivel::on_btnNivel3_clicked()
 
     ventana->show();
     this->close(); //se usa this para referenciar a la ventana actual
+}
+
+
+void FrmSeleccionNivel::on_btnRegresar_clicked()
+{
+    auto w = new FrmMenuJuego(mManejo);
+    w->setAttribute(Qt::WA_DeleteOnClose, true);
+    w->show();
+    window()->close();
 }
 
