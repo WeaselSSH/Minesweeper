@@ -304,6 +304,11 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
 
         this->update();
         QMessageBox::critical(this, "💣 Derrota", "¡Pisaste una mina! Game Over.");
+
+        auto w = new FrmSeleccionNivel(mManejo);
+        w->setAttribute(Qt::WA_DeleteOnClose, true);
+        w->show();
+        window()->close();
         return;
     }
 
@@ -355,6 +360,11 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
 
         this->update();
         QMessageBox::information(this, "🏆 Victoria", "¡Ganaste! Despejaste el tablero.");
+
+        auto w = new FrmSeleccionNivel(mManejo);
+        w->setAttribute(Qt::WA_DeleteOnClose, true);
+        w->show();
+        window()->close();
         return;
     }
 
