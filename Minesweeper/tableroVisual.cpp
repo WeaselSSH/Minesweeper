@@ -312,47 +312,42 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
         int tiempoPartida = obtenerTiempoPartida();
         qDebug ()<<"Tiempo de partida: "<<tiempoPartida;
 
-
-        //Evaluacion de casos para subir puntos (tiempo basado en segundos)
-        if(tiempoPartida<60){
-            //mManejo->
-            //se suman 15 puntos
-            //hay verifica modo para multiplicacion
-
-        }else if(tiempoPartida >= 60 && tiempoPartida <300){
-            //se suman 8 puntos
-
-        }else if(tiempoPartida >=300 && tiempoPartida<600){
-            //se suman solamente 4 puntos
+        Usuario usuarioActual = mManejo->getListaUsuarios().at(mManejo->getIdxUsuarioActual());
+        //evaluacion de tiempos
 
 
-        }else if(tiempoPartida >=600){
-            //se suman solamente 2 puntos
+        //evaluacion de tipo de dificultad
+        if(tLogico->getFilas()== 8 && tLogico->getColumnas()==8){
+            //nivel facil
+            if(tiempoTranscurrido > usuarioActual.getMejorFacil()){
+                usuarioActual.setMejorFacil(tiempoTranscurrido);
+            }
 
+            if(usuarioActual.getNivelMaximo()<1){
+                usuarioActual.setNivelMaximo(1);
+            }
+
+
+        }else if(tLogico->getFilas()==16 && tLogico->getColumnas()==16){
+            //trabajamos en nivel intermedio
+            if(tiempoTranscurrido > usuarioActual.getMejorMedio()){
+                usuarioActual.setMejorMedio(tiempoTranscurrido);
+            }
+
+            if(usuarioActual.getNivelMaximo()<2){
+                usuarioActual.setNivelMaximo(2);
+            }
+
+        }else if(tLogico->getFilas()==16 && tLogico->getColumnas()==30){
+            //nivel dificil
+            if(tiempoTranscurrido > usuarioActual.getMejorDificil()){
+                usuarioActual.setMejorDificil(tiempoTranscurrido);
+            }
+
+            if(usuarioActual.getNivelMaximo()<3){
+                usuarioActual.setNivelMaximo(3);
+            }
         }
-
-
-        /*
-         *
-         * puntaje...
-
-
-            <1 min = 15
-
-
-            1>= 5<  = 8
-
-            5> <10 =4
-
-            10>= 2
-         *
-         *
-         *
-         *
-         * */
-
-
-
 
         this->update();
         QMessageBox::information(this, "🏆 Victoria", "¡Ganaste! Despejaste el tablero.");
