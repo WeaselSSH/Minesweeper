@@ -10,10 +10,6 @@
 #include <QString>
 
 tableroVisual::tableroVisual(ManejoUsuario *manejoPtr, QWidget *parent) : QWidget(parent), mManejo(manejoPtr) {
-    // tLogico = new tableroLogico(8, 8, 3);
-    // tLogico->colocarMinas();
-    // tLogico->calcularMinasAdyacentes();
-
     tiempoTranscurrido = 0;
     cronometro = new QTimer(this);
 
@@ -74,15 +70,6 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     int anchoTotalTablero = tCelda*tLogico->getColumnas();
     int altoTotalTablero = tCelda *tLogico->getFilas();
 
-
-    // if(tLogico->getFilas()==16 && tLogico->getColumnas()==30){
-    //     tCelda= ladoTablero / medidaConst;
-    // }
-
-
-    //medidas para centrado extra
-    /*intt margenX = (width() - ladoTablero)/2;
-    int margenY =  altoStats + espaciadoVertical; //altoStats + (height()-ladoTablero)/2 + margenTablero;*/
 
     int margenX = (width() - anchoTotalTablero)/2;
     int margenY =  altoStats + espaciadoVertical +(altoDisponible-altoTotalTablero)/2;
