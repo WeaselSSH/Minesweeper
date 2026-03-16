@@ -35,6 +35,7 @@ qt_add_executable(Minesweeper
     frmseleccionjuego.h frmseleccionjuego.cpp frmseleccionjuego.ui
     frmseleccionnivel.h frmseleccionnivel.cpp frmseleccionnivel.ui
     frmperfilusuario.h frmperfilusuario.cpp frmperfilusuario.ui
+    frmranking.h frmranking.cpp frmranking.ui
 )
 
 qt_add_resources(Minesweeper "app_icons"

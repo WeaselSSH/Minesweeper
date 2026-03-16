@@ -2,7 +2,7 @@
 
 //CONSTRUCTORES
 Usuario::Usuario(int id, const string& username, const string& contrasena)
-    : mId(id), mNombreUsuario(username), mContrasena(contrasena), mMejorFacil(0), mMejorMedio(0), mMejorDificil(0)
+    : mId(id), mNombreUsuario(username), mContrasena(contrasena), mNivelMaximo(0), mMejorFacil(0), mMejorMedio(0), mMejorDificil(0)
 {}
 
 Usuario::Usuario(int id, const string& username, const string& contrasena, int nivelMaximo, int mejorFacil, int mejorMedio, int mejorDificil)

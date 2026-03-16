@@ -106,8 +106,8 @@
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>250</x>
-     <y>160</y>
+     <x>260</x>
+     <y>200</y>
      <width>211</width>
      <height>21</height>
     </rect>
@@ -124,8 +124,8 @@
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>210</y>
+     <x>220</x>
+     <y>250</y>
      <width>101</width>
      <height>20</height>
     </rect>
@@ -142,8 +142,8 @@
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>250</y>
+     <x>220</x>
+     <y>290</y>
      <width>171</width>
      <height>20</height>
     </rect>
@@ -160,8 +160,8 @@
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>290</y>
+     <x>220</x>
+     <y>330</y>
      <width>121</width>
      <height>20</height>
     </rect>
@@ -178,8 +178,8 @@
   <widget class="QLabel" name="lblFacil">
    <property name="geometry">
     <rect>
-     <x>430</x>
-     <y>210</y>
+     <x>440</x>
+     <y>250</y>
      <width>41</width>
      <height>20</height>
     </rect>
@@ -196,8 +196,8 @@
   <widget class="QLabel" name="lblIntermedio">
    <property name="geometry">
     <rect>
-     <x>430</x>
-     <y>250</y>
+     <x>440</x>
+     <y>290</y>
      <width>41</width>
      <height>20</height>
     </rect>
@@ -214,8 +214,8 @@
   <widget class="QLabel" name="lblDificil">
    <property name="geometry">
     <rect>
-     <x>430</x>
-     <y>290</y>
+     <x>440</x>
+     <y>330</y>
      <width>41</width>
      <height>20</height>
     </rect>
@@ -240,6 +240,42 @@
    </property>
    <property name="text">
     <string>Regresar</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>140</y>
+     <width>231</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Nivel maximo alcanzado:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblNivelMaximo">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>140</y>
+     <width>41</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>N/A</string>
    </property>
   </widget>
  </widget>
