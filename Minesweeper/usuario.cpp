@@ -1,21 +1,22 @@
 #include "Usuario.h"
 
 //CONSTRUCTORES
-Usuario::Usuario(int id, const string& username, const string& contrasena)
+Usuario::Usuario(int id, const std::string& username, const std::string& contrasena)
     : mId(id), mNombreUsuario(username), mContrasena(contrasena), mNivelMaximo(0), mMejorFacil(0), mMejorMedio(0), mMejorDificil(0)
 {}
 
-Usuario::Usuario(int id, const string& username, const string& contrasena, int nivelMaximo, int mejorFacil, int mejorMedio, int mejorDificil)
+Usuario::Usuario(int id, const std::string& username, const std::string& contrasena,
+                 int nivelMaximo, int mejorFacil, int mejorMedio, int mejorDificil)
     : mId(id), mNombreUsuario(username), mContrasena(contrasena), mNivelMaximo(nivelMaximo),
     mMejorFacil(mejorFacil), mMejorMedio(mejorMedio), mMejorDificil(mejorDificil)
 {}
 
 //GETTERS
-const string& Usuario::getNombreUsuario() const {
+const std::string& Usuario::getNombreUsuario() const {
     return mNombreUsuario;
 }
 
-const string& Usuario::getContrasena() const {
+const std::string& Usuario::getContrasena() const {
     return mContrasena;
 }
 
@@ -40,11 +41,11 @@ int Usuario::getId() const {
 }
 
 //SETTERS
-void Usuario::setNombreUsuario(const string& username) {
+void Usuario::setNombreUsuario(const std::string& username) {
     mNombreUsuario = username;
 }
 
-void Usuario::setContrasena(const string& pin) {
+void Usuario::setContrasena(const std::string& pin) {
     mContrasena = pin;
 }
 
