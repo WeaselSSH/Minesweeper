@@ -3,6 +3,8 @@
 #include "manejousuario.h"
 #include "menuprincipal.h"
 #include "frmseleccionnivel.h"
+#include "frmmenujuego.h"
+#include "frmmodehistoria.h"
 
 FrmSeleccionJuego::FrmSeleccionJuego(ManejoUsuario *manejoPtr, QWidget *parent)
     : QWidget(parent), ui(new Ui::FrmSeleccionJuego), mManejo(manejoPtr)
@@ -25,7 +27,16 @@ void FrmSeleccionJuego::on_btnPartidaRapida_clicked()
 
 void FrmSeleccionJuego::on_btnRegresar_clicked()
 {
-    auto w = new MenuPrincipal(mManejo);
+    auto w = new FrmMenuJuego(mManejo);
+    w->setAttribute(Qt::WA_DeleteOnClose, true);
+    w->show();
+    close();
+}
+
+
+void FrmSeleccionJuego::on_btnModoHistoria_clicked()
+{
+    auto w = new frmmodehistoria(mManejo);
     w->setAttribute(Qt::WA_DeleteOnClose, true);
     w->show();
     close();

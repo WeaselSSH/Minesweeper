@@ -21,6 +21,8 @@ private slots:
 
     void on_btnRegresar_clicked();
 
+    void on_btnModoHistoria_clicked();
+
 private:
     Ui::FrmSeleccionJuego *ui;
     ManejoUsuario* mManejo;

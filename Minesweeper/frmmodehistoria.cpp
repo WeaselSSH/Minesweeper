@@ -1,23 +1,43 @@
-#include "frmseleccionnivel.h"
-#include "ui_frmseleccionnivel.h"
+#include "frmmodehistoria.h"
+#include "ui_frmmodehistoria.h"
+#include <qboxlayout.h>
 #include "frmmenujuego.h"
 #include "manejousuario.h"
 #include "tableroVisual.h"
 #include "frmseleccionjuego.h"
 #include <qboxlayout.h>
 
-FrmSeleccionNivel::FrmSeleccionNivel(ManejoUsuario* manejoPtr, QWidget *parent)
-    : QWidget(parent), ui(new Ui::FrmSeleccionNivel), mManejo(manejoPtr)
+frmmodehistoria::frmmodehistoria(ManejoUsuario *manejoPtr, QWidget *parent)
+    : QDialog(parent), ui(new Ui::frmmodehistoria), mManejo(manejoPtr)
 {
     ui->setupUi(this);
+
+    //revisar niveles de jugador
+    Usuario usuarioActual = mManejo->getListaUsuarios().at(mManejo->getIdxUsuarioActual());
+    int nivelMaximo = usuarioActual.getNivelMaximo();
+
+    //realizar acciones en base a esas verificaciones
+
+    //el nivel 1 siempre se mantiene desbloqueado
+    ui->btnNivel2->setEnabled(false);
+    ui->btnNivel3->setEnabled(false);
+
+    if(nivelMaximo>=2){
+        ui->btnNivel2->setEnabled(true);
+
+    }
+    if(nivelMaximo>=3){
+        ui->btnNivel3->setEnabled(true);
+    }
+
 }
 
-FrmSeleccionNivel::~FrmSeleccionNivel()
+frmmodehistoria::~frmmodehistoria()
 {
     delete ui;
 }
 
-void FrmSeleccionNivel::on_btnNivel1_clicked()
+void frmmodehistoria::on_btnNivel1_clicked()
 {
     //se crea la ventana en el heap para que perdure despues de terminar la funcion de clickear
     QWidget *ventana = new QWidget();
@@ -38,7 +58,7 @@ void FrmSeleccionNivel::on_btnNivel1_clicked()
 }
 
 
-void FrmSeleccionNivel::on_btnNivel2_clicked()
+void frmmodehistoria::on_btnNivel2_clicked()
 {
     //se crea la ventana en el heap para que perdure despues de terminar la funcion de clickear
     QWidget *ventana = new QWidget();
@@ -59,7 +79,7 @@ void FrmSeleccionNivel::on_btnNivel2_clicked()
 }
 
 
-void FrmSeleccionNivel::on_btnNivel3_clicked()
+void frmmodehistoria::on_btnNivel3_clicked()
 {
     //se crea la ventana en el heap para que perdure despues de terminar la funcion de clickear
     QWidget *ventana = new QWidget();
@@ -80,7 +100,7 @@ void FrmSeleccionNivel::on_btnNivel3_clicked()
 }
 
 
-void FrmSeleccionNivel::on_btnRegresar_clicked()
+void frmmodehistoria::on_btnRegresar_clicked()
 {
     auto w = new FrmSeleccionJuego(mManejo);
     w->setAttribute(Qt::WA_DeleteOnClose, true);
