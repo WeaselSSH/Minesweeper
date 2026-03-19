@@ -3,7 +3,7 @@
 
 #include "manejousuario.h"
 #include "menuprincipal.h"
-#include "frmseleccionnivel.h"
+#include "frmranking.h"
 #include "frmperfilusuario.h"
 #include "frmseleccionjuego.h"
 
@@ -46,3 +46,11 @@ void FrmMenuJuego::on_btnVerPerfil_clicked()
     close();
 }
 
+
+void FrmMenuJuego::on_btnRanking_clicked()
+{
+    auto w = new FrmRanking(mManejo);
+    w->setAttribute(Qt::WA_DeleteOnClose, true);
+    w->show();
+    close();
+}

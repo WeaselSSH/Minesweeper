@@ -31,7 +31,7 @@
     <string>RANKING</string>
    </property>
   </widget>
-  <widget class="QTableWidget" name="tableWidget">
+  <widget class="QTableWidget" name="tblRanking">
    <property name="geometry">
     <rect>
      <x>95</x>
