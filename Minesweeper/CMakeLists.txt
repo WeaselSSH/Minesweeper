@@ -43,6 +43,8 @@ qt_add_resources(Minesweeper "app_icons"
     FILES
         ojo_abierto.png
         ojo_cerrado.png
+        bombSprite.png
+        flagSprite.png
 )
 
 target_link_libraries(Minesweeper

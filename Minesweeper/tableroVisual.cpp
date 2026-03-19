@@ -13,6 +13,13 @@ tableroVisual::tableroVisual(ManejoUsuario *manejoPtr, QWidget *parent) : QWidge
     tiempoTranscurrido = 0;
     cronometro = new QTimer(this);
 
+    //cargado de imagenes
+    pixmapBandera.load(":/icons/flagSprite.png");
+    pixmapMina.load(":/icons/bombSprite.png");
+
+
+
+
     //controla para que, cada vez que pase un segundo, se incremente y actualice
     connect(cronometro, &QTimer::timeout, this, [this](){
         tiempoTranscurrido++;
@@ -114,12 +121,16 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
 
             // ── Contenido ──
             if (!celda.estaRevelada() && celda.tieneBandera()) {
-                painter.setPen(Qt::red);
-                painter.drawText(rect, Qt::AlignCenter, "🚩");  // bandera
+                /*painter.setPen(Qt::red);
+                painter.drawText(rect, Qt::AlignCenter, "🚩"); */ // bandera
+
+                painter.drawPixmap(rect.adjusted(4,4,-4,-4), pixmapBandera);
 
             } else if (celda.estaRevelada() && celda.getTieneMina()) {
-                painter.setPen(Qt::black);
-                painter.drawText(rect, Qt::AlignCenter, "💣");  // mina
+                // painter.setPen(Qt::black);
+                // painter.drawText(rect, Qt::AlignCenter, "💣");  // mina
+
+                painter.drawPixmap(rect.adjusted(2,2,-2,-2), pixmapMina);
 
             } else if (celda.estaRevelada()) {
                 int minas = celda.getMinasAdyacentes();

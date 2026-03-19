@@ -2,5 +2,7 @@
     <qresource prefix="/icons">
         <file alias="ojo_abierto.png">./ojo_abierto.png</file>
         <file alias="ojo_cerrado.png">./ojo_cerrado.png</file>
+	<file alias="flagSprite.png">./flagSprite.png</file>
+	<file alias="bombSprite.png">./bombSprite.png</file>
     </qresource>
 </RCC>
