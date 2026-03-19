@@ -34,8 +34,8 @@ void FrmPerfilUsuario::cargarDatos(){
         ui->lblFacil->setText(QString::number(usuarioActual.getMejorFacil()));
 
     if(usuarioActual.getMejorMedio() > 0)
-        ui->lblFacil->setText(QString::number(usuarioActual.getMejorMedio()));
+        ui->lblIntermedio->setText(QString::number(usuarioActual.getMejorMedio()));
 
     if(usuarioActual.getMejorDificil() > 0)
-        ui->lblFacil->setText(QString::number(usuarioActual.getMejorDificil()));
+        ui->lblDificil->setText(QString::number(usuarioActual.getMejorDificil()));
 }
