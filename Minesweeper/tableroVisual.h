@@ -49,6 +49,9 @@ private:
     QPixmap pixmapMina;
     QFont fuentePersonalizada;
 
+    //cosas para simulacion de radar
+    float anguloRadar=0.0f;
+
 };
 
 #endif // TABLEROVISUAL_H

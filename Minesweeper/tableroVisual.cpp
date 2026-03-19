@@ -9,6 +9,7 @@
 #include <QMessageBox>
 #include <QString>
 #include <QFontDatabase>
+#include <QConicalGradient>
 
 tableroVisual::tableroVisual(ManejoUsuario *manejoPtr, QWidget *parent) : QWidget(parent), mManejo(manejoPtr) {
     tiempoTranscurrido = 0;
@@ -32,6 +33,13 @@ tableroVisual::tableroVisual(ManejoUsuario *manejoPtr, QWidget *parent) : QWidge
     //controla para que, cada vez que pase un segundo, se incremente y actualice
     connect(cronometro, &QTimer::timeout, this, [this](){
         tiempoTranscurrido++;
+
+
+        //cada segundo se va incrementando el angulo
+        anguloRadar+=5.0f;
+        if(anguloRadar>=360.0f) anguloRadar= 0.0f;
+
+
         update();
     });
 
@@ -181,6 +189,41 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
         }
     }
 
+
+    //elementos de radar
+    //se define el centro y el radio en base a dimensiones de pantalla
+    QPointF centro(width()/2.0, altoStats + (height()-altoStats)/2.0);
+    int radioRadar = qMax(anchoTotalTablero, altoTotalTablero)/1.5;
+
+    QConicalGradient radarGrad(centro, -anguloRadar);
+
+    QColor colorHaz("#4AF24A");
+    radarGrad.setColorAt(0.0, colorHaz);
+    radarGrad.setColorAt(0.1, QColor(74,242,74,100));
+    radarGrad.setColorAt(0.5, Qt::transparent);
+
+    //simulacion de pintar luz
+    painter.setCompositionMode(QPainter::CompositionMode_Plus);
+    painter.setBrush(radarGrad);
+    painter.setPen(Qt::NoPen);
+
+    //dibujo del haz
+    painter.drawEllipse(centro, radioRadar, radioRadar);
+
+    //restaurar modo
+    painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+
+
+
+
+
+
+
+
+
+
+
+
     //DESARROLLO DE BOTON PARA ABANDONAR PARTIDA
     /*
      * PARA TODO ELEMENTO QUE QUERRAMOS PINTAR EN PANTALLA, EN UN ESPACIO QUE NO ESTE PEGADO A LOS MARGENES
@@ -230,6 +273,10 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     painter.setFont(font);
     painter.setPen(QColor("#33FF33"));
     painter.drawText(bttSalir, Qt::AlignCenter, "Salir");
+
+
+
+
 
 
 }
