@@ -6,6 +6,7 @@
 
 #include<QWidget>
 #include <QTimer>
+#include <QPixmap>
 
 class tableroVisual: public QWidget{
     Q_OBJECT
@@ -41,6 +42,12 @@ private:
     QString formatTime() const;
 
     int obtenerTiempoPartida() const;
+
+    //cosas para cargar imagenes
+    QPixmap pixmapBandera;
+    QPixmap pixmapMina;
+
+
 };
 
 #endif // TABLEROVISUAL_H
