@@ -45,6 +45,7 @@ qt_add_resources(Minesweeper "app_icons"
         ojo_cerrado.png
         bombSprite.png
         flagSprite.png
+        PressStart2P-Regular.ttf
 )
 
 target_link_libraries(Minesweeper

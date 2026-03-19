@@ -7,6 +7,7 @@
 #include<QWidget>
 #include <QTimer>
 #include <QPixmap>
+#include <QFont>
 
 class tableroVisual: public QWidget{
     Q_OBJECT
@@ -46,7 +47,7 @@ private:
     //cosas para cargar imagenes
     QPixmap pixmapBandera;
     QPixmap pixmapMina;
-
+    QFont fuentePersonalizada;
 
 };
 

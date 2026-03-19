@@ -8,6 +8,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QString>
+#include <QFontDatabase>
 
 tableroVisual::tableroVisual(ManejoUsuario *manejoPtr, QWidget *parent) : QWidget(parent), mManejo(manejoPtr) {
     tiempoTranscurrido = 0;
@@ -17,7 +18,15 @@ tableroVisual::tableroVisual(ManejoUsuario *manejoPtr, QWidget *parent) : QWidge
     pixmapBandera.load(":/icons/flagSprite.png");
     pixmapMina.load(":/icons/bombSprite.png");
 
+    //cargar fuente
+    int id = QFontDatabase::addApplicationFont(":/icons/PressStart2P-Regular.ttf");
+    if(id!=-1){
+        QString nombreFamilia = QFontDatabase::applicationFontFamilies(id).at(0);
+        this->fuentePersonalizada= QFont(nombreFamilia);
 
+    }else{
+        qDebug() <<"NO SE PUDO CARGAR LA FUENTE";
+    }
 
 
     //controla para que, cada vez que pase un segundo, se incremente y actualice
@@ -52,18 +61,29 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
+
+   // QFont fuenteUI= this->fuentePersonalizada;
+   // fuenteUI.setPointSize(18);
+    //fuenteUI.setBold(true);
+
     //----PINTADO DE FONDO---
     //Parte de los stats
     int altoStats = 100;
     int espaciadoVertical =50;
     int margenTablero =20;
 
-    painter.setPen(Qt::NoPen);
-    painter.setBrush(QColor(45, 45, 48));
+
+    QColor colorFondo("#050A05");
+    QColor colorBordes("#33FF33");
+
+
+    //painter.setPen(Qt::NoPen);
+    painter.setBrush(QColor("#0A1A0A"));
+    painter.setPen(QPen(QColor("#33FF33"),2));
     painter.drawRect(0, 0, width(), altoStats);
 
     //fondo atras del tablero
-    painter.setBrush(QColor(30, 30, 30));
+    painter.setBrush(QColor("#050A05"));
     painter.drawRect(0, altoStats, width(), height()-altoStats);
 
     //calculo de espacio disponible despues de la parte de stats
@@ -90,9 +110,10 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
         Qt::darkRed, Qt::cyan, Qt::black, Qt::gray
     };
 
-    QFont fuente = painter.font();
-    fuente.setBold(true);
-    fuente.setPixelSize(tCelda * 0.5);
+    QFont fuente("Courier New",12, QFont::Bold);
+    fuente.setStyleStrategy(QFont::NoAntialias);
+    //fuente.setBold(true);
+    fuente.setPixelSize(tCelda * 0.45);
     painter.setFont(fuente);
 
     for (int fila = 0; fila < tLogico->getFilas(); fila++) {
@@ -105,19 +126,37 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
 
             // ── Color de fondo ──
             if (!celda.estaRevelada()) {
-                if (celda.tieneBandera())
-                    painter.setBrush(QColor(255, 180, 0));   // amarillo = bandera
-                else
-                    painter.setBrush(QColor(118, 150, 86));  // verde = no revelada
+                if (celda.tieneBandera()){
+                    painter.setBrush(QColor("#FFCC00"));
+                    painter.setPen(QPen(QColor("#1A331A"),2));
+                    painter.drawRect(rect);
+
+
+
+
+                // amarillo = bandera
+                }else{
+
+                    painter.setBrush("#0A1A0A");  // verde = no revelada
+                    painter.setPen(QPen(QColor("#1A331A"),2));
+                    painter.drawRect(rect);
+                }
+
             } else if (celda.getTieneMina()) {
-                painter.setBrush(QColor(220, 50, 50));       // rojo = mina
+                painter.setBrush(QColor("#FF3333"));       // rojo = mina
+                painter.setPen(QPen(QColor("#33FF33"),2));
+                painter.drawRect(rect);
             } else {
-                painter.setBrush(QColor(210, 180, 140));     // beige = revelada
+                painter.setBrush(QColor("##152A15"));     // beige = revelada
+                painter.setPen(QPen(QColor("#33FF33"),2));
+                painter.drawRect(rect);
             }
 
             // Borde gris entre celdas
-            painter.setPen(QPen(QColor(80, 80, 80), 1));
-            painter.drawRect(rect);
+            // painter.setPen(QPen(QColor(80, 80, 80), 1));
+            // painter.drawRect(rect);
+
+
 
             // ── Contenido ──
             if (!celda.estaRevelada() && celda.tieneBandera()) {
@@ -156,16 +195,17 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     int bttX = width() - tamanioBttSalir - margenBttSalir;
     int bttY = (altoStats - tamanioBttSalir) / 2;
 
-    painter.setBrush(QColor(200, 50, 50));
-    painter.setPen(QPen(Qt::white, 2));
+    painter.setBrush(QColor("#1A331A"));
+    painter.setPen(QPen(QColor("#33FF33"), 2));
     QRect bttSalir(bttX, bttY, tamanioBttSalir, tamanioBttSalir);
     painter.drawRoundedRect(bttSalir, 5, 5);
 
     //pintamos texto
-    painter.setPen(Qt::white);
-    QFont font = painter.font();
-    font.setBold(true);
-    font.setPointSize(14);
+    painter.setPen(QColor("#33FF33"));
+    QFont font("Courier New", 12, QFont::Bold);
+    font.setStyleStrategy(QFont::NoAntialias);
+    //font.setBold(true);
+    font.setPixelSize(18);
     painter.setFont(font);
 
     int countBanderas = tLogico->getNumBanderasPuestas();
@@ -186,6 +226,9 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     //pide un espacio donde dibujarlo, un rect o contenedor, tipo de alineacion, y el texto
     painter.drawText(rectBandera, Qt::AlignCenter, strCBanderas);
     painter.drawText(rectCronometro, Qt::AlignCenter, strTiempo);
+    font.setPixelSize(15);
+    painter.setFont(font);
+    painter.setPen(QColor("#33FF33"));
     painter.drawText(bttSalir, Qt::AlignCenter, "Salir");
 
 

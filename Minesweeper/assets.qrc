@@ -4,5 +4,6 @@
         <file alias="ojo_cerrado.png">./ojo_cerrado.png</file>
 	<file alias="flagSprite.png">./flagSprite.png</file>
 	<file alias="bombSprite.png">./bombSprite.png</file>
+	<file alias="MiFuente.ttf">./PressStart2P-Regular.ttf</file>
     </qresource>
 </RCC>
