@@ -53,6 +53,9 @@ void frmmodehistoria::on_btnNivel1_clicked()
     miWidget->inicializarTLogico(8,8,10);
     layout->addWidget(miWidget);
 
+    //h representando MODO HISTORIA
+    miWidget->setgameModeV('h');
+
     ventana->show();
     this->close(); //se usa this para referenciar a la ventana actual
 }
@@ -74,6 +77,10 @@ void frmmodehistoria::on_btnNivel2_clicked()
     miWidget->inicializarTLogico(16,16,40);
     layout->addWidget(miWidget);
 
+    //h representando MODO HISTORIA
+    miWidget->setgameModeV('h');
+
+
     ventana->show();
     this->close(); //se usa this para referenciar a la ventana actual
 }
@@ -94,6 +101,11 @@ void frmmodehistoria::on_btnNivel3_clicked()
     miWidget->setMedidaConst(30);
     miWidget->inicializarTLogico(16,30,99);
     layout->addWidget(miWidget);
+
+    //h representando MODO HISTORIA
+    miWidget->setgameModeV('h');
+
+
 
     ventana->show();
     this->close(); //se usa this para referenciar a la ventana actual

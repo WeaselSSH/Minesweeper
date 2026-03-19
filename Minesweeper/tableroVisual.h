@@ -20,6 +20,8 @@ public:
     void colocarMinas();
     void setMedidaConst(int med);
 
+    void setgameModeV(char gameMode);
+
 protected:
     void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
@@ -51,6 +53,9 @@ private:
 
     //cosas para simulacion de radar
     float anguloRadar=0.0f;
+
+    char gameModeV;
+
 
 };
 

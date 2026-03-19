@@ -15,6 +15,7 @@ private:
     int numColumnas;
     int numMinas;
     int numBanderasPuestas; //nueva variable agregada para llevar control de cuantas banderas se han puesto
+    char gameMode;
     vector<vector<Celda>> tablero; //esto es basicamente un array bidimensional pero dinamico
 
 public:
@@ -35,6 +36,9 @@ public:
     int getNumBanderasPuestas() const;
 
     void setBanderas(int num);
+
+    void setgameMode(char gameMode);
+    char getgameMode();
 
 
 };

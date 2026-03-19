@@ -2,6 +2,7 @@
 
 #include "manejousuario.h"
 #include "frmseleccionnivel.h"
+#include "frmmodehistoria.h"
 
 #include <QMouseEvent>
 #include <QPainter>
@@ -307,6 +308,19 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
     QRect bttSalir(bttX, bttY, tamanioBttSalir, tamanioBttSalir);
 
     if(bttSalir.contains(event->pos())){
+
+
+        //salida especial si estamos en modo historia
+        if(tLogico->getgameMode()=='h'){
+            auto w = new frmmodehistoria(mManejo);
+            w->setAttribute(Qt::WA_DeleteOnClose, true);
+            w->show();
+            window()->close();
+            return;
+
+        }
+
+
         auto w = new FrmSeleccionNivel(mManejo);
         w->setAttribute(Qt::WA_DeleteOnClose, true);
         w->show();
@@ -406,6 +420,20 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
         this->update();
         QMessageBox::critical(this, "💣 Derrota", "¡Pisaste una mina! Game Over.");
 
+
+        //salida especial si estamos en modo historia
+        if(tLogico->getgameMode()=='h'){
+            auto w = new frmmodehistoria(mManejo);
+            w->setAttribute(Qt::WA_DeleteOnClose, true);
+            w->show();
+            window()->close();
+            return;
+
+        }
+
+
+
+
         auto w = new FrmSeleccionNivel(mManejo);
         w->setAttribute(Qt::WA_DeleteOnClose, true);
         w->show();
@@ -433,9 +461,15 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
                 usuarioActual.setMejorFacil(tiempoTranscurrido);
             }
 
-            if(usuarioActual.getNivelMaximo()<1){
-                usuarioActual.setNivelMaximo(1);
+
+            //guardamos nivel solamente si es modo historia
+            if(tLogico->getgameMode()=='h'){
+                if(usuarioActual.getNivelMaximo()<1){
+                    usuarioActual.setNivelMaximo(1);
+                }
             }
+
+
 
 
         }else if(tLogico->getFilas()==16 && tLogico->getColumnas()==16){
@@ -444,9 +478,13 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
                 usuarioActual.setMejorMedio(tiempoTranscurrido);
             }
 
-            if(usuarioActual.getNivelMaximo()<2){
-                usuarioActual.setNivelMaximo(2);
+            if(tLogico->getgameMode()=='h'){
+                if(usuarioActual.getNivelMaximo()<2){
+                    usuarioActual.setNivelMaximo(2);
+                }
             }
+
+
 
         }else if(tLogico->getFilas()==16 && tLogico->getColumnas()==30){
             //nivel dificil
@@ -454,13 +492,30 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
                 usuarioActual.setMejorDificil(tiempoTranscurrido);
             }
 
-            if(usuarioActual.getNivelMaximo()<3){
-                usuarioActual.setNivelMaximo(3);
+            if(tLogico->getgameMode()=='h'){
+                if(usuarioActual.getNivelMaximo()<3){
+                    usuarioActual.setNivelMaximo(3);
+                }
             }
+
         }
 
         this->update();
         QMessageBox::information(this, "🏆 Victoria", "¡Ganaste! Despejaste el tablero.");
+
+
+
+        //salida especial si estamos en modo historia
+        if(tLogico->getgameMode()=='h'){
+            auto w = new frmmodehistoria(mManejo);
+            w->setAttribute(Qt::WA_DeleteOnClose, true);
+            w->show();
+            window()->close();
+            return;
+
+        }
+
+
 
         auto w = new FrmSeleccionNivel(mManejo);
         w->setAttribute(Qt::WA_DeleteOnClose, true);
@@ -488,4 +543,9 @@ int tableroVisual::obtenerTiempoPartida() const{
     int minutos = tiempoTranscurrido;
 
     return minutos;
+}
+
+
+void tableroVisual::setgameModeV(char gameMode){
+    tLogico->setgameMode(gameMode);
 }

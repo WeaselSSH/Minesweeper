@@ -213,3 +213,11 @@ int tableroLogico::getNumBanderasPuestas() const{
 void tableroLogico::setBanderas(int num){
     numBanderasPuestas=num;
 }
+
+char tableroLogico::getgameMode(){
+    return gameMode;
+}
+
+void tableroLogico::setgameMode(char gameMode){
+    this->gameMode=gameMode;
+}

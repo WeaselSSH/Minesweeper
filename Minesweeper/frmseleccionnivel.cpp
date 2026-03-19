@@ -33,6 +33,10 @@ void FrmSeleccionNivel::on_btnNivel1_clicked()
     miWidget->inicializarTLogico(8,8,10);
     layout->addWidget(miWidget);
 
+    //r representando PARTIDA RAPIDA
+    miWidget->setgameModeV('r');
+
+
     ventana->show();
     this->close(); //se usa this para referenciar a la ventana actual
 }
@@ -54,6 +58,10 @@ void FrmSeleccionNivel::on_btnNivel2_clicked()
     miWidget->inicializarTLogico(16,16,40);
     layout->addWidget(miWidget);
 
+
+    //r representando PARTIDA RAPIDA
+    miWidget->setgameModeV('r');
+
     ventana->show();
     this->close(); //se usa this para referenciar a la ventana actual
 }
@@ -74,6 +82,9 @@ void FrmSeleccionNivel::on_btnNivel3_clicked()
     miWidget->setMedidaConst(30);
     miWidget->inicializarTLogico(16,30,99);
     layout->addWidget(miWidget);
+
+    //r representando PARTIDA RAPIDA
+    miWidget->setgameModeV('r');
 
     ventana->show();
     this->close(); //se usa this para referenciar a la ventana actual
