@@ -22,8 +22,8 @@ FrmRanking::FrmRanking(ManejoUsuario* manejoPtr, QWidget *parent): QWidget(paren
     // 2. Impedir que el usuario seleccione celdas individuales (selecciona la fila completa)
     ui->tblRanking->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-    // 3. Permitir solo una selección a la vez
-    ui->tblRanking->setSelectionMode(QAbstractItemView::SingleSelection);
+    // 3. no permitir seleccionar nada
+    ui->tblRanking->setSelectionMode(QAbstractItemView::NoSelection);
 
 
 
@@ -37,6 +37,8 @@ FrmRanking::FrmRanking(ManejoUsuario* manejoPtr, QWidget *parent): QWidget(paren
     QPalette palette;
     palette.setBrush(QPalette::Window, fondo);
     this->setPalette(palette);
+
+    ui->rbFacil->setChecked(true);
     cargarRanking();
 }
 
@@ -50,7 +52,19 @@ void FrmRanking::cargarRanking() {
         return;
     }
 
-    vector<Usuario> listaRanking = mManejo->getListaUsuarios();
+    vector<Usuario> listaOriginal = mManejo->getListaUsuarios();
+    vector<Usuario> listaRanking;
+
+
+    for (const Usuario& u : listaOriginal) {
+        if (ui->rbFacil->isChecked() && u.getMejorFacil() > 0) {
+            listaRanking.push_back(u);
+        } else if (ui->rbMedio->isChecked() && u.getMejorMedio() > 0) {
+            listaRanking.push_back(u);
+        } else if (ui->rbDificil->isChecked() && u.getMejorDificil() > 0) {
+            listaRanking.push_back(u);
+        }
+    }
 
     ui->tblRanking->clearContents();
     ui->tblRanking->setRowCount(listaRanking.size());
@@ -74,20 +88,21 @@ void FrmRanking::cargarRanking() {
     }
 
     ui->tblRanking->resizeColumnsToContents();
+    ui->tblRanking->resizeRowsToContents();
 }
 
 void FrmRanking::ordenarListaPorPuntaje(std::vector<Usuario> &listaRanking) {
     if (ui->rbFacil->isChecked()) {
         sort(listaRanking.begin(), listaRanking.end(), [](const Usuario& a, const Usuario& b) {
-            return a.getMejorFacil() > b.getMejorFacil();
+            return a.getMejorFacil() < b.getMejorFacil();
         });
     } else if (ui->rbMedio->isChecked()) {
         sort(listaRanking.begin(), listaRanking.end(), [](const Usuario& a, const Usuario& b) {
-            return a.getMejorMedio() > b.getMejorMedio();
+            return a.getMejorMedio() < b.getMejorMedio();
         });
     } else if (ui->rbDificil->isChecked()) {
         sort(listaRanking.begin(), listaRanking.end(), [](const Usuario& a, const Usuario& b) {
-            return a.getMejorDificil() > b.getMejorDificil();
+            return a.getMejorDificil() < b.getMejorDificil();
         });
     } else {
         return;

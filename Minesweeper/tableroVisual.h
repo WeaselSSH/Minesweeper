@@ -42,6 +42,7 @@ private:
     //agregar espaciado segun dificultad
     QTimer* cronometro;
     int tiempoTranscurrido;//esto nos ayudara a llevar control del tiempo
+    bool partidaIniciada = false;
 
     QString formatTime() const;
 
