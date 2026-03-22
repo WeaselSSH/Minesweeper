@@ -13,12 +13,21 @@
 #include <QConicalGradient>
 
 tableroVisual::tableroVisual(ManejoUsuario *manejoPtr, QWidget *parent) : QWidget(parent), mManejo(manejoPtr) {
+    this->setFixedSize(1000,800);
+    //this->inicializarFondo();
+
+
     tiempoTranscurrido = 0;
     cronometro = new QTimer(this);
 
+
+
+
     //cargado de imagenes
-    pixmapBandera.load(":/icons/flagSprite.png");
-    pixmapMina.load(":/icons/bombSprite.png");
+    pixmapBandera.load(":/icons/floorflagTile.png");
+    pixmapMina.load(":/icons/mineTile.png");
+    pixmapHiddenTile.load(":/icons/hiddenTile.png");
+
 
     //cargar fuente
     int id = QFontDatabase::addApplicationFont(":/icons/PressStart2P-Regular.ttf");
@@ -67,9 +76,14 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     Q_UNUSED(event);
     if (!tLogico) return;
 
+
+
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
+    if(!pixmapFondo.isNull()){
+        painter.drawPixmap(0,100,1000,700, pixmapFondo);
+    }
 
    // QFont fuenteUI= this->fuentePersonalizada;
    // fuenteUI.setPointSize(18);
@@ -82,6 +96,11 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     int margenTablero =20;
 
 
+
+
+
+
+
     QColor colorFondo("#050A05");
     QColor colorBordes("#33FF33");
 
@@ -91,9 +110,12 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     painter.setPen(QPen(QColor("#33FF33"),2));
     painter.drawRect(0, 0, width(), altoStats);
 
-    //fondo atras del tablero
-    painter.setBrush(QColor("#050A05"));
-    painter.drawRect(0, altoStats, width(), height()-altoStats);
+    // //fondo atras del tablero
+    // painter.setBrush(QColor("#050A05"));
+    // painter.drawRect(0, altoStats, width(), height()-altoStats);
+
+
+
 
     //calculo de espacio disponible despues de la parte de stats
     int anchoDisponible = width() - (margenTablero * 2);
@@ -135,30 +157,38 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
 
             // ── Color de fondo ──
             if (!celda.estaRevelada()) {
+
                 if (celda.tieneBandera()){
-                    painter.setBrush(QColor("#FFCC00"));
-                    painter.setPen(QPen(QColor("#1A331A"),2));
-                    painter.drawRect(rect);
+
+
+
+
+                    // painter.setBrush(QColor("#FFCC00"));
+                    // painter.setPen(QPen(QColor("#1A331A"),2));
+                    // painter.drawRect(rect);
+
 
 
 
 
                 // amarillo = bandera
                 }else{
-
+                    painter.drawPixmap(rect, pixmapHiddenTile);
+                    /*
                     painter.setBrush("#0A1A0A");  // verde = no revelada
                     painter.setPen(QPen(QColor("#1A331A"),2));
                     painter.drawRect(rect);
+*/
                 }
 
             } else if (celda.getTieneMina()) {
-                painter.setBrush(QColor("#FF3333"));       // rojo = mina
-                painter.setPen(QPen(QColor("#33FF33"),2));
-                painter.drawRect(rect);
+                // painter.setBrush(QColor("#FF3333"));       // rojo = mina
+                // painter.setPen(QPen(QColor("#33FF33"),2));
+                // painter.drawRect(rect);
             } else {
-                painter.setBrush(QColor("##152A15"));     // beige = revelada
-                painter.setPen(QPen(QColor("#33FF33"),2));
-                painter.drawRect(rect);
+                // painter.setBrush(QColor("##152A15"));     // beige = revelada
+                // painter.setPen(QPen(QColor("#33FF33"),2));
+                // painter.drawRect(rect);
             }
 
             // Borde gris entre celdas
@@ -172,13 +202,14 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
                 /*painter.setPen(Qt::red);
                 painter.drawText(rect, Qt::AlignCenter, "🚩"); */ // bandera
 
-                painter.drawPixmap(rect.adjusted(4,4,-4,-4), pixmapBandera);
+                //rect.adjusted(4,4,-4,-4)
+                painter.drawPixmap(rect, pixmapBandera);
 
             } else if (celda.estaRevelada() && celda.getTieneMina()) {
                 // painter.setPen(Qt::black);
                 // painter.drawText(rect, Qt::AlignCenter, "💣");  // mina
 
-                painter.drawPixmap(rect.adjusted(2,2,-2,-2), pixmapMina);
+                painter.drawPixmap(rect, pixmapMina);
 
             } else if (celda.estaRevelada()) {
                 int minas = celda.getMinasAdyacentes();
@@ -190,7 +221,7 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
         }
     }
 
-
+    /*
     //elementos de radar
     //se define el centro y el radio en base a dimensiones de pantalla
     QPointF centro(width()/2.0, altoStats + (height()-altoStats)/2.0);
@@ -198,7 +229,7 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
 
     QConicalGradient radarGrad(centro, -anguloRadar);
 
-    QColor colorHaz("#4AF24A");
+    QColor colorHaz("#34a934");
     radarGrad.setColorAt(0.0, colorHaz);
     radarGrad.setColorAt(0.1, QColor(74,242,74,100));
     radarGrad.setColorAt(0.5, Qt::transparent);
@@ -214,7 +245,7 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     //restaurar modo
     painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
 
-
+*/
 
 
 
@@ -450,56 +481,37 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
         int tiempoPartida = obtenerTiempoPartida();
         qDebug ()<<"Tiempo de partida: "<<tiempoPartida;
 
-        Usuario usuarioActual = mManejo->getListaUsuarios().at(mManejo->getIdxUsuarioActual());
-        //evaluacion de tiempos
+        Usuario& usuarioActual = mManejo->getUsuarioActual();
 
-
-        //evaluacion de tipo de dificultad
-        if(tLogico->getFilas()== 8 && tLogico->getColumnas()==8){
-            //nivel facil
-            if(tiempoTranscurrido > usuarioActual.getMejorFacil()){
-                usuarioActual.setMejorFacil(tiempoTranscurrido);
+        if (tLogico->getFilas() == 8 && tLogico->getColumnas() == 8) {
+            if (usuarioActual.getMejorFacil() == 0 || tiempoPartida < usuarioActual.getMejorFacil()) {
+                usuarioActual.setMejorFacil(tiempoPartida);
             }
 
-
-            //guardamos nivel solamente si es modo historia
-            if(tLogico->getgameMode()=='h'){
-                if(usuarioActual.getNivelMaximo()<1){
-                    usuarioActual.setNivelMaximo(1);
-                }
+            if (tLogico->getgameMode() == 'h' && usuarioActual.getNivelMaximo() < 1) {
+                usuarioActual.setNivelMaximo(1);
             }
 
-
-
-
-        }else if(tLogico->getFilas()==16 && tLogico->getColumnas()==16){
-            //trabajamos en nivel intermedio
-            if(tiempoTranscurrido > usuarioActual.getMejorMedio()){
-                usuarioActual.setMejorMedio(tiempoTranscurrido);
+        } else if (tLogico->getFilas() == 16 && tLogico->getColumnas() == 16) {
+            if (usuarioActual.getMejorMedio() == 0 || tiempoPartida < usuarioActual.getMejorMedio()) {
+                usuarioActual.setMejorMedio(tiempoPartida);
             }
 
-            if(tLogico->getgameMode()=='h'){
-                if(usuarioActual.getNivelMaximo()<2){
-                    usuarioActual.setNivelMaximo(2);
-                }
+            if (tLogico->getgameMode() == 'h' && usuarioActual.getNivelMaximo() < 2) {
+                usuarioActual.setNivelMaximo(2);
             }
 
-
-
-        }else if(tLogico->getFilas()==16 && tLogico->getColumnas()==30){
-            //nivel dificil
-            if(tiempoTranscurrido > usuarioActual.getMejorDificil()){
-                usuarioActual.setMejorDificil(tiempoTranscurrido);
+        } else if (tLogico->getFilas() == 16 && tLogico->getColumnas() == 30) {
+            if (usuarioActual.getMejorDificil() == 0 || tiempoPartida < usuarioActual.getMejorDificil()) {
+                usuarioActual.setMejorDificil(tiempoPartida);
             }
 
-            if(tLogico->getgameMode()=='h'){
-                if(usuarioActual.getNivelMaximo()<3){
-                    usuarioActual.setNivelMaximo(3);
-                }
+            if (tLogico->getgameMode() == 'h' && usuarioActual.getNivelMaximo() < 3) {
+                usuarioActual.setNivelMaximo(3);
             }
-
         }
 
+        mManejo->guardarDatos();
         this->update();
         QMessageBox::information(this, "🏆 Victoria", "¡Ganaste! Despejaste el tablero.");
 
@@ -527,6 +539,8 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
     this->update();
 }
 
+
+
 void tableroVisual::setMedidaConst(int med){
     medidaConst = med;
 }
@@ -548,4 +562,18 @@ int tableroVisual::obtenerTiempoPartida() const{
 
 void tableroVisual::setgameModeV(char gameMode){
     tLogico->setgameMode(gameMode);
+}
+
+void tableroVisual::inicializarFondo(){
+    int minas = tLogico->getNumMinas();
+
+    if(minas==40){
+        pixmapFondo.load(":/icons/mediumMap.png");
+    }else if(minas==99){
+        pixmapFondo.load(":/icons/hardMap.png");
+    }else{
+        //cargado de mapa
+        pixmapFondo.load(":/icons/easyMap.png");
+    }
+
 }

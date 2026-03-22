@@ -48,6 +48,12 @@ qt_add_resources(Minesweeper "app_icons"
         bombSprite.png
         flagSprite.png
         PressStart2P-Regular.ttf
+        hiddenTile.png
+        mineTile.png
+        floorflagTile.png
+        easyMap.png
+        mediumMap.png
+        hardMap.png
 )
 
 target_link_libraries(Minesweeper

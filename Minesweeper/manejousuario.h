@@ -14,6 +14,10 @@ public:
     bool iniciarSesion(const std::string &nombre, const std::string &contrasena);
     int getIdxUsuarioActual() const;
     const std::vector<Usuario> &getListaUsuarios() const;
+
+    Usuario& getUsuarioActual();
+
+
 private:
     const std::string NOMBRE_ARCHIVO = "listaUsuarios.txt";
     const char DELIMITER = '|';

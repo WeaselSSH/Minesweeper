@@ -5,5 +5,11 @@
 	<file alias="flagSprite.png">./flagSprite.png</file>
 	<file alias="bombSprite.png">./bombSprite.png</file>
 	<file alias="MiFuente.ttf">./PressStart2P-Regular.ttf</file>
+	<file alias= "hiddenTile.png">./hiddenTile.png</file>
+	<file alias= "mineTile.png">./mineTile.png</file>
+	<file alias= "floorflagTile.png">./floorflagTile.png</file>
+	<file alias= "easyMap.png">./easyMap.png</file>
+	<file alias= "mediumMap.png">./mediumMap.png</file>
+	<file alias= "hardMap.png">.file/hardMap.png</file>
     </qresource>
 </RCC>

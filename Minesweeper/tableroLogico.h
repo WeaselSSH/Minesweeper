@@ -39,6 +39,7 @@ public:
 
     void setgameMode(char gameMode);
     char getgameMode();
+    int getNumMinas();
 
 
 };

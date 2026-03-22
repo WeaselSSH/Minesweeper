@@ -113,3 +113,7 @@ int ManejoUsuario::getIdxUsuarioActual() const{
 const vector<Usuario>& ManejoUsuario::getListaUsuarios() const {
     return listaUsuarios;
 }
+
+Usuario& ManejoUsuario::getUsuarioActual() {
+    return listaUsuarios.at(idxUsuarioActual);
+}

@@ -21,6 +21,7 @@ public:
     void setMedidaConst(int med);
 
     void setgameModeV(char gameMode);
+    void inicializarFondo();
 
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -49,12 +50,19 @@ private:
     //cosas para cargar imagenes
     QPixmap pixmapBandera;
     QPixmap pixmapMina;
+    QPixmap pixmapHiddenTile;
     QFont fuentePersonalizada;
+
+    //cosas para fondos
+    QPixmap pixmapFondo;
+
 
     //cosas para simulacion de radar
     float anguloRadar=0.0f;
 
     char gameModeV;
+
+
 
 
 };

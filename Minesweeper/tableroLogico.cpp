@@ -221,3 +221,7 @@ char tableroLogico::getgameMode(){
 void tableroLogico::setgameMode(char gameMode){
     this->gameMode=gameMode;
 }
+
+int tableroLogico::getNumMinas(){
+    return numMinas;
+}
