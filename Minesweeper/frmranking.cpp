@@ -15,6 +15,19 @@ FrmRanking::FrmRanking(ManejoUsuario* manejoPtr, QWidget *parent): QWidget(paren
     ui->tblRanking->setColumnCount(3);
     ui->tblRanking->setHorizontalHeaderLabels({"ID", "NOMBRE", "PUNTUACION"});
     this->setFixedSize(1000,800);
+
+    //INTENTO DE SOLUCIONAR EDICION DE TABLA
+    ui->tblRanking->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+    // 2. Impedir que el usuario seleccione celdas individuales (selecciona la fila completa)
+    ui->tblRanking->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    // 3. Permitir solo una selección a la vez
+    ui->tblRanking->setSelectionMode(QAbstractItemView::SingleSelection);
+
+
+
+
     QPixmap fondo(":/icons/rankingFondo.png");
 
     // 2. Escalarla al tamaño actual de la ventana

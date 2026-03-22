@@ -37,6 +37,8 @@ qt_add_executable(Minesweeper
     frmperfilusuario.h frmperfilusuario.cpp frmperfilusuario.ui
     frmranking.h frmranking.cpp frmranking.ui
     frmmodehistoria.h frmmodehistoria.cpp frmmodehistoria.ui
+    frmayuda.h frmayuda.cpp frmayuda.ui
+    frmcreditos.h frmcreditos.cpp frmcreditos.ui
 
 )
 
