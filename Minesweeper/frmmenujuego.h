@@ -25,6 +25,8 @@ private slots:
 
     void on_btnRanking_clicked();
 
+    void on_pushButton_2_clicked();
+
 private:
     Ui::FrmMenuJuego *ui;
     ManejoUsuario* mManejo;

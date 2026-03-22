@@ -6,6 +6,7 @@
 #include "frmranking.h"
 #include "frmperfilusuario.h"
 #include "frmseleccionjuego.h"
+#include "frmcreditos.h"
 
 #include <QVBoxLayout>
 
@@ -68,3 +69,12 @@ void FrmMenuJuego::on_btnRanking_clicked()
     w->show();
     close();
 }
+
+void FrmMenuJuego::on_pushButton_2_clicked()
+{
+    auto w = new frmcreditos(mManejo);
+    w->setAttribute(Qt::WA_DeleteOnClose, true);
+    w->show();
+    close();
+}
+

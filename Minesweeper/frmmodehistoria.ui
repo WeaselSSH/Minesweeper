@@ -68,6 +68,14 @@ QLabel {
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+    color: rgba(0, 40, 0, 180);               
+    font-family: 'Segoe UI';  
+    font-style: Bold;                
+    background: transparent;        
+}</string>
+   </property>
    <property name="text">
     <string>SELECTOR DE NIVEL</string>
    </property>
