@@ -91,7 +91,7 @@ QPushButton:pressed {
     <property name="font">
      <font>
       <family>Press Start 2P</family>
-      <pointsize>14</pointsize>
+      <pointsize>10</pointsize>
       <bold>true</bold>
      </font>
     </property>
