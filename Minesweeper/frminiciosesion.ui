@@ -37,13 +37,20 @@ QPushButton:hover {
 QPushButton:pressed {
     background-color: #00FF00;
     color: #050A05;                     
+}
+
+QLabel {
+    color: #00FF00;               
+    font-family: 'Segoe UI';  
+    font-style: Bold;                
+    background: transparent;        
 }</string>
   </property>
   <widget class="QLineEdit" name="txtContrasena">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>140</y>
+     <x>360</x>
+     <y>310</y>
      <width>371</width>
      <height>28</height>
     </rect>
@@ -58,15 +65,17 @@ QPushButton:pressed {
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>90</y>
-     <width>191</width>
-     <height>20</height>
+     <x>230</x>
+     <y>250</y>
+     <width>281</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -76,8 +85,8 @@ QPushButton:pressed {
   <widget class="QPushButton" name="btnIniciarSesion">
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>200</y>
+     <x>360</x>
+     <y>370</y>
      <width>261</width>
      <height>71</height>
     </rect>
@@ -85,7 +94,8 @@ QPushButton:pressed {
    <property name="font">
     <font>
      <family>Press Start 2P</family>
-     <pointsize>14</pointsize>
+     <pointsize>12</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -95,29 +105,40 @@ QPushButton:pressed {
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>250</x>
-     <y>10</y>
-     <width>251</width>
+     <x>310</x>
+     <y>190</y>
+     <width>371</width>
      <height>51</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>18</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>24</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
-    <string>INICIO DE SESION</string>
+    <string>INICIO DE SESIÓN</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
   </widget>
   <widget class="QPushButton" name="btnSalir">
    <property name="geometry">
     <rect>
-     <x>610</x>
-     <y>330</y>
-     <width>131</width>
-     <height>41</height>
+     <x>410</x>
+     <y>460</y>
+     <width>151</width>
+     <height>51</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Press Start 2P</family>
+     <bold>true</bold>
+    </font>
    </property>
    <property name="text">
     <string>Regresar</string>
@@ -126,8 +147,8 @@ QPushButton:pressed {
   <widget class="QLineEdit" name="txtUsuario">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>90</y>
+     <x>470</x>
+     <y>260</y>
      <width>291</width>
      <height>28</height>
     </rect>
@@ -139,19 +160,21 @@ QPushButton:pressed {
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>140</y>
-     <width>111</width>
-     <height>20</height>
+     <x>210</x>
+     <y>300</y>
+     <width>191</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
-    <string>Contrasena: </string>
+    <string>Contraseña: </string>
    </property>
   </widget>
   <zorder>btnIniciarSesion</zorder>

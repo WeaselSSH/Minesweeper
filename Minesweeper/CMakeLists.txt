@@ -61,6 +61,7 @@ qt_add_resources(Minesweeper "app_icons"
         menu2Fondo.png
         rankingFondo.png
         profileFondo.png
+        accesoFondo.png
 )
 
 target_link_libraries(Minesweeper

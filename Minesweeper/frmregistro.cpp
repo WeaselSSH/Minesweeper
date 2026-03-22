@@ -11,6 +11,18 @@ FrmRegistro::FrmRegistro(ManejoUsuario *manejoPtr, QWidget *parent)
     : QWidget(parent), ui(new Ui::FrmRegistro), mManejo(manejoPtr)
 {
     ui->setupUi(this);
+
+    QPixmap fondo(":/icons/accesoFondo.png");
+
+    // 2. Escalarla al tamaño actual de la ventana
+    fondo = fondo.scaled(this->size(), Qt::IgnoreAspectRatio);
+
+    // 3. Crear una paleta y asignarla
+    QPalette palette;
+    palette.setBrush(QPalette::Window, fondo);
+    this->setPalette(palette);
+
+
     ui->txtContrasena->setEchoMode(QLineEdit::Password);
     this->setFixedSize(1000,800);
     mAccionMostrarContrasena = ui->txtContrasena->addAction(QIcon(":/icons/ojo_cerrado.png"),QLineEdit::TrailingPosition);

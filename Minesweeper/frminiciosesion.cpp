@@ -14,6 +14,18 @@ FrmInicioSesion::FrmInicioSesion(ManejoUsuario* manejoPtr, QWidget *parent)
 {
     ui->setupUi(this);
     this->setFixedSize(1000,800);
+
+    QPixmap fondo(":/icons/accesoFondo.png");
+
+    // 2. Escalarla al tamaño actual de la ventana
+    fondo = fondo.scaled(this->size(), Qt::IgnoreAspectRatio);
+
+    // 3. Crear una paleta y asignarla
+    QPalette palette;
+    palette.setBrush(QPalette::Window, fondo);
+    this->setPalette(palette);
+
+
     ui->txtContrasena->setEchoMode(QLineEdit::Password);
 
     mAccionMostrarContrasena = ui->txtContrasena->addAction(QIcon(":/icons/ojo_cerrado.png"),QLineEdit::TrailingPosition);

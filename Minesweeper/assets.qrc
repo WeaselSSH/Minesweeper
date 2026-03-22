@@ -18,5 +18,6 @@
 	<file alias= "rankingFondo.png">./rankingFondo.png</file>
 	<file alias= "menu2Fondo.png">./menu2Fondo.png</file>
 	<file alias= "profileFondo.png">./profileFondo.png</file>
+	<file alias= "accesoFondo.png">./accesoFondo.png</file>
     </qresource>
 </RCC>

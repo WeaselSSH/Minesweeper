@@ -37,38 +37,52 @@ QPushButton:hover {
 QPushButton:pressed {
     background-color: #00FF00;
     color: #050A05;                     
+}
+
+QLabel {
+    color: rgba(0, 40, 0, 180);               
+    font-family: 'Segoe UI';  
+    font-style: Bold;                
+    background: transparent;        
 }</string>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>310</x>
-     <y>10</y>
-     <width>91</width>
+     <x>250</x>
+     <y>250</y>
+     <width>181</width>
      <height>51</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>18</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>24</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
     <string>PERFIL</string>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
   </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>80</y>
-     <width>191</width>
-     <height>20</height>
+     <x>40</x>
+     <y>320</y>
+     <width>271</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -78,15 +92,17 @@ QPushButton:pressed {
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>500</x>
-     <y>80</y>
+     <x>40</x>
+     <y>360</y>
      <width>41</width>
-     <height>20</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -96,15 +112,17 @@ QPushButton:pressed {
   <widget class="QLabel" name="lblNombreUsuario">
    <property name="geometry">
     <rect>
-     <x>250</x>
-     <y>80</y>
-     <width>211</width>
-     <height>20</height>
+     <x>300</x>
+     <y>320</y>
+     <width>231</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -114,15 +132,17 @@ QPushButton:pressed {
   <widget class="QLabel" name="lblId">
    <property name="geometry">
     <rect>
-     <x>540</x>
-     <y>80</y>
-     <width>111</width>
-     <height>20</height>
+     <x>80</x>
+     <y>360</y>
+     <width>201</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -132,15 +152,17 @@ QPushButton:pressed {
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>200</y>
-     <width>211</width>
-     <height>21</height>
+     <x>190</x>
+     <y>450</y>
+     <width>311</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -150,15 +172,17 @@ QPushButton:pressed {
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>250</y>
-     <width>101</width>
-     <height>20</height>
+     <x>180</x>
+     <y>500</y>
+     <width>181</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -168,15 +192,17 @@ QPushButton:pressed {
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>290</y>
-     <width>171</width>
-     <height>20</height>
+     <x>180</x>
+     <y>540</y>
+     <width>241</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -186,15 +212,17 @@ QPushButton:pressed {
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>330</y>
-     <width>121</width>
-     <height>20</height>
+     <x>180</x>
+     <y>590</y>
+     <width>201</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -205,14 +233,16 @@ QPushButton:pressed {
    <property name="geometry">
     <rect>
      <x>440</x>
-     <y>250</y>
-     <width>41</width>
-     <height>20</height>
+     <y>500</y>
+     <width>61</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -223,14 +253,16 @@ QPushButton:pressed {
    <property name="geometry">
     <rect>
      <x>440</x>
-     <y>290</y>
-     <width>41</width>
-     <height>20</height>
+     <y>550</y>
+     <width>71</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -241,14 +273,16 @@ QPushButton:pressed {
    <property name="geometry">
     <rect>
      <x>440</x>
-     <y>330</y>
-     <width>41</width>
-     <height>20</height>
+     <y>590</y>
+     <width>61</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -258,11 +292,17 @@ QPushButton:pressed {
   <widget class="QPushButton" name="btnSalir">
    <property name="geometry">
     <rect>
-     <x>590</x>
-     <y>420</y>
+     <x>270</x>
+     <y>660</y>
      <width>141</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Press Start 2P</family>
+     <bold>true</bold>
+    </font>
    </property>
    <property name="text">
     <string>Regresar</string>
@@ -271,15 +311,17 @@ QPushButton:pressed {
   <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>140</y>
-     <width>231</width>
-     <height>20</height>
+     <x>40</x>
+     <y>400</y>
+     <width>331</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -289,15 +331,17 @@ QPushButton:pressed {
   <widget class="QLabel" name="lblNivelMaximo">
    <property name="geometry">
     <rect>
-     <x>450</x>
-     <y>140</y>
-     <width>41</width>
-     <height>20</height>
+     <x>370</x>
+     <y>400</y>
+     <width>71</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">

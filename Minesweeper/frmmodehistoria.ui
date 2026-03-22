@@ -37,21 +37,28 @@ QPushButton:hover {
 QPushButton:pressed {
     background-color: #00FF00;
     color: #050A05;                     
+}
+
+QLabel {
+    color: rgba(0, 40, 0, 180);               
+    font-family: 'Segoe UI';  
+    font-style: Bold;                
+    background: transparent;        
 }</string>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>30</y>
-     <width>321</width>
+     <x>160</x>
+     <y>130</y>
+     <width>421</width>
      <height>51</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Courier New</family>
-     <pointsize>18</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>24</pointsize>
      <bold>true</bold>
     </font>
    </property>
@@ -65,9 +72,9 @@ QPushButton:pressed {
   <widget class="QPushButton" name="btnNivel3">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>260</y>
-     <width>261</width>
+     <x>190</x>
+     <y>380</y>
+     <width>351</width>
      <height>71</height>
     </rect>
    </property>
@@ -85,9 +92,9 @@ QPushButton:pressed {
   <widget class="QPushButton" name="btnNivel2">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>180</y>
-     <width>261</width>
+     <x>190</x>
+     <y>290</y>
+     <width>351</width>
      <height>71</height>
     </rect>
    </property>
@@ -105,9 +112,9 @@ QPushButton:pressed {
   <widget class="QPushButton" name="btnNivel1">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>100</y>
-     <width>261</width>
+     <x>190</x>
+     <y>200</y>
+     <width>351</width>
      <height>71</height>
     </rect>
    </property>
@@ -125,10 +132,10 @@ QPushButton:pressed {
   <widget class="QPushButton" name="btnRegresar">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>400</y>
-     <width>141</width>
-     <height>41</height>
+     <x>270</x>
+     <y>480</y>
+     <width>201</width>
+     <height>61</height>
     </rect>
    </property>
    <property name="font">
