@@ -56,7 +56,7 @@ void frmmodehistoria::on_btnNivel1_clicked()
     QWidget *ventana = new QWidget();
     ventana->setAttribute(Qt::WA_DeleteOnClose); //para que se libere memoria al cerrarla
     ventana->setWindowTitle("Tablero Juego");
-    ventana->resize(1000,800);
+    ventana->setFixedSize(1000,800);
 
 
     //organizando widget
@@ -82,7 +82,7 @@ void frmmodehistoria::on_btnNivel2_clicked()
     QWidget *ventana = new QWidget();
     ventana->setAttribute(Qt::WA_DeleteOnClose); //para que se libere memoria al cerrarla
     ventana->setWindowTitle("Tablero Juego");
-    ventana->resize(1000,800);
+    ventana->setFixedSize(1000,800);
 
 
     //organizando widget
@@ -109,7 +109,7 @@ void frmmodehistoria::on_btnNivel3_clicked()
     QWidget *ventana = new QWidget();
     ventana->setAttribute(Qt::WA_DeleteOnClose); //para que se libere memoria al cerrarla
     ventana->setWindowTitle("Tablero Juego");
-    ventana->resize(1000,800);
+    ventana->setFixedSize(1000,800);
 
 
     //organizando widget
