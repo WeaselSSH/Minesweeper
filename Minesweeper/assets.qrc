@@ -20,5 +20,6 @@
 	<file alias= "profileFondo.png">./profileFondo.png</file>
 	<file alias= "accesoFondo.png">./accesoFondo.png</file>
 	<file alias= "creditosFondo.png">./creditosFondo.png</file>
+	<file alias= "manual_usuario.pdf">./manual_usuario.pdf</file>
     </qresource>
 </RCC>

@@ -8,6 +8,14 @@
 #include "frmseleccionjuego.h"
 #include "frmcreditos.h"
 
+
+//cositas para abrir panel de guardar archivo de ayuda
+#include <QFileDialog>
+#include <QFile>
+#include <QMessageBox>
+#include <QStandardPaths>
+
+
 #include <QVBoxLayout>
 
 
@@ -76,5 +84,36 @@ void FrmMenuJuego::on_pushButton_2_clicked()
     w->setAttribute(Qt::WA_DeleteOnClose, true);
     w->show();
     close();
+}
+
+//configuracion para que el boton de ayuda pueda descargar un archivo
+void FrmMenuJuego::on_pushButton_clicked()
+{
+    QString rutaRecurso= ":/icons/manual_usuario.pdf";
+    QString rutaSugerida = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)+ "/manual_usuario.pdf";
+
+    QString rutaDestino =  QFileDialog::getSaveFileName(this,
+                                                       "Guardar Manual de Usuario",
+                                                       rutaSugerida,
+                                                       "Archivos PDF (*.pdf)");
+
+    //caso que el usuario haya cancelado
+    if(!rutaDestino.isEmpty()){
+
+        if(QFile::exists(rutaDestino)){
+            QFile::remove(rutaDestino);
+        }
+
+        if(QFile::copy(rutaRecurso, rutaDestino)){
+            QFile::setPermissions(rutaDestino, QFile::WriteOwner | QFile::ReadOwner);
+
+            QMessageBox::information(this, "Mision Completada",
+                                     "El manual ha sido guardado a tu equipo con éxito.");
+        }else{
+            QMessageBox::critical(this, "Error de Sistema", "No se pudo copiar el archivo. Verifique los permisos.");
+        }
+
+    }
+
 }
 
