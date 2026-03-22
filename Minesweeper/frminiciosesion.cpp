@@ -13,6 +13,7 @@ FrmInicioSesion::FrmInicioSesion(ManejoUsuario* manejoPtr, QWidget *parent)
     : QWidget(parent), ui(new Ui::FrmInicioSesion), mManejo(manejoPtr)
 {
     ui->setupUi(this);
+    this->setFixedSize(1000,800);
     ui->txtContrasena->setEchoMode(QLineEdit::Password);
 
     mAccionMostrarContrasena = ui->txtContrasena->addAction(QIcon(":/icons/ojo_cerrado.png"),QLineEdit::TrailingPosition);

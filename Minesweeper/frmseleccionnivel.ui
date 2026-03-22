@@ -6,24 +6,52 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>469</width>
-    <height>412</height>
+    <width>1000</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton {
+    background-color: rgba(0, 40, 0, 180);
+    border: 2px solid #00FF00;             
+    color: #00FF00;                       
+    font-family: 'Press Start 2P';
+	font-style:Bold;         
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+
+QPushButton:hover {
+    background-color: #004400;
+    border-color: #55FF55;                
+    color: #55FF55;
+  
+    box-shadow: 0 0 10px #00FF00; 
+}
+
+
+QPushButton:pressed {
+    background-color: #00FF00;
+    color: #050A05;                     
+}
+</string>
   </property>
   <widget class="QPushButton" name="btnNivel3">
    <property name="geometry">
     <rect>
      <x>120</x>
      <y>260</y>
-     <width>221</width>
-     <height>51</height>
+     <width>261</width>
+     <height>71</height>
     </rect>
    </property>
    <property name="font">
     <font>
+     <family>Press Start 2P</family>
      <pointsize>14</pointsize>
     </font>
    </property>
@@ -42,6 +70,7 @@
    </property>
    <property name="font">
     <font>
+     <family>Press Start 2P</family>
      <pointsize>14</pointsize>
     </font>
    </property>
@@ -72,12 +101,13 @@
     <rect>
      <x>120</x>
      <y>100</y>
-     <width>221</width>
-     <height>51</height>
+     <width>261</width>
+     <height>71</height>
     </rect>
    </property>
    <property name="font">
     <font>
+     <family>Press Start 2P</family>
      <pointsize>14</pointsize>
     </font>
    </property>
@@ -90,12 +120,13 @@
     <rect>
      <x>120</x>
      <y>180</y>
-     <width>221</width>
-     <height>51</height>
+     <width>261</width>
+     <height>71</height>
     </rect>
    </property>
    <property name="font">
     <font>
+     <family>Press Start 2P</family>
      <pointsize>14</pointsize>
     </font>
    </property>

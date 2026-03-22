@@ -13,5 +13,10 @@
 	<file alias= "hardMap.png">./hardMap.png</file>
 	<file alias= "aliveCam.png">./aliveCam.png</file>
 	<file alias= "deadCam.png">./deadCam.png</file>
+	<file alias= "menuFondo.png">./menuFondo.png</file>
+	<file alias= "nivelesFondo.png">./nivelesFondo.png</file>
+	<file alias= "rankingFondo.png">./rankingFondo.png</file>
+	<file alias= "menu2Fondo.png">./menu2Fondo.png</file>
+	<file alias= "profileFondo.png">./profileFondo.png</file>
     </qresource>
 </RCC>

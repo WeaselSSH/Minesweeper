@@ -14,7 +14,16 @@ FrmRanking::FrmRanking(ManejoUsuario* manejoPtr, QWidget *parent): QWidget(paren
     ui->setupUi(this);
     ui->tblRanking->setColumnCount(3);
     ui->tblRanking->setHorizontalHeaderLabels({"ID", "NOMBRE", "PUNTUACION"});
+    this->setFixedSize(1000,800);
+    QPixmap fondo(":/icons/rankingFondo.png");
 
+    // 2. Escalarla al tamaño actual de la ventana
+    fondo = fondo.scaled(this->size(), Qt::IgnoreAspectRatio);
+
+    // 3. Crear una paleta y asignarla
+    QPalette palette;
+    palette.setBrush(QPalette::Window, fondo);
+    this->setPalette(palette);
     cargarRanking();
 }
 

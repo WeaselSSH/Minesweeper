@@ -10,6 +10,18 @@ FrmSeleccionNivel::FrmSeleccionNivel(ManejoUsuario* manejoPtr, QWidget *parent)
     : QWidget(parent), ui(new Ui::FrmSeleccionNivel), mManejo(manejoPtr)
 {
     ui->setupUi(this);
+    QPixmap fondo(":/icons/nivelesFondo.png");
+
+    // 2. Escalarla al tamaño actual de la ventana
+    fondo = fondo.scaled(this->size(), Qt::IgnoreAspectRatio);
+
+    // 3. Crear una paleta y asignarla
+    QPalette palette;
+    palette.setBrush(QPalette::Window, fondo);
+    this->setPalette(palette);
+
+
+    this->setFixedSize(1000,800);
 }
 
 FrmSeleccionNivel::~FrmSeleccionNivel()

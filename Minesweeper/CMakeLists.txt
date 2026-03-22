@@ -56,6 +56,11 @@ qt_add_resources(Minesweeper "app_icons"
         hardMap.png
         aliveCam.png
         deadCam.png
+        nivelesFondo.png
+        menuFondo.png
+        menu2Fondo.png
+        rankingFondo.png
+        profileFondo.png
 )
 
 target_link_libraries(Minesweeper
