@@ -54,19 +54,23 @@ tableroVisual::tableroVisual(ManejoUsuario *manejoPtr, QWidget *parent) : QWidge
         update();
     });
 
-    cronometro->start(1000);
 }
 
 //probablemente hacer algun metodo de destruccion de esto, para que no quede memory leak
 void tableroVisual:: inicializarTLogico(int numFilas, int numColumnas, int numMinas){
-    delete tLogico; //por ahora (igual es lo mejor creo)
+    delete tLogico;
     tLogico = new tableroLogico(numFilas, numColumnas, numMinas);
     tLogico->colocarMinas();
     tLogico->calcularMinasAdyacentes();
 
     tLogico->setBanderas(numMinas);
 
-
+    tiempoTranscurrido = 0;
+    partidaIniciada = false;
+    juegoTerminado = false;
+    partidaPerdida = false;
+    cronometro->stop();
+    update();
 }
 
 void tableroVisual::colocarMinas(){
@@ -86,8 +90,8 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
         painter.drawPixmap(0,100,1000,700, pixmapFondo);
     }
 
-   // QFont fuenteUI= this->fuentePersonalizada;
-   // fuenteUI.setPointSize(18);
+    // QFont fuenteUI= this->fuentePersonalizada;
+    // fuenteUI.setPointSize(18);
     //fuenteUI.setBold(true);
 
     //----PINTADO DE FONDO---
@@ -173,7 +177,7 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
 
 
 
-                // amarillo = bandera
+                    // amarillo = bandera
                 }else{
                     painter.drawPixmap(rect, pixmapHiddenTile);
                     /*
@@ -189,8 +193,8 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
                 // painter.drawRect(rect);
             } else {
                 painter.setBrush(Qt::NoBrush);
-                 painter.setPen(QPen(QColor("#E6C98A"),2));
-                 painter.drawRect(rect);
+                painter.setPen(QPen(QColor("#E6C98A"),2));
+                painter.drawRect(rect);
             }
 
             // Borde gris entre celdas
@@ -293,8 +297,8 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     if(!logoAMostrar.isNull()){
         // Escalamos el logo para que quepa en el cuadrado sin deformarse
         QPixmap logoEscalado = logoAMostrar.scaled(rectLogo.size(),
-                                                 Qt::KeepAspectRatio
-                                                 );
+                                                   Qt::KeepAspectRatio
+                                                   );
 
         // Calculamos la posición interna para que esté centrado si no es cuadrado
         int xOff = rectLogo.x() + (rectLogo.width() - logoEscalado.width()) / 2;
@@ -345,9 +349,7 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
             w->show();
             window()->close();
             return;
-
         }
-
 
         auto w = new FrmSeleccionNivel(mManejo);
         w->setAttribute(Qt::WA_DeleteOnClose, true);
@@ -377,10 +379,6 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
 
     int anchoTotalTablero = tCelda*tLogico->getColumnas();
     int altoTotalTablero = tCelda *tLogico->getFilas();
-
-
-
-    //int ladoTablero  = qMin(anchoDisponible, altoDisponible);
 
     /*
      * Si se analiza, todo estos calculos simplemente son para obtener los margenes en x y
@@ -413,16 +411,19 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
         return;
     }
 
-
     int fila = (pointClick.y() - margenY)/tCelda;
     int columna = (pointClick.x() - margenX)/tCelda;
-
 
     if(fila >= 0 && fila < tLogico->getFilas() && columna >= 0 && columna < tLogico->getColumnas()){
         qDebug() << "Fila: " << fila << " Columna: " << columna;
     }else{
         qDebug() << "Estamos fuera de los limites bro";
         return;
+    }
+
+    if (event->button() == Qt::LeftButton && !partidaIniciada) {
+        partidaIniciada = true;
+        cronometro->start(1000);
     }
 
     tLogico->revelarCelda(fila, columna);

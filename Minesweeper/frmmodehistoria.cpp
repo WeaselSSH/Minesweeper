@@ -35,11 +35,11 @@ frmmodehistoria::frmmodehistoria(ManejoUsuario *manejoPtr, QWidget *parent)
     ui->btnNivel2->setEnabled(false);
     ui->btnNivel3->setEnabled(false);
 
-    if(nivelMaximo>=2){
+    if(nivelMaximo >= 1){
         ui->btnNivel2->setEnabled(true);
 
     }
-    if(nivelMaximo>=3){
+    if(nivelMaximo >= 2){
         ui->btnNivel3->setEnabled(true);
     }
 
