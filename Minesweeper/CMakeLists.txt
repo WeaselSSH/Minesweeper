@@ -65,6 +65,7 @@ qt_add_resources(Minesweeper "app_icons"
         profileFondo.png
         accesoFondo.png
         creditosFondo.png
+        manual_usuario.pdf
 )
 
 target_link_libraries(Minesweeper

@@ -39,12 +39,6 @@ QPushButton:pressed {
     color: #050A05;                     
 }
 
-QLabel {
-    color: rgba(0, 40, 0, 180);               
-    font-family: 'Segoe UI';  
-    font-style: Bold;                
-    background: transparent;        
-}
 </string>
   </property>
   <widget class="QLabel" name="label">
@@ -62,6 +56,15 @@ QLabel {
      <pointsize>36</pointsize>
      <bold>true</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+    color: rgba(0, 40, 0, 180);               
+    font-family: 'Segoe UI';  
+    font-style: Bold;                
+    background: transparent;        
+}
+</string>
    </property>
    <property name="text">
     <string>MENU JUEGO</string>
