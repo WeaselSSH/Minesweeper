@@ -15,10 +15,10 @@ frmmodehistoria::frmmodehistoria(ManejoUsuario *manejoPtr, QWidget *parent)
 
     QPixmap fondo(":/icons/nivelesFondo.png");
 
-    // 2. Escalarla al tamaño actual de la ventana
+
     fondo = fondo.scaled(this->size(), Qt::IgnoreAspectRatio);
 
-    // 3. Crear una paleta y asignarla
+
     QPalette palette;
     palette.setBrush(QPalette::Window, fondo);
     this->setPalette(palette);

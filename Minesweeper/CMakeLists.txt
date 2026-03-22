@@ -28,8 +28,8 @@ qt_add_executable(Minesweeper
     celda.h
     tableroLogico.cpp
     Celda.cpp
-    WidgetTesteo.h
-    WidgetTesteo.cpp
+
+
     tableroVisual.h
     tableroVisual.cpp
     frmseleccionjuego.h frmseleccionjuego.cpp frmseleccionjuego.ui

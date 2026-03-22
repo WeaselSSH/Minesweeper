@@ -56,7 +56,7 @@ tableroVisual::tableroVisual(ManejoUsuario *manejoPtr, QWidget *parent) : QWidge
 
 }
 
-//probablemente hacer algun metodo de destruccion de esto, para que no quede memory leak
+
 void tableroVisual:: inicializarTLogico(int numFilas, int numColumnas, int numMinas){
     delete tLogico;
     tLogico = new tableroLogico(numFilas, numColumnas, numMinas);
@@ -90,10 +90,6 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
         painter.drawPixmap(0,100,1000,700, pixmapFondo);
     }
 
-    // QFont fuenteUI= this->fuentePersonalizada;
-    // fuenteUI.setPointSize(18);
-    //fuenteUI.setBold(true);
-
     //----PINTADO DE FONDO---
     //Parte de los stats
     int altoStats = 100;
@@ -110,15 +106,9 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     QColor colorBordes("#33FF33");
 
 
-    //painter.setPen(Qt::NoPen);
-    //pitnado de cuadro de arriba
     painter.setBrush(QColor("#112F12"));
     painter.setPen(QPen(QColor("#33FF33"),2));
     painter.drawRect(0, 0, width(), altoStats);
-
-    // //fondo atras del tablero
-    // painter.setBrush(QColor("#050A05"));
-    // painter.drawRect(0, altoStats, width(), height()-altoStats);
 
 
 
@@ -165,55 +155,26 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
             if (!celda.estaRevelada()) {
 
                 if (celda.tieneBandera()){
-
-
-
-
-                    // painter.setBrush(QColor("#FFCC00"));
-                    // painter.setPen(QPen(QColor("#1A331A"),2));
-                    // painter.drawRect(rect);
-
-
-
-
-
-                    // amarillo = bandera
+                    //nada aqui
                 }else{
                     painter.drawPixmap(rect, pixmapHiddenTile);
-                    /*
-                    painter.setBrush("#0A1A0A");  // verde = no revelada
-                    painter.setPen(QPen(QColor("#1A331A"),2));
-                    painter.drawRect(rect);
-*/
                 }
 
             } else if (celda.getTieneMina()) {
-                // painter.setBrush(QColor("#FF3333"));       // rojo = mina
-                // painter.setPen(QPen(QColor("#33FF33"),2));
-                // painter.drawRect(rect);
+                //nada aqui
             } else {
                 painter.setBrush(Qt::NoBrush);
                 painter.setPen(QPen(QColor("#E6C98A"),2));
                 painter.drawRect(rect);
             }
 
-            // Borde gris entre celdas
-            // painter.setPen(QPen(QColor(80, 80, 80), 1));
-            // painter.drawRect(rect);
-
-
 
             // ── Contenido ──
             if (!celda.estaRevelada() && celda.tieneBandera()) {
-                /*painter.setPen(Qt::red);
-                painter.drawText(rect, Qt::AlignCenter, "🚩"); */ // bandera
 
-                //rect.adjusted(4,4,-4,-4)
                 painter.drawPixmap(rect, pixmapBandera);
 
             } else if (celda.estaRevelada() && celda.getTieneMina()) {
-                // painter.setPen(Qt::black);
-                // painter.drawText(rect, Qt::AlignCenter, "💣");  // mina
 
                 painter.drawPixmap(rect, pixmapMina);
 
@@ -229,13 +190,7 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
 
 
 
-    //DESARROLLO DE BOTON PARA ABANDONAR PARTIDA
-    /*
-     * PARA TODO ELEMENTO QUE QUERRAMOS PINTAR EN PANTALLA, EN UN ESPACIO QUE NO ESTE PEGADO A LOS MARGENES
-     * SIEMPRE SE TENDRA QUE CALCULAR UN MARGEN X y Y
-     *
-     *
-     * */
+
 
     int tamanioBttSalir = 60;
     int margenBttSalir = 15;
@@ -284,8 +239,7 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
 
 
 
-    //painter.drawText(QRect(0,0, width(), altoStats), Qt::AlignCenter, strCBanderas) ;
-    //pide un espacio donde dibujarlo, un rect o contenedor, tipo de alineacion, y el texto
+
     painter.drawText(rectBandera, Qt::AlignCenter, strCBanderas);
     painter.drawText(rectCronometro, Qt::AlignCenter, strTiempo);
     font.setPixelSize(15);
@@ -316,20 +270,6 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
 
 void tableroVisual::mousePressEvent(QMouseEvent *event){
     //---HACER QUE EL CLICK SE DETECTE DENTRO DEL BOTON---
-    /*
-     * -DATO DE CODIGO HASTA QUE ME INSTALE LINUX-
-     *
-     * ¿Sabias que el QRect no solo sirve como un contenedor que sirve para pintar rectangulos?
-     * aparentemente, el qrect, si bien es cierto que forma un objeto de tipo rectangulo o parecido,
-     * tambien puede utilizarse para definir ciertas acciones que ocurran dentro de su area cubierta.
-     *
-     * Este concepto es el que se utiliza para hacer que, al darle click el usuario al boton,
-     * se ejecute una accion, como si fuera un boton de qwidgets
-     *
-     *
-     *
-     * */
-
     //mismos stats
     int altoStats = 100;
     int tamanioBttSalir = 60;
@@ -365,7 +305,6 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
     int espaciadoVertical = 50;
     int margenTablero = 20;
 
-    //VER SI SE LES PUEDE SACAR FORMULAS MATEMATICA A ESTAS MEDIDAS
 
     int anchoDisponible = width()-(margenTablero*2);
     int altoDisponible = height() -altoStats -espaciadoVertical - (margenTablero);
@@ -387,7 +326,7 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
      * */
     int margenX = (width() - anchoTotalTablero)/2;
     int margenY =  altoStats + espaciadoVertical +(altoDisponible-altoTotalTablero)/2;
-    //int tCelda = ladoTablero / medidaConst;
+
 
     QPoint pointClick;
     if(event->button()==Qt::LeftButton){

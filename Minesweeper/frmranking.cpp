@@ -16,13 +16,13 @@ FrmRanking::FrmRanking(ManejoUsuario* manejoPtr, QWidget *parent): QWidget(paren
     ui->tblRanking->setHorizontalHeaderLabels({"ID", "NOMBRE", "PUNTUACION"});
     this->setFixedSize(1000,800);
 
-    //INTENTO DE SOLUCIONAR EDICION DE TABLA
+
     ui->tblRanking->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    // 2. Impedir que el usuario seleccione celdas individuales (selecciona la fila completa)
+
     ui->tblRanking->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-    // 3. no permitir seleccionar nada
+
     ui->tblRanking->setSelectionMode(QAbstractItemView::NoSelection);
 
 

@@ -37,71 +37,11 @@ int tableroLogico::getColumnas() const{
 }
 
 Celda &tableroLogico::obtenerCelda(int fila, int columna){
-
-    /*
-    Creo que al ponerle paso por referencia no es necesario recorrerlo del todo
-    solo es de retonrar el valor de fila y columna igualmente lo dejo comentado por las dudas xd
-    */
-
-    //efectivamente solo es de retornar y ya
-
-    // //Ciclo que recorre el vector principal del tablero, el cual controla las filas
-    // for(int i=0; i<numFilas; i++){
-
-    //     //se extrae el vector almacenado en cada posicion de fila
-    //     vector<Celda> vectorFila=tablero.at(i);
-
-    //     //se recorre dicho vector, el cual contendra elementos....las posiciones internas del vectorfila vendrian a ser igual a las columnas
-    //     for(int j=0; j<numColumnas; j++){
-    //         Celda celdatemp = vectorFila.at(j);
-
-    //         if(celdatemp.getF()==fila && celdatemp.getC()==columna){
-    //             return celdatemp;
-    //         }
-    //     }
-    // }
-
     return tablero[fila][columna];
 }
 
-//Creo que se puede optimizar esto pero aun no se como
-//void tableroLogico::colocarMinas(vector<vector<Celda>> &tablero){
+
 void tableroLogico::colocarMinas(){
-
-    // if(cont==numMinas){
-    //     return;
-    //     cout<<"Se han colocado todas las minas"<<endl;
-    // }
-
-    // int f=randF;
-    // int c= randC;
-
-    // //recorrido de tablero para ver colocar mina
-    // for(int i=0; i<numFilas; i++){
-    //     vector <Celda> vectorFila = tablero.at(i);
-
-    //     for(int j=0; j<numColumnas; j++){
-    //         Celda celdatemp= vectorFila.at(j);
-
-
-    //         int cF=celdatemp.getF();
-    //         int cC=celdatemp.getC();
-
-
-    //         //primer indicador= son las mismas coordenadas
-    //         if(f==cF && c==cC){
-
-    //             //segundo indicador, que la celda obtenida no tiene ya una mina
-    //             if(!celdatemp.checkStatus()){
-    //                 celdatemp.asignarMina('*'); //por el momento la mina se representa por un '*'
-    //             }else{
-    //                 colocarMinas(tablero, cont+1, rand()%numFilas, rand()%numColumnas);
-    //             }
-    //         }else{
-    //             colocarMinas(tablero, cont, rand()%numFilas, rand()%numColumnas);
-    //         }
-    //     }
-    // }
 
     int colocadas = 0;
 
@@ -202,7 +142,6 @@ void tableroLogico::alterarConteoBanderas(Celda &celdaEvaluar){
         numBanderasPuestas--;
     }else{
         numBanderasPuestas++;
-        //if (numBanderasPuestas < 0) numBanderasPuestas = 0; // en caso que quede negativo el contador
     }
 }
 
