@@ -10,7 +10,7 @@ MenuPrincipal::MenuPrincipal(ManejoUsuario* manejoPtr, QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MenuPrincipal), mManejo(manejoPtr)
 {
     ui->setupUi(this);
-
+    this->setFixedSize(1000,800);
 
 
     QPixmap fondo(":/icons/menuFondo.png");
