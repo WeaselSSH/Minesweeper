@@ -27,7 +27,8 @@ tableroVisual::tableroVisual(ManejoUsuario *manejoPtr, QWidget *parent) : QWidge
     pixmapBandera.load(":/icons/floorflagTile.png");
     pixmapMina.load(":/icons/mineTile.png");
     pixmapHiddenTile.load(":/icons/hiddenTile.png");
-
+    pixmapAliveCam.load(":/icons/aliveCam.png");
+    pixmapDeadCam.load(":/icons/deadCam.png");
 
     //cargar fuente
     int id = QFontDatabase::addApplicationFont(":/icons/PressStart2P-Regular.ttf");
@@ -96,7 +97,7 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     int margenTablero =20;
 
 
-
+    int tercioAncho= width()/3;
 
 
 
@@ -106,7 +107,8 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
 
 
     //painter.setPen(Qt::NoPen);
-    painter.setBrush(QColor("#0A1A0A"));
+    //pitnado de cuadro de arriba
+    painter.setBrush(QColor("#112F12"));
     painter.setPen(QPen(QColor("#33FF33"),2));
     painter.drawRect(0, 0, width(), altoStats);
 
@@ -138,7 +140,7 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     // Colores de números clásico buscaminas
     QColor coloresNum[] = {
         Qt::blue, Qt::darkGreen, Qt::red, Qt::darkBlue,
-        Qt::darkRed, Qt::cyan, Qt::black, Qt::gray
+        Qt::darkRed, Qt::cyan, Qt::magenta, Qt::gray
     };
 
     QFont fuente("Courier New",12, QFont::Bold);
@@ -186,9 +188,9 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
                 // painter.setPen(QPen(QColor("#33FF33"),2));
                 // painter.drawRect(rect);
             } else {
-                // painter.setBrush(QColor("##152A15"));     // beige = revelada
-                // painter.setPen(QPen(QColor("#33FF33"),2));
-                // painter.drawRect(rect);
+                painter.setBrush(Qt::NoBrush);
+                 painter.setPen(QPen(QColor("#E6C98A"),2));
+                 painter.drawRect(rect);
             }
 
             // Borde gris entre celdas
@@ -220,39 +222,6 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
             }
         }
     }
-
-    /*
-    //elementos de radar
-    //se define el centro y el radio en base a dimensiones de pantalla
-    QPointF centro(width()/2.0, altoStats + (height()-altoStats)/2.0);
-    int radioRadar = qMax(anchoTotalTablero, altoTotalTablero)/1.5;
-
-    QConicalGradient radarGrad(centro, -anguloRadar);
-
-    QColor colorHaz("#34a934");
-    radarGrad.setColorAt(0.0, colorHaz);
-    radarGrad.setColorAt(0.1, QColor(74,242,74,100));
-    radarGrad.setColorAt(0.5, Qt::transparent);
-
-    //simulacion de pintar luz
-    painter.setCompositionMode(QPainter::CompositionMode_Plus);
-    painter.setBrush(radarGrad);
-    painter.setPen(Qt::NoPen);
-
-    //dibujo del haz
-    painter.drawEllipse(centro, radioRadar, radioRadar);
-
-    //restaurar modo
-    painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
-
-*/
-
-
-
-
-
-
-
 
 
 
@@ -290,7 +259,21 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
 
     int centroX = width() / 2;
     int anchoCaja = 100;
-    int separacion = 20;
+    int separacion = 250;
+    int sizeLogo= 95;
+
+    QPixmap logoAMostrar;
+
+    if(!partidaPerdida){
+        logoAMostrar=pixmapAliveCam;
+
+    }else{
+        logoAMostrar=pixmapDeadCam;
+
+    }
+
+    QRect rectLogo(centroX-(sizeLogo/2), (altoStats-sizeLogo)/2, sizeLogo, sizeLogo);
+
 
     QRect rectBandera(centroX - anchoCaja - (separacion/2), 0, anchoCaja, altoStats);
     QRect rectCronometro(centroX + (separacion/2), 0, anchoCaja, altoStats);
@@ -305,6 +288,20 @@ void tableroVisual::paintEvent(QPaintEvent *event) {
     painter.setFont(font);
     painter.setPen(QColor("#33FF33"));
     painter.drawText(bttSalir, Qt::AlignCenter, "Salir");
+
+
+    if(!logoAMostrar.isNull()){
+        // Escalamos el logo para que quepa en el cuadrado sin deformarse
+        QPixmap logoEscalado = logoAMostrar.scaled(rectLogo.size(),
+                                                 Qt::KeepAspectRatio
+                                                 );
+
+        // Calculamos la posición interna para que esté centrado si no es cuadrado
+        int xOff = rectLogo.x() + (rectLogo.width() - logoEscalado.width()) / 2;
+        int yOff = rectLogo.y() + (rectLogo.height() - logoEscalado.height()) / 2;
+
+        painter.drawPixmap(xOff, yOff, logoEscalado);
+    }
 
 
 
@@ -433,7 +430,7 @@ void tableroVisual::mousePressEvent(QMouseEvent *event){
     // ── Derrota: pisó una mina ──
     if(tLogico->verificarDerrota(fila, columna)){
         juegoTerminado = true;
-
+        this->partidaPerdida=true;
         // Revela todas las minas
         for(int f = 0; f < tLogico->getFilas(); f++){
             for(int c = 0; c < tLogico->getColumnas(); c++){

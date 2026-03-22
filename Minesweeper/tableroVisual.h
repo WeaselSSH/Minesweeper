@@ -55,7 +55,9 @@ private:
 
     //cosas para fondos
     QPixmap pixmapFondo;
-
+    QPixmap pixmapAliveCam;
+    QPixmap pixmapDeadCam;
+    bool partidaPerdida= false;
 
     //cosas para simulacion de radar
     float anguloRadar=0.0f;

@@ -10,6 +10,8 @@
 	<file alias= "floorflagTile.png">./floorflagTile.png</file>
 	<file alias= "easyMap.png">./easyMap.png</file>
 	<file alias= "mediumMap.png">./mediumMap.png</file>
-	<file alias= "hardMap.png">.file/hardMap.png</file>
+	<file alias= "hardMap.png">./hardMap.png</file>
+	<file alias= "aliveCam.png">./aliveCam.png</file>
+	<file alias= "deadCam.png">./deadCam.png</file>
     </qresource>
 </RCC>
